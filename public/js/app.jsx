@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { Router, Route, hashHistory } from 'react-router'
+import contactsIndex from './components/contacts/contactsIndex.jsx'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
@@ -7,7 +8,9 @@ export default class App extends React.Component {
 
   render() {
     return(
-      <div>REACT</div>
+      <Router history={hashHistory}>
+        <Route path='/' component={contactsIndex} />
+      </Router>
     )
   }
 }
