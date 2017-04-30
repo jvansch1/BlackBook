@@ -4,6 +4,8 @@ const port = process.env.PORT || 3000
 const path = require('path')
 const mongoose = require('mongoose')
 const contactsController = require('./controllers/contactsController.js')
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
 contactsController(app)
 mongoose.connect('mongodb://127.0.0.1/AddressBook')
 

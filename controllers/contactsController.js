@@ -13,4 +13,18 @@ module.exports = (app) => {
     })
   })
 
+  app.post('/api/contacts', (req, res) => {
+    let newContact = Contacts({
+      name: req.body.name,
+      address: req.body.address
+    })
+    newContact.save((err, newCreatedContact) => {
+      if (err) {
+        res.status(500).send(err)
+      }
+      else {
+        res.send(newCreatedContact)
+      }
+    })
+  })
 }
