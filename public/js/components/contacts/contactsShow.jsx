@@ -11,7 +11,14 @@ export default class contactsShow extends React.Component {
 
   renderContact() {
     if (this.props.contact.length == 0) return null;
-    return (<p>{this.props.contact[0].name}</p>
+    let contact = []
+    this.props.contact.forEach(contactObject => {
+      if (contactObject._id === this.props.id) {
+        contact.push(contactObject)
+      }
+    })
+    console.log(contact)
+    return (<p>{contact[0].name}</p>
     )
   }
 

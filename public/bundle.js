@@ -35548,11 +35548,20 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'renderContact',
     value: function renderContact() {
+      var _this2 = this;
+
       if (this.props.contact.length == 0) return null;
+      var contact = [];
+      this.props.contact.forEach(function (contactObject) {
+        if (contactObject._id === _this2.props.id) {
+          contact.push(contactObject);
+        }
+      });
+      console.log(contact);
       return _react2.default.createElement(
         'p',
         null,
-        this.props.contact[0].name
+        contact[0].name
       );
     }
   }, {
