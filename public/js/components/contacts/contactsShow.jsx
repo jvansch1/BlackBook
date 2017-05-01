@@ -17,13 +17,11 @@ export default class contactsShow extends React.Component {
         contact.push(contactObject)
       }
     })
-    console.log(contact)
     return (<p>{contact[0].name}</p>
     )
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <h1>Show</h1>

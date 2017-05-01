@@ -14137,9 +14137,9 @@ var _contactsShowContainer = __webpack_require__(404);
 
 var _contactsShowContainer2 = _interopRequireDefault(_contactsShowContainer);
 
-var _signup = __webpack_require__(405);
+var _signupContainer = __webpack_require__(407);
 
-var _signup2 = _interopRequireDefault(_signup);
+var _signupContainer2 = _interopRequireDefault(_signupContainer);
 
 var _login = __webpack_require__(406);
 
@@ -14177,7 +14177,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           _reactRouter.Router,
           { history: _reactRouter.hashHistory },
-          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signup2.default }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _login2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
@@ -35557,7 +35557,6 @@ var contactsShow = function (_React$Component) {
           contact.push(contactObject);
         }
       });
-      console.log(contact);
       return _react2.default.createElement(
         'p',
         null,
@@ -35567,7 +35566,6 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         'div',
         null,
@@ -35766,6 +35764,35 @@ var Login = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Login;
+
+/***/ }),
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(110);
+
+var _signup = __webpack_require__(405);
+
+var _signup2 = _interopRequireDefault(_signup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_signup2.default);
 
 /***/ })
 /******/ ]);
