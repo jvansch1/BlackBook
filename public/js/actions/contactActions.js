@@ -20,6 +20,13 @@ export const fetchContacts = () => {
   }
 }
 
+export const fetchContact = (id) => {
+  return dispatch => {
+    return ContactsApiUtil.fetchContact(id)
+      .then(contact => dispatch(receiveContact(contact)))
+  }
+}
+
 export const createContact = (contact) => {
   return dispatch => {
     return ContactsApiUtil.createContact(contact)

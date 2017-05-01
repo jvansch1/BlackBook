@@ -6,6 +6,13 @@ export const fetchContacts = () => {
   })
 }
 
+export const fetchContact = (id) => {
+  return $.ajax({
+    method: 'GET',
+    url: `api/contacts/${id}`
+  })
+}
+
 export const createContact = (contact) => {
   console.log(contact)
   return $.ajax({

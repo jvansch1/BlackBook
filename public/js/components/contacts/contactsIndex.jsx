@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../header/header.jsx'
 import Modal from 'react-modal'
+import { Link } from 'react-router'
 
 export default class contactsIndex extends React.Component {
   constructor(props) {
@@ -48,14 +49,16 @@ export default class contactsIndex extends React.Component {
         <Header />
         <div>
           <h1>Index</h1>
-          <ul>
+          <ul id='contact-list'>
             {
               this.props.contacts.map((contact, idx) => {
                 return (
-                  <li className='contact' key={contact._id}>
-                    <p>Name: {contact.name}</p>
-                    <p>Address: {contact.address}</p>
-                  </li>
+                  <Link to={`/contacts/${contact._id}`}>
+                    <li className='contact' key={contact._id}>
+                      <p>Name: {contact.name}</p>
+                      <p>Address: {contact.address}</p>
+                    </li>
+                  </Link>
                 )
               })
             }
