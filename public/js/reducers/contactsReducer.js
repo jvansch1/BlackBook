@@ -6,7 +6,7 @@ const contactsReducer = (state = {}, action) => {
     case RECEIVE_CONTACTS:
       return action.contacts
     case RECEIVE_CONTACT:
-      let newState = merge({}, state, { [action.contact.id]: action.contact })
+      let newState = merge({}, state, { [action.contact._id]: action.contact })
       return newState
     default:
       return state

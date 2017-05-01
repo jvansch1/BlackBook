@@ -14505,7 +14505,7 @@ var contactsReducer = function contactsReducer() {
     case _contactActions.RECEIVE_CONTACTS:
       return action.contacts;
     case _contactActions.RECEIVE_CONTACT:
-      var newState = (0, _merge3.default)({}, state, _defineProperty({}, action.contact.id, action.contact));
+      var newState = (0, _merge3.default)({}, state, _defineProperty({}, action.contact._id, action.contact));
       return newState;
     default:
       return state;
@@ -35585,8 +35585,24 @@ var contactsShow = function (_React$Component) {
   }
 
   _createClass(contactsShow, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchContact(this.props.id);
+    }
+  }, {
+    key: 'renderContact',
+    value: function renderContact() {
+      if (this.props.contact.length == 0) return null;
+      return _react2.default.createElement(
+        'p',
+        null,
+        this.props.contact[0].name
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
+      console.log(this.props);
       return _react2.default.createElement(
         'div',
         null,
@@ -35594,7 +35610,8 @@ var contactsShow = function (_React$Component) {
           'h1',
           null,
           'Show'
-        )
+        ),
+        this.renderContact()
       );
     }
   }]);
@@ -35621,13 +35638,29 @@ var _contactsShow = __webpack_require__(403);
 
 var _contactsShow2 = _interopRequireDefault(_contactsShow);
 
+var _contactActions = __webpack_require__(72);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mapStateToProps = function mapStateToProps(state) {};
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  console.log(state);
+  return {
+    contact: Object.keys(state.contacts).map(function (key) {
+      return state.contacts[key];
+    }),
+    id: ownProps.routeParams.id
+  };
+};
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {};
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchContact: function fetchContact(id) {
+      return dispatch((0, _contactActions.fetchContact)(id));
+    }
+  };
+};
 
-exports.default = (0, _reactRedux.connect)(null, null)(_contactsShow2.default);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_contactsShow2.default);
 
 /***/ })
 /******/ ]);
