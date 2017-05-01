@@ -1,7 +1,12 @@
 import React from 'react'
 import { Router, Route, hashHistory } from 'react-router'
-import contactsIndex from './components/contacts/contactsIndex.jsx'
+import { Provider } from 'react-redux'
+import contactsIndexContainer from './components/contacts/contactsIndexContainer.jsx'
 import Home from './components/home/home.jsx'
+import configureStore from './store/store.js'
+
+const store = configureStore()
+
 export default class App extends React.Component {
   constructor(props) {
     super(props)
@@ -9,10 +14,12 @@ export default class App extends React.Component {
 
   render() {
     return(
-      <Router history={hashHistory}>
-        <Route path='/' component={Home} />
-        <Route path='/contacts' component={contactsIndex} />
-      </Router>
+      <Provider store={store}>
+        <Router history={hashHistory}>
+          <Route path='/' component={Home} />
+          <Route path='/contacts' component={contactsIndexContainer} />
+        </Router>
+      </Provider>
     )
   }
 }
