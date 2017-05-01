@@ -8532,7 +8532,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchContacts = exports.receiveContacts = exports.RECEIVE_CONTACTS = undefined;
+exports.createContact = exports.fetchContacts = exports.receiveContact = exports.receiveContacts = exports.RECEIVE_CONTACT = exports.RECEIVE_CONTACTS = undefined;
 
 var _contactsApiUtil = __webpack_require__(137);
 
@@ -8541,6 +8541,7 @@ var ContactsApiUtil = _interopRequireWildcard(_contactsApiUtil);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_CONTACTS = exports.RECEIVE_CONTACTS = 'RECEIVE_CONTACTS';
+var RECEIVE_CONTACT = exports.RECEIVE_CONTACT = 'RECEIVE_CONTACT';
 
 var receiveContacts = exports.receiveContacts = function receiveContacts(contacts) {
   return {
@@ -8549,10 +8550,26 @@ var receiveContacts = exports.receiveContacts = function receiveContacts(contact
   };
 };
 
+var receiveContact = exports.receiveContact = function receiveContact(contact) {
+  return {
+    type: RECEIVE_CONTACT,
+    contact: contact
+  };
+};
+
 var fetchContacts = exports.fetchContacts = function fetchContacts() {
   return function (dispatch) {
     return ContactsApiUtil.fetchContacts().then(function (contacts) {
       return dispatch(receiveContacts(contacts));
+    });
+  };
+};
+
+var createContact = exports.createContact = function createContact(contact) {
+  return function (dispatch) {
+    return ContactsApiUtil.createContact(contact).then(function (contact) {
+      console.log(contact);
+      return dispatch(receiveContact(contact));
     });
   };
 };
@@ -14231,11 +14248,14 @@ var contactsIndex = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (contactsIndex.__proto__ || Object.getPrototypeOf(contactsIndex)).call(this, props));
 
     _this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
+      name: '',
+      address: ''
     };
 
     _this.openModal = _this.openModal.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
+    _this.submitContact = _this.submitContact.bind(_this);
     return _this;
   }
 
@@ -14253,6 +14273,27 @@ var contactsIndex = function (_React$Component) {
     key: 'closeModal',
     value: function closeModal() {
       this.setState({ modalIsOpen: false });
+    }
+  }, {
+    key: 'submitContact',
+    value: function submitContact(e) {
+      var _this2 = this;
+
+      console.log('submitting...');
+      e.preventDefault();
+      this.props.createContact(this.state).then(function () {
+        return _this2.setState({ modalIsOpen: false });
+      }).then(this.props.fetchContacts());
+    }
+  }, {
+    key: 'updateName',
+    value: function updateName(e) {
+      this.setState({ name: e.currentTarget.value });
+    }
+  }, {
+    key: 'updateAddress',
+    value: function updateAddress(e) {
+      this.setState({ address: e.currentTarget.value });
     }
   }, {
     key: 'render',
@@ -14279,11 +14320,13 @@ var contactsIndex = function (_React$Component) {
                 _react2.default.createElement(
                   'p',
                   null,
+                  'Name: ',
                   contact.name
                 ),
                 _react2.default.createElement(
                   'p',
                   null,
+                  'Address: ',
                   contact.address
                 )
               );
@@ -14305,11 +14348,12 @@ var contactsIndex = function (_React$Component) {
           ),
           _react2.default.createElement(
             'form',
-            { id: 'contacts-form' },
+            { id: 'contacts-form', onSubmit: this.submitContact },
             'Name',
-            _react2.default.createElement('input', { type: 'text' }),
+            _react2.default.createElement('input', { type: 'text', onChange: this.updateName.bind(this) }),
             'Address',
-            _react2.default.createElement('input', { type: 'text' })
+            _react2.default.createElement('input', { type: 'text', onChange: this.updateAddress.bind(this) }),
+            _react2.default.createElement('input', { type: 'submit' })
           )
         )
       );
@@ -14354,6 +14398,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchContacts: function fetchContacts() {
       return dispatch((0, _contactActions.fetchContacts)());
+    },
+    createContact: function createContact(contact) {
+      return dispatch((0, _contactActions.createContact)(contact));
     }
   };
 };
@@ -14506,6 +14553,15 @@ var fetchContacts = exports.fetchContacts = function fetchContacts() {
   return $.ajax({
     method: 'GET',
     url: 'api/contacts'
+  });
+};
+
+var createContact = exports.createContact = function createContact(contact) {
+  console.log(contact);
+  return $.ajax({
+    method: 'POST',
+    url: 'api/contacts',
+    data: contact
   });
 };
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import contactsIndex from './contactsIndex.jsx'
-import { fetchContacts } from '../../actions/contactActions.js'
+import { fetchContacts, createContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state) => {
   return {
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchContacts: () => dispatch(fetchContacts())
+    fetchContacts: () => dispatch(fetchContacts()),
+    createContact: (contact) => dispatch(createContact(contact))
   }
 }
 
