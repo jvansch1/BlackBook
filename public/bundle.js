@@ -16629,11 +16629,16 @@ var _usersReducer = __webpack_require__(175);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
+var _sessionReducer = __webpack_require__(411);
+
+var _sessionReducer2 = _interopRequireDefault(_sessionReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
   contacts: _contactsReducer2.default,
-  user: _usersReducer2.default
+  user: _usersReducer2.default,
+  session: _sessionReducer2.default
 });
 
 exports.default = rootReducer;
@@ -35922,6 +35927,86 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 410 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.login = exports.receiveUser = exports.LOGIN = undefined;
+
+var _sessionApiUtil = __webpack_require__(412);
+
+var sessionApiUtil = _interopRequireWildcard(_sessionApiUtil);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var LOGIN = exports.LOGIN = 'LOGIN';
+
+var receiveUser = exports.receiveUser = function receiveUser(user) {
+  return {
+    type: LOGIN,
+    user: user
+  };
+};
+
+var login = exports.login = function login(user) {
+  return function (dispatch) {
+    sessionApiUtil.login(user).then(function (user) {
+      return dispatch(receiveUser(user));
+    });
+  };
+};
+
+/***/ }),
+/* 411 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _sessionActions = __webpack_require__(410);
+
+var SessionReducer = function SessionReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _sessionActions.LOGIN:
+      return action.user;
+    default:
+      return state;
+  }
+};
+
+exports.default = SessionReducer;
+
+/***/ }),
+/* 412 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var login = exports.login = function login(user) {
+  return $.ajax({
+    method: 'POST',
+    url: 'login',
+    data: user
+  });
+};
 
 /***/ })
 /******/ ]);
