@@ -15957,9 +15957,9 @@ var _signupContainer = __webpack_require__(168);
 
 var _signupContainer2 = _interopRequireDefault(_signupContainer);
 
-var _login = __webpack_require__(166);
+var _loginContainer = __webpack_require__(413);
 
-var _login2 = _interopRequireDefault(_login);
+var _loginContainer2 = _interopRequireDefault(_loginContainer);
 
 var _store = __webpack_require__(176);
 
@@ -15974,6 +15974,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var store = (0, _store2.default)();
+window.store = store;
 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
@@ -15994,7 +15995,7 @@ var App = function (_React$Component) {
           _reactRouter.Router,
           { history: _reactRouter.hashHistory },
           _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default }),
-          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _login2.default }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
         )
@@ -16061,10 +16062,40 @@ var Login = function (_React$Component) {
   function Login(props) {
     _classCallCheck(this, Login);
 
-    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+
+    _this.state = {
+      username: '',
+      password: ''
+    };
+    return _this;
   }
 
   _createClass(Login, [{
+    key: 'login',
+    value: function login(e) {
+      e.preventDefault();
+      this.props.login(this.state);
+    }
+  }, {
+    key: 'updateUsername',
+    value: function updateUsername(e) {
+      var _this2 = this;
+
+      this.setState({ username: e.currentTarget.value }, function () {
+        return console.log(_this2.state);
+      });
+    }
+  }, {
+    key: 'updatePassword',
+    value: function updatePassword(e) {
+      var _this3 = this;
+
+      this.setState({ password: e.currentTarget.value }, function () {
+        return console.log(_this3.state);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -16077,19 +16108,20 @@ var Login = function (_React$Component) {
         ),
         _react2.default.createElement(
           'form',
-          null,
+          { onSubmit: this.login.bind(this) },
           _react2.default.createElement(
             'p',
             null,
             'Username'
           ),
-          _react2.default.createElement('input', { type: 'text' }),
+          _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) }),
           _react2.default.createElement(
             'p',
             null,
             'Password'
           ),
-          _react2.default.createElement('input', { type: 'text' })
+          _react2.default.createElement('input', { type: 'text', onChange: this.updatePassword.bind(this) }),
+          _react2.default.createElement('input', { type: 'submit', value: 'Login' })
         )
       );
     }
@@ -36007,6 +36039,43 @@ var login = exports.login = function login(user) {
     data: user
   });
 };
+
+/***/ }),
+/* 413 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(51);
+
+var _sessionActions = __webpack_require__(410);
+
+var _login2 = __webpack_require__(166);
+
+var _login3 = _interopRequireDefault(_login2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.session
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    login: function login(user) {
+      return dispatch((0, _sessionActions.login)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_login3.default);
 
 /***/ })
 /******/ ]);

@@ -4,10 +4,11 @@ import { Provider } from 'react-redux'
 import contactsIndexContainer from './components/contacts/contactsIndexContainer.jsx'
 import contactsShowContainer from './components/contacts/contactsShowContainer.jsx'
 import SignUpContainer from './components/auth/signupContainer.jsx'
-import Login from './components/auth/login.jsx'
+import LoginContainer from './components/auth/loginContainer.jsx'
 import configureStore from './store/store.js'
 
 const store = configureStore()
+window.store = store
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <Router history={hashHistory}>
           <Route path='/' component={SignUpContainer} />
-          <Route path='/login' component={Login} />
+          <Route path='/login' component={LoginContainer} />
           <Route path='/contacts' component={contactsIndexContainer} />
           <Route path='/contacts/:id' component={contactsShowContainer} />
         </Router>
