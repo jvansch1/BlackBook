@@ -10,18 +10,22 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const Users = require('./models/userModel.js')
+const session = require('express-session')
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(session({
+    secret: 'keyboard cat',
+    name: 'user',
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize())
+app.use(passport.session())
 
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    console.log(username)
-    console.log(password)
-
     Users.findOne({ username: username }, function (err, user) {
-      console.log(err)
-      console.log(user)
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
@@ -33,6 +37,16 @@ passport.use(new LocalStrategy(
     });
   }
 ));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.username);
+});
+
+passport.deserializeUser(function(username, done) {
+  Users.findOne({username: username}, function(err, user) {
+    done(err, user);
+  });
+});
 
 contactsController(app)
 usersController(app)

@@ -6,8 +6,24 @@ import contactsShowContainer from './components/contacts/contactsShowContainer.j
 import SignUpContainer from './components/auth/signupContainer.jsx'
 import LoginContainer from './components/auth/loginContainer.jsx'
 import configureStore from './store/store.js'
+import { persistStore, autoRehydrate } from 'redux-persist'
+import { saveState } from './localStorage.js'
 
-const store = configureStore()
+let store
+
+if (window.currentUser) {
+  store = configureStore()
+}
+else {
+  store = configureStore()
+}
+
+// store.subscribe(() => {
+//   saveState(store.getState())
+// })
+
+persistStore(store)
+
 window.store = store
 
 export default class App extends React.Component {
