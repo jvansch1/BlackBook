@@ -3,7 +3,6 @@ import contactsShow from './contactsShow.jsx'
 import { fetchContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state)
   return {
     contact: Object.keys(state.contacts).map(key => state.contacts[key]),
     id: ownProps.routeParams.id

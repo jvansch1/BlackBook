@@ -14487,15 +14487,15 @@ var _contactsReducer = __webpack_require__(134);
 
 var _contactsReducer2 = _interopRequireDefault(_contactsReducer);
 
-var _userReducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./userReducer.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var _usersReducer = __webpack_require__(409);
 
-var _userReducer2 = _interopRequireDefault(_userReducer);
+var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
   contacts: _contactsReducer2.default,
-  user: _userReducer2.default
+  user: _usersReducer2.default
 });
 
 exports.default = rootReducer;
@@ -35611,7 +35611,6 @@ var _contactActions = __webpack_require__(72);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  console.log(state);
   return {
     contact: Object.keys(state.contacts).map(function (key) {
       return state.contacts[key];
@@ -35647,6 +35646,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(265);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35661,10 +35662,42 @@ var SignUp = function (_React$Component) {
   function SignUp(props) {
     _classCallCheck(this, SignUp);
 
-    return _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this, props));
+
+    _this.state = {
+      username: '',
+      password: ''
+    };
+    return _this;
   }
 
   _createClass(SignUp, [{
+    key: 'createUser',
+    value: function createUser(e) {
+      e.preventDefault();
+      this.props.createUser(this.state).then(function () {
+        return _reactRouter.hashHistory.push('/contacts');
+      });
+    }
+  }, {
+    key: 'updateUsername',
+    value: function updateUsername(e) {
+      var _this2 = this;
+
+      this.setState({ username: e.currentTarget.value }, function () {
+        return console.log(_this2.state);
+      });
+    }
+  }, {
+    key: 'updatePassword',
+    value: function updatePassword(e) {
+      var _this3 = this;
+
+      this.setState({ password: e.currentTarget.value }, function () {
+        return console.log(_this3.state);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -35677,19 +35710,20 @@ var SignUp = function (_React$Component) {
         ),
         _react2.default.createElement(
           'form',
-          null,
+          { onSubmit: this.createUser.bind(this) },
           _react2.default.createElement(
             'p',
             null,
             'Username'
           ),
-          _react2.default.createElement('input', { type: 'text' }),
+          _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) }),
           _react2.default.createElement(
             'p',
             null,
             'Password'
           ),
-          _react2.default.createElement('input', { type: 'text' })
+          _react2.default.createElement('input', { type: 'password', onChange: this.updatePassword.bind(this) }),
+          _react2.default.createElement('input', { type: 'submit', value: 'Sign up' })
         )
       );
     }
@@ -35787,6 +35821,8 @@ var _signup = __webpack_require__(405);
 
 var _signup2 = _interopRequireDefault(_signup);
 
+var _userActions = __webpack_require__(408);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -35794,10 +35830,94 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    createUser: function createUser(user) {
+      return dispatch((0, _userActions.createUser)(user));
+    }
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_signup2.default);
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createUser = exports.receiveUser = exports.RECEIVE_USER = undefined;
+
+var _userApiUtil = __webpack_require__(410);
+
+var userApiUtil = _interopRequireWildcard(_userApiUtil);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
+
+var receiveUser = exports.receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  };
+};
+
+var createUser = exports.createUser = function createUser(user) {
+  return function (dispatch) {
+    return userApiUtil.createUser(user).then(function (user) {
+      return dispatch(receiveUser(user));
+    });
+  };
+};
+
+/***/ }),
+/* 409 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _userActions = __webpack_require__(408);
+
+var userReducer = function userReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _userActions.RECEIVE_USER:
+      return action.user;
+    default:
+      return state;
+  }
+};
+
+exports.default = userReducer;
+
+/***/ }),
+/* 410 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var createUser = exports.createUser = function createUser(user) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/users',
+    data: user
+  });
+};
 
 /***/ })
 /******/ ]);
