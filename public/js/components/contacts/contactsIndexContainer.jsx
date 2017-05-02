@@ -4,7 +4,8 @@ import { fetchContacts, createContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state) => {
   return {
-    contacts: Object.keys(state.contacts).map(key => state.contacts[key])
+    contacts: Object.keys(state.contacts).map(key => state.contacts[key]),
+    username: state.session.username
   }
 }
 

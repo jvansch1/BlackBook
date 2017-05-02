@@ -9,7 +9,8 @@ export default class contactsIndex extends React.Component {
     this.state = {
       modalIsOpen: false,
       name: '',
-      address: ''
+      address: '',
+      username: props.username
     }
 
     this.openModal = this.openModal.bind(this)

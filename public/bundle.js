@@ -16347,7 +16347,8 @@ var contactsIndex = function (_React$Component) {
     _this.state = {
       modalIsOpen: false,
       name: '',
-      address: ''
+      address: '',
+      username: props.username
     };
 
     _this.openModal = _this.openModal.bind(_this);
@@ -16491,7 +16492,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     contacts: Object.keys(state.contacts).map(function (key) {
       return state.contacts[key];
-    })
+    }),
+    username: state.session.username
   };
 };
 
@@ -16694,17 +16696,12 @@ var _sessionReducer = __webpack_require__(411);
 
 var _sessionReducer2 = _interopRequireDefault(_sessionReducer);
 
-var _persistReducer = __webpack_require__(438);
-
-var _persistReducer2 = _interopRequireDefault(_persistReducer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
   contacts: _contactsReducer2.default,
   user: _usersReducer2.default,
-  session: _sessionReducer2.default,
-  persist: _persistReducer2.default
+  session: _sessionReducer2.default
 });
 
 exports.default = rootReducer;
@@ -38049,30 +38046,6 @@ exports.defaults = _defaults2.default;
 exports.createLogger = createLogger;
 exports.logger = defaultLogger;
 exports.default = defaultLogger;
-
-/***/ }),
-/* 438 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var persistReducer = function persistReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'persist/REHYDRATE':
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-exports.default = persistReducer;
 
 /***/ })
 /******/ ]);
