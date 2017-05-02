@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
       username: username
     }
   }
-  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -9317,6 +9317,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(87);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9335,12 +9337,23 @@ var Header = function (_React$Component) {
   }
 
   _createClass(Header, [{
+    key: 'logoutUser',
+    value: function logoutUser(e) {
+      e.preventDefault();
+      this.props.logout({ username: 'guest', password: 'password' }).then(_reactRouter.hashHistory.push('/login'));
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         { id: 'header' },
-        _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
+        _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' }),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.logoutUser.bind(this) },
+          'Logout'
+        )
       );
     }
   }]);
@@ -16313,9 +16326,9 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _header = __webpack_require__(93);
+var _headerContainer = __webpack_require__(439);
 
-var _header2 = _interopRequireDefault(_header);
+var _headerContainer2 = _interopRequireDefault(_headerContainer);
 
 var _reactModal = __webpack_require__(357);
 
@@ -16354,7 +16367,8 @@ var contactsIndex = function (_React$Component) {
   _createClass(contactsIndex, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchContacts();
+      debugger;
+      this.props.fetchContacts(this.props.username);
     }
   }, {
     key: 'openModal',
@@ -16423,7 +16437,7 @@ var contactsIndex = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_header2.default, null),
+        _react2.default.createElement(_headerContainer2.default, null),
         _react2.default.createElement(
           'div',
           null,
@@ -36024,7 +36038,7 @@ module.exports = warning;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login = exports.receiveUser = exports.LOGIN = undefined;
+exports.logoutUser = exports.login = exports.logout = exports.receiveUser = exports.LOGOUT = exports.LOGIN = undefined;
 
 var _sessionApiUtil = __webpack_require__(412);
 
@@ -36033,6 +36047,7 @@ var sessionApiUtil = _interopRequireWildcard(_sessionApiUtil);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var LOGIN = exports.LOGIN = 'LOGIN';
+var LOGOUT = exports.LOGOUT = 'LOGOUT';
 
 var receiveUser = exports.receiveUser = function receiveUser(user) {
   return {
@@ -36041,10 +36056,25 @@ var receiveUser = exports.receiveUser = function receiveUser(user) {
   };
 };
 
+var logout = exports.logout = function logout() {
+  return {
+    type: LOGOUT,
+    user: null
+  };
+};
+
 var login = exports.login = function login(user) {
   return function (dispatch) {
     return sessionApiUtil.login(user).then(function (user) {
       return dispatch(receiveUser(user));
+    });
+  };
+};
+
+var logoutUser = exports.logoutUser = function logoutUser(user) {
+  return function (dispatch) {
+    return sessionApiUtil.login(user).then(function (user) {
+      return dispatch(logout());
     });
   };
 };
@@ -36075,6 +36105,8 @@ var SessionReducer = function SessionReducer() {
   switch (action.type) {
     case _sessionActions.LOGIN:
       return action.user;
+    case _sessionActions.LOGOUT:
+      return {};
     case 'persist/REHYDRATE':
       return action.payload.session;
     default:
@@ -38053,6 +38085,38 @@ exports.defaults = _defaults2.default;
 exports.createLogger = createLogger;
 exports.logger = defaultLogger;
 exports.default = defaultLogger;
+
+/***/ }),
+/* 438 */,
+/* 439 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(51);
+
+var _sessionActions = __webpack_require__(410);
+
+var _header = __webpack_require__(93);
+
+var _header2 = _interopRequireDefault(_header);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    logout: function logout(user) {
+      return dispatch((0, _sessionActions.logoutUser)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(_header2.default);
 
 /***/ })
 /******/ ]);

@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../header/header.jsx'
+import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
 import { Link } from 'react-router'
 
@@ -18,7 +18,8 @@ export default class contactsIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchContacts()
+    debugger
+    this.props.fetchContacts(this.props.username)
   }
 
   openModal() {
@@ -61,7 +62,7 @@ export default class contactsIndex extends React.Component {
     if (!this.props.username) return null;
     return (
       <div>
-        <Header />
+        <HeaderContainer />
         <div>
           <h1>Index</h1>
           <ul id='contact-list'>
