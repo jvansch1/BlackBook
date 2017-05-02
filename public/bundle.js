@@ -14487,10 +14487,15 @@ var _contactsReducer = __webpack_require__(134);
 
 var _contactsReducer2 = _interopRequireDefault(_contactsReducer);
 
+var _userReducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./userReducer.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _userReducer2 = _interopRequireDefault(_userReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-  contacts: _contactsReducer2.default
+  contacts: _contactsReducer2.default,
+  user: _userReducer2.default
 });
 
 exports.default = rootReducer;
