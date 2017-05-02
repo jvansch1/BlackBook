@@ -6040,9 +6040,9 @@ var receiveContact = exports.receiveContact = function receiveContact(contact) {
   };
 };
 
-var fetchContacts = exports.fetchContacts = function fetchContacts() {
+var fetchContacts = exports.fetchContacts = function fetchContacts(username) {
   return function (dispatch) {
-    return ContactsApiUtil.fetchContacts().then(function (contacts) {
+    return ContactsApiUtil.fetchContacts(username).then(function (contacts) {
       return dispatch(receiveContacts(contacts));
     });
   };
@@ -15984,11 +15984,6 @@ if (window.currentUser) {
 } else {
   store = (0, _store2.default)();
 }
-
-// store.subscribe(() => {
-//   saveState(store.getState())
-// })
-
 (0, _reduxPersist.persistStore)(store);
 
 window.store = store;
@@ -16350,7 +16345,6 @@ var contactsIndex = function (_React$Component) {
       address: '',
       username: props.username
     };
-
     _this.openModal = _this.openModal.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
     _this.submitContact = _this.submitContact.bind(_this);
@@ -16377,7 +16371,6 @@ var contactsIndex = function (_React$Component) {
     value: function submitContact(e) {
       var _this2 = this;
 
-      console.log('submitting...');
       e.preventDefault();
       this.props.createContact(this.state).then(function () {
         return _this2.setState({ modalIsOpen: false });
@@ -16394,8 +16387,39 @@ var contactsIndex = function (_React$Component) {
       this.setState({ address: e.currentTarget.value });
     }
   }, {
+    key: 'renderList',
+    value: function renderList() {
+      var _this3 = this;
+
+      return this.props.contacts.map(function (contact, idx) {
+        if (_this3.props.username === contact.username) {
+          return _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/contacts/' + contact._id },
+            _react2.default.createElement(
+              'li',
+              { className: 'contact', key: contact._id },
+              _react2.default.createElement(
+                'p',
+                null,
+                'Name: ',
+                contact.name
+              ),
+              _react2.default.createElement(
+                'p',
+                null,
+                'Address: ',
+                contact.address
+              )
+            )
+          );
+        }
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      if (!this.props.username) return null;
       return _react2.default.createElement(
         'div',
         null,
@@ -16411,28 +16435,7 @@ var contactsIndex = function (_React$Component) {
           _react2.default.createElement(
             'ul',
             { id: 'contact-list' },
-            this.props.contacts.map(function (contact, idx) {
-              return _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/contacts/' + contact._id },
-                _react2.default.createElement(
-                  'li',
-                  { className: 'contact', key: contact._id },
-                  _react2.default.createElement(
-                    'p',
-                    null,
-                    'Name: ',
-                    contact.name
-                  ),
-                  _react2.default.createElement(
-                    'p',
-                    null,
-                    'Address: ',
-                    contact.address
-                  )
-                )
-              );
-            })
+            this.renderList()
           )
         ),
         _react2.default.createElement(
@@ -16489,18 +16492,21 @@ var _contactActions = __webpack_require__(57);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {
-    contacts: Object.keys(state.contacts).map(function (key) {
-      return state.contacts[key];
-    }),
-    username: state.session.username
-  };
+  if (window.store.getState().session.username) {
+    var username = window.store.getState().session.username;
+    return {
+      contacts: Object.keys(state.contacts).map(function (key) {
+        return state.contacts[key];
+      }),
+      username: username
+    };
+  }
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchContacts: function fetchContacts() {
-      return dispatch((0, _contactActions.fetchContacts)());
+    fetchContacts: function fetchContacts(username) {
+      return dispatch((0, _contactActions.fetchContacts)(username));
     },
     createContact: function createContact(contact) {
       return dispatch((0, _contactActions.createContact)(contact));
@@ -16789,10 +16795,11 @@ exports.default = configureStore;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var fetchContacts = exports.fetchContacts = function fetchContacts() {
+var fetchContacts = exports.fetchContacts = function fetchContacts(username) {
   return $.ajax({
     method: 'GET',
-    url: 'api/contacts'
+    url: 'api/contacts',
+    data: username
   });
 };
 

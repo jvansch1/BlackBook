@@ -12,7 +12,6 @@ export default class contactsIndex extends React.Component {
       address: '',
       username: props.username
     }
-
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.submitContact = this.submitContact.bind(this)
@@ -31,7 +30,6 @@ export default class contactsIndex extends React.Component {
   }
 
   submitContact(e) {
-    console.log('submitting...')
     e.preventDefault()
     this.props.createContact(this.state).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
   }
@@ -44,7 +42,23 @@ export default class contactsIndex extends React.Component {
     this.setState({ address: e.currentTarget.value })
   }
 
+  renderList() {
+    return this.props.contacts.map((contact, idx) => {
+      if (this.props.username === contact.username) {
+        return (
+          <Link to={`/contacts/${contact._id}`}>
+            <li className='contact' key={contact._id}>
+              <p>Name: {contact.name}</p>
+              <p>Address: {contact.address}</p>
+            </li>
+          </Link>
+        )
+      }
+      })
+    }
+
   render() {
+    if (!this.props.username) return null;
     return (
       <div>
         <Header />
@@ -52,16 +66,7 @@ export default class contactsIndex extends React.Component {
           <h1>Index</h1>
           <ul id='contact-list'>
             {
-              this.props.contacts.map((contact, idx) => {
-                return (
-                  <Link to={`/contacts/${contact._id}`}>
-                    <li className='contact' key={contact._id}>
-                      <p>Name: {contact.name}</p>
-                      <p>Address: {contact.address}</p>
-                    </li>
-                  </Link>
-                )
-              })
+              this.renderList()
             }
           </ul>
         </div>

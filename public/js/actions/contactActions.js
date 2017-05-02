@@ -13,9 +13,9 @@ export const receiveContact = (contact) => ({
   contact
 })
 
-export const fetchContacts = () => {
+export const fetchContacts = (username) => {
   return dispatch => {
-    return ContactsApiUtil.fetchContacts()
+    return ContactsApiUtil.fetchContacts(username)
       .then(contacts => dispatch(receiveContacts(contacts)))
   }
 }

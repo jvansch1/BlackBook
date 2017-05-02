@@ -17,11 +17,6 @@ if (window.currentUser) {
 else {
   store = configureStore()
 }
-
-// store.subscribe(() => {
-//   saveState(store.getState())
-// })
-
 persistStore(store)
 
 window.store = store
