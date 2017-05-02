@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from '../header/header.jsx'
 
 export default class contactsShow extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ export default class contactsShow extends React.Component {
   render() {
     return (
       <div>
+        <Header />
         <h1>Show</h1>
         {this.renderContact()}
       </div>
