@@ -15986,6 +15986,13 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: '_redirectIfLoggedIn',
+    value: function _redirectIfLoggedIn() {
+      if (store.getState().session.username) {
+        _reactRouter.hashHistory.push('/contacts');
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -15995,7 +16002,7 @@ var App = function (_React$Component) {
           _reactRouter.Router,
           { history: _reactRouter.hashHistory },
           _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default }),
-          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
         )
@@ -16048,6 +16055,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(87);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16075,7 +16084,10 @@ var Login = function (_React$Component) {
     key: 'login',
     value: function login(e) {
       e.preventDefault();
-      this.props.login(this.state);
+      console.log(this.props.login);
+      this.props.login(this.state).then(function () {
+        return _reactRouter.hashHistory.push('/contacts');
+      });
     }
   }, {
     key: 'updateUsername',
@@ -35989,7 +36001,7 @@ var receiveUser = exports.receiveUser = function receiveUser(user) {
 
 var login = exports.login = function login(user) {
   return function (dispatch) {
-    sessionApiUtil.login(user).then(function (user) {
+    return sessionApiUtil.login(user).then(function (user) {
       return dispatch(receiveUser(user));
     });
   };

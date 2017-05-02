@@ -9,7 +9,7 @@ export const receiveUser = (user) => ({
 
 export const login = (user) => {
   return dispatch => {
-    sessionApiUtil.login(user)
+    return sessionApiUtil.login(user)
       .then(user => dispatch(receiveUser(user)))
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { hashHistory } from 'react-router'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ export default class Login extends React.Component {
 
   login(e) {
     e.preventDefault()
-    this.props.login(this.state)
+    console.log(this.props.login)
+    this.props.login(this.state).then(() => hashHistory.push('/contacts'))
   }
 
   updateUsername(e) {
