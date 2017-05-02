@@ -16492,8 +16492,8 @@ var _contactActions = __webpack_require__(57);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
-  if (window.store.getState().session.username) {
-    var username = window.store.getState().session.username;
+  if (state.session.username) {
+    var username = state.session.username;
     return {
       contacts: Object.keys(state.contacts).map(function (key) {
         return state.contacts[key];
