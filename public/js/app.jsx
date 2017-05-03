@@ -39,7 +39,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <Router history={hashHistory}>
           <Route path='/' component={SignUpContainer} />
-          <Route path='/login' component={LoginContainer} onEnter={this._redirectIfLoggedIn}/>
+          <Route path='/login' component={LoginContainer}/>
           <Route path='/contacts' component={contactsIndexContainer} />
           <Route path='/contacts/:id' component={contactsShowContainer} />
         </Router>

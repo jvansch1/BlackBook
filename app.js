@@ -11,6 +11,10 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const Users = require('./models/userModel.js')
 const session = require('express-session')
+const aws = require('aws-sdk')
+
+
+aws.config.loadFromPath('./AWSconfig.json')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(session({
     secret: 'keyboard cat',

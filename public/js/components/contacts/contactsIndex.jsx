@@ -2,6 +2,10 @@ import React from 'react'
 import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
 import { Link } from 'react-router'
+const aws = require('aws-sdk')
+const config = require('../../../../AWSconfig.json')
+
+const s3 = new aws.S3()
 
 export default class contactsIndex extends React.Component {
   constructor(props) {
@@ -10,7 +14,9 @@ export default class contactsIndex extends React.Component {
       modalIsOpen: false,
       name: '',
       address: '',
-      username: props.username
+      username: props.username,
+      imageUrl: null,
+      imageFile: null
     }
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
@@ -18,7 +24,6 @@ export default class contactsIndex extends React.Component {
   }
 
   componentDidMount() {
-    debugger
     this.props.fetchContacts(this.props.username)
   }
 
@@ -41,6 +46,19 @@ export default class contactsIndex extends React.Component {
 
   updateAddress(e) {
     this.setState({ address: e.currentTarget.value })
+  }
+
+  addFile(e) {
+    const file = e.currentTarget.files[0]
+    const fileReader = new FileReader();
+    fileReader.onloadend = function() {
+      debugger
+      this.setState({imageFile: file, imageUrl: fileReader.result })
+    }.bind(this);
+
+    if (file) {
+      fileReader.readAsDataURL(file);
+    }
   }
 
   renderList() {
@@ -79,7 +97,8 @@ export default class contactsIndex extends React.Component {
             <input type='text' onChange={this.updateName.bind(this)}/>
             Address
             <input type='text' onChange={this.updateAddress.bind(this)}/>
-            <input type='submit'/>
+            <input type='file' onChange={this.addFile.bind(this)}/>
+            <input type='submit' />
           </form>
         </Modal>
       </div>
