@@ -3,8 +3,13 @@ import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
 import { Link } from 'react-router'
 import aws from 'aws-sdk'
-// import config from '../../../../awsConfig.json'
+import config from '../../../../AwsConfig.js'
+aws.config.region = config.region
+aws.config.accessKeyId = config.accessKeyId
+aws.config.secretAccessKey = config.secretAccessKey
 
+
+const bucket = new aws.S3({signatureVersion: 'v4'});
 
 export default class contactsIndex extends React.Component {
   constructor(props) {
@@ -35,8 +40,30 @@ export default class contactsIndex extends React.Component {
   }
 
   submitContact(e) {
+    let params = {Key: config.accessKeyId, Body: this.state.imageFile, UploadId: this.state.imageUrl, ACL: 'public-read-write', Bucket: config.awsbucket}
     e.preventDefault()
-    this.props.createContact(this.state).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
+    // bucket.upload(params, (err, data) => {
+    //   if (err) {
+    //     console.log(err)
+    //   }
+    //   else {
+    //     console.log(data)
+    //   }
+    // })
+    bucket.putObject({
+      ACL:'public-read-write',
+      Bucket: config.awsbucket,
+      Key: config.accessKeyId,
+      Body: this.state.imageFile
+    }, (err, response) => {
+      if (err) {
+        console.log(err)
+      }
+      else {
+        console.log(response)
+      }
+    })
+    this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username}).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
   }
 
   updateName(e) {
@@ -51,7 +78,6 @@ export default class contactsIndex extends React.Component {
     const file = e.currentTarget.files[0]
     const fileReader = new FileReader();
     fileReader.onloadend = function() {
-      debugger
       this.setState({imageFile: file, imageUrl: fileReader.result })
     }.bind(this);
 

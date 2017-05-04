@@ -31,7 +31,7 @@ export const createContact = (contact) => {
   return dispatch => {
     return ContactsApiUtil.createContact(contact)
       .then(contact => {
-        console.log(contact)
+        debugger
         return dispatch(receiveContact(contact))
       })
   }

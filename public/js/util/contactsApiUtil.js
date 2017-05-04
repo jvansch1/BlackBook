@@ -15,7 +15,6 @@ export const fetchContact = (id) => {
 }
 
 export const createContact = (contact) => {
-  console.log(contact)
   return $.ajax({
     method: 'POST',
     url: 'api/contacts',
