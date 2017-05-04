@@ -37066,14 +37066,8 @@ var contactsIndex = function (_React$Component) {
     value: function submitContact(e) {
       var _this2 = this;
 
-      debugger;
       var params = { Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
       e.preventDefault();
-      var formData = new FormData();
-      formData.append('name', this.state.name);
-      formData.append('address', this.state.address);
-      formData.append('image', this.state.imageFile);
-      debugger;
       bucket.putObject({
         ACL: 'public-read-write',
         Bucket: _AwsConfig2.default.awsbucket,
@@ -37088,9 +37082,12 @@ var contactsIndex = function (_React$Component) {
           console.log(response);
         }
       });
-      this.props.createContact(formData).then(function () {
-        return _this2.setState({ modalIsOpen: false });
-      }).then(this.props.fetchContacts());
+      bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
+        // this.setState({ imageUrl: url })
+        _this2.props.createContact({ name: _this2.state.name, address: _this2.state.address, imageUrl: url, username: _this2.state.username }).then(function () {
+          return _this2.setState({ modalIsOpen: false });
+        }).then(_this2.props.fetchContacts());
+      });
     }
   }, {
     key: 'updateName',
@@ -37118,31 +37115,31 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'renderList',
     value: function renderList() {
-      var _this3 = this;
-
       return this.props.contacts.map(function (contact, idx) {
-        if (_this3.props.username === contact.username) {
-          return _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/contacts/' + contact._id },
+        debugger;
+        // if (this.props.username === contact.username) {
+        return _react2.default.createElement(
+          _reactRouter.Link,
+          { to: '/contacts/' + contact._id },
+          _react2.default.createElement(
+            'li',
+            { className: 'contact', key: contact._id },
             _react2.default.createElement(
-              'li',
-              { className: 'contact', key: contact._id },
-              _react2.default.createElement(
-                'p',
-                null,
-                'Name: ',
-                contact.name
-              ),
-              _react2.default.createElement(
-                'p',
-                null,
-                'Address: ',
-                contact.address
-              )
-            )
-          );
-        }
+              'p',
+              null,
+              'Name: ',
+              contact.name
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Address: ',
+              contact.address
+            ),
+            _react2.default.createElement('img', { src: contact.imageUrl })
+          )
+        );
+        // }
       });
     }
   }, {
@@ -37643,9 +37640,7 @@ var createContact = exports.createContact = function createContact(contact) {
   return $.ajax({
     method: 'POST',
     url: 'api/contacts',
-    data: contact,
-    contentType: false,
-    processData: false
+    data: contact
   });
 };
 

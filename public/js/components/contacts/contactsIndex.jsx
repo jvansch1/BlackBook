@@ -40,14 +40,8 @@ export default class contactsIndex extends React.Component {
   }
 
   submitContact(e) {
-    debugger
     let params = {Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: config.awsbucket}
     e.preventDefault()
-    const formData = new FormData()
-    formData.append('name', this.state.name)
-    formData.append('address', this.state.address)
-    formData.append('image', this.state.imageFile)
-    debugger
     bucket.putObject({
       ACL:'public-read-write',
       Bucket: config.awsbucket,
@@ -63,7 +57,10 @@ export default class contactsIndex extends React.Component {
         console.log(response)
       }
     })
-    this.props.createContact(formData).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
+    bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
+      // this.setState({ imageUrl: url })
+      this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: url, username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
+    })
   }
 
   updateName(e) {
@@ -88,16 +85,17 @@ export default class contactsIndex extends React.Component {
 
   renderList() {
     return this.props.contacts.map((contact, idx) => {
-      if (this.props.username === contact.username) {
+      // if (this.props.username === contact.username) {
         return (
           <Link to={`/contacts/${contact._id}`}>
             <li className='contact' key={contact._id}>
               <p>Name: {contact.name}</p>
               <p>Address: {contact.address}</p>
+              <img src={contact.imageUrl} />
             </li>
           </Link>
         )
-      }
+      // }
       })
     }
 

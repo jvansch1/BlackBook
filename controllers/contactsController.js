@@ -30,7 +30,8 @@ module.exports = (app) => {
     let newContact = Contacts({
       name: req.body.name,
       address: req.body.address,
-      username: req.body.username
+      username: req.body.username,
+      imageUrl: req.body.imageUrl
     })
     newContact.save((err, newCreatedContact) => {
       if (err) {
