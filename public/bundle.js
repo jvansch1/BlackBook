@@ -9532,7 +9532,6 @@ var fetchContact = exports.fetchContact = function fetchContact(id) {
 var createContact = exports.createContact = function createContact(contact) {
   return function (dispatch) {
     return ContactsApiUtil.createContact(contact).then(function (contact) {
-      debugger;
       return dispatch(receiveContact(contact));
     });
   };
@@ -37067,29 +37066,29 @@ var contactsIndex = function (_React$Component) {
     value: function submitContact(e) {
       var _this2 = this;
 
-      var params = { Key: _AwsConfig2.default.accessKeyId, Body: this.state.imageFile, UploadId: this.state.imageUrl, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
+      debugger;
+      var params = { Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
       e.preventDefault();
-      // bucket.upload(params, (err, data) => {
-      //   if (err) {
-      //     console.log(err)
-      //   }
-      //   else {
-      //     console.log(data)
-      //   }
-      // })
+      var formData = new FormData();
+      formData.append('name', this.state.name);
+      formData.append('address', this.state.address);
+      formData.append('image', this.state.imageFile);
+      debugger;
       bucket.putObject({
         ACL: 'public-read-write',
         Bucket: _AwsConfig2.default.awsbucket,
-        Key: _AwsConfig2.default.accessKeyId,
+        Key: this.state.imageFile.name,
         Body: this.state.imageFile
       }, function (err, response) {
         if (err) {
+          console.log('Error');
           console.log(err);
         } else {
+          console.log('Response');
           console.log(response);
         }
       });
-      this.props.createContact({ name: this.state.name, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username }).then(function () {
+      this.props.createContact(formData).then(function () {
         return _this2.setState({ modalIsOpen: false });
       }).then(this.props.fetchContacts());
     }
@@ -37644,7 +37643,9 @@ var createContact = exports.createContact = function createContact(contact) {
   return $.ajax({
     method: 'POST',
     url: 'api/contacts',
-    data: contact
+    data: contact,
+    contentType: false,
+    processData: false
   });
 };
 
@@ -163275,7 +163276,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var config = {
-  region: "us-east-1",
+  region: "us-east-2",
   accessKeyId: "AKIAJ3YVUZXRY2CRBOIA",
   secretAccessKey: "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",
   awsbucket: "blackbook-dev"

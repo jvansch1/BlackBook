@@ -40,30 +40,30 @@ export default class contactsIndex extends React.Component {
   }
 
   submitContact(e) {
-    let params = {Key: config.accessKeyId, Body: this.state.imageFile, UploadId: this.state.imageUrl, ACL: 'public-read-write', Bucket: config.awsbucket}
+    debugger
+    let params = {Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: config.awsbucket}
     e.preventDefault()
-    // bucket.upload(params, (err, data) => {
-    //   if (err) {
-    //     console.log(err)
-    //   }
-    //   else {
-    //     console.log(data)
-    //   }
-    // })
+    const formData = new FormData()
+    formData.append('name', this.state.name)
+    formData.append('address', this.state.address)
+    formData.append('image', this.state.imageFile)
+    debugger
     bucket.putObject({
       ACL:'public-read-write',
       Bucket: config.awsbucket,
-      Key: config.accessKeyId,
+      Key: this.state.imageFile.name,
       Body: this.state.imageFile
     }, (err, response) => {
       if (err) {
+        console.log('Error')
         console.log(err)
       }
       else {
+        console.log('Response')
         console.log(response)
       }
     })
-    this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username}).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
+    this.props.createContact(formData).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
   }
 
   updateName(e) {

@@ -16,7 +16,7 @@ const aws = require('aws-sdk')
 // aws.config.loadFromPath('./AwsConfig.json')
 
 app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
-app.use(bodyParser.json({limit: '50mb'}))
+// app.use(bodyParser.json({limit: '50mb'}))
 
 app.use(session({
     secret: 'keyboard cat',
