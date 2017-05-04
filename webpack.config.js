@@ -12,6 +12,7 @@ module.exports = {
   module: {
     loaders: [
       {
+      { test: /\.json$/, loader: 'json' },
       exclude: /(node_modules)/,
       loader: 'babel-loader',
       query: {

@@ -10,7 +10,6 @@ import { persistStore, autoRehydrate } from 'redux-persist'
 import { saveState } from './localStorage.js'
 
 let store
-
 if (window.currentUser) {
   store = configureStore()
 }

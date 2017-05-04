@@ -2,10 +2,9 @@ import React from 'react'
 import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
 import { Link } from 'react-router'
-const aws = require('aws-sdk')
-const config = require('../../../../AWSconfig.json')
+import aws from 'aws-sdk'
+// import config from '../../../../awsConfig.json'
 
-const s3 = new aws.S3()
 
 export default class contactsIndex extends React.Component {
   constructor(props) {
