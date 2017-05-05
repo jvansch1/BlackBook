@@ -1,5 +1,5 @@
 import React from 'react'
-import { hashHistory } from 'react-router'
+import { hashHistory, Link } from 'react-router'
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -34,6 +34,7 @@ export default class SignUp extends React.Component {
           <input type='password' onChange={this.updatePassword.bind(this)} />
           <input type='submit' value='Sign up'/>
         </form>
+        <p>Already a user?<Link to='/login'>Login!</Link></p>
       </div>
     )
   }

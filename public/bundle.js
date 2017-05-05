@@ -36943,6 +36943,16 @@ var SignUp = function (_React$Component) {
           ),
           _react2.default.createElement('input', { type: 'password', onChange: this.updatePassword.bind(this) }),
           _react2.default.createElement('input', { type: 'submit', value: 'Sign up' })
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Already a user?',
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/login' },
+            'Login!'
+          )
         )
       );
     }
