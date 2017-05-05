@@ -91,7 +91,7 @@ export default class contactsIndex extends React.Component {
     return this.props.contacts.map((contact, idx) => {
       // if (this.props.username === contact.username) {
         return (
-          <Link to={`/contacts/${contact._id}`}>
+          <Link to={`/contacts/${contact._id}`} key={idx}>
             <ContactsIndexItem contact={contact}/>
           </Link>
         )
@@ -105,7 +105,6 @@ export default class contactsIndex extends React.Component {
       <div>
         <HeaderContainer />
         <div>
-          <h1>Index</h1>
           <ul id='contact-list'>
             {
               this.renderList()

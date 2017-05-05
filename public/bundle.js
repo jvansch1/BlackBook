@@ -18023,7 +18023,11 @@ var Header = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { id: 'header' },
-        _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' }),
+        _react2.default.createElement(
+          _reactRouter.Link,
+          { to: 'contacts' },
+          _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
+        ),
         _react2.default.createElement(
           'button',
           { onClick: this.logoutUser.bind(this) },
@@ -26251,9 +26255,9 @@ var App = function (_React$Component) {
 
   _createClass(App, [{
     key: '_redirectIfLoggedIn',
-    value: function _redirectIfLoggedIn() {
+    value: function _redirectIfLoggedIn(nextState, replace) {
       if (store.getState().session.username) {
-        _reactRouter.hashHistory.push('/contacts');
+        replace('/contacts');
       }
     }
   }, {
@@ -26265,8 +26269,8 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           _reactRouter.Router,
           { history: _reactRouter.hashHistory },
-          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default }),
-          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default, onEnter: this._redirectIfLoggedIn }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
         )
@@ -37127,7 +37131,7 @@ var contactsIndex = function (_React$Component) {
         // if (this.props.username === contact.username) {
         return _react2.default.createElement(
           _reactRouter.Link,
-          { to: '/contacts/' + contact._id },
+          { to: '/contacts/' + contact._id, key: idx },
           _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
         );
         // }
@@ -37144,11 +37148,6 @@ var contactsIndex = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            'h1',
-            null,
-            'Index'
-          ),
           _react2.default.createElement(
             'ul',
             { id: 'contact-list' },
@@ -37295,16 +37294,20 @@ var contactsShow = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'contact' },
-          _react2.default.createElement('img', { src: contact[0].imageUrl }),
+          _react2.default.createElement('img', { id: 'contact-show-image', src: contact[0].imageUrl }),
           _react2.default.createElement(
-            'p',
+            'div',
             null,
-            contact[0].name
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            contact[0].address
+            _react2.default.createElement(
+              'p',
+              null,
+              contact[0].name
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              contact[0].address
+            )
           )
         )
       );

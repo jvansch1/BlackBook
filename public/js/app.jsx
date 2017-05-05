@@ -25,9 +25,9 @@ export default class App extends React.Component {
     super(props)
   }
 
-  _redirectIfLoggedIn() {
+  _redirectIfLoggedIn(nextState, replace) {
     if (store.getState().session.username) {
-      hashHistory.push('/contacts')
+      replace('/contacts')
     }
   }
 
@@ -37,8 +37,8 @@ export default class App extends React.Component {
     return(
       <Provider store={store}>
         <Router history={hashHistory}>
-          <Route path='/' component={SignUpContainer} />
-          <Route path='/login' component={LoginContainer}/>
+          <Route path='/' component={SignUpContainer} onEnter={this._redirectIfLoggedIn}/>
+          <Route path='/login' component={LoginContainer} onEnter={this._redirectIfLoggedIn}/>
           <Route path='/contacts' component={contactsIndexContainer} />
           <Route path='/contacts/:id' component={contactsShowContainer} />
         </Router>

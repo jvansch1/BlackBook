@@ -1,5 +1,5 @@
 import React from 'react'
-import { hashHistory } from 'react-router'
+import { hashHistory, Link } from 'react-router'
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -14,7 +14,9 @@ export default class Header extends React.Component {
   render() {
     return (
       <div id='header'>
-        <img src='/static/img/PetitFormalLogo.png' />
+        <Link to='contacts'>
+          <img src='/static/img/PetitFormalLogo.png' />
+        </Link>
         <button onClick={this.logoutUser.bind(this)}>Logout</button>
       </div>
     )
