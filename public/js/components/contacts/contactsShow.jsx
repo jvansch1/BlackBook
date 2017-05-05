@@ -18,7 +18,14 @@ export default class contactsShow extends React.Component {
         contact.push(contactObject)
       }
     })
-    return (<p>{contact[0].name}</p>
+    return (
+      <div id='contact-list'>
+        <div className='contact'>
+          <img src={contact[0].imageUrl} />
+          <p>{contact[0].name}</p>
+          <p>{contact[0].address}</p>
+        </div>
+      </div>
     )
   }
 

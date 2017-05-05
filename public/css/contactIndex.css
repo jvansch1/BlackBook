@@ -1,9 +1,16 @@
 .contact {
   border: 1px solid black;
   margin-top: 10px;
+  display: flex;
+  text-decoration: none;
 }
 
 #contact-list {
   width: 700px;
   margin: 0 auto;
+}
+
+.contact-image {
+  width: 75px;
+  height: 75px;
 }

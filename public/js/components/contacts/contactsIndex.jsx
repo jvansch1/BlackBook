@@ -1,6 +1,7 @@
 import React from 'react'
 import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
+import ContactsIndexItem from './contactsIndexItem.jsx'
 import { Link } from 'react-router'
 import aws from 'aws-sdk'
 import config from '../../../../AwsConfig.js'
@@ -40,27 +41,30 @@ export default class contactsIndex extends React.Component {
   }
 
   submitContact(e) {
-    let params = {Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: config.awsbucket}
-    e.preventDefault()
-    bucket.putObject({
-      ACL:'public-read-write',
-      Bucket: config.awsbucket,
-      Key: this.state.imageFile.name,
-      Body: this.state.imageFile
-    }, (err, response) => {
-      if (err) {
-        console.log('Error')
-        console.log(err)
-      }
-      else {
-        console.log('Response')
-        console.log(response)
-      }
-    })
-    bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
-      // this.setState({ imageUrl: url })
-      this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: url, username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
-    })
+    if (this.state.imageFile === null) {
+      this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
+    }
+    else {
+      let params = {Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: config.awsbucket}
+      e.preventDefault()
+      bucket.putObject({
+        ACL:'public-read-write',
+        Bucket: config.awsbucket,
+        Key: this.state.imageFile.name,
+        Body: this.state.imageFile
+      }, (err, response) => {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          console.log(response)
+        }
+      })
+      bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
+        this.setState({ imageUrl: url })
+        this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: url, username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(this.props.fetchContacts())
+      })
+    }
   }
 
   updateName(e) {
@@ -88,11 +92,7 @@ export default class contactsIndex extends React.Component {
       // if (this.props.username === contact.username) {
         return (
           <Link to={`/contacts/${contact._id}`}>
-            <li className='contact' key={contact._id}>
-              <p>Name: {contact.name}</p>
-              <p>Address: {contact.address}</p>
-              <img src={contact.imageUrl} />
-            </li>
+            <ContactsIndexItem contact={contact}/>
           </Link>
         )
       // }
