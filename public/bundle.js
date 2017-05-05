@@ -26280,8 +26280,8 @@ var App = function (_React$Component) {
           { history: _reactRouter.hashHistory },
           _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default, onEnter: this._redirectIfLoggedIn }),
-          _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default, onEnter: this._checkIfLoggedIn }),
-          _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default, onEnter: this._checkIfLoggedIn })
+          _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
         )
       );
     }
@@ -37096,7 +37096,9 @@ var contactsIndex = function (_React$Component) {
       if (this.state.imageFile === null) {
         this.props.createContact({ name: this.state.name, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
           return _this2.setState({ modalIsOpen: false });
-        }).then(this.props.fetchContacts());
+        }).then(function () {
+          return _this2.props.fetchContacts();
+        });
       } else {
         var params = { Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
         e.preventDefault();
@@ -37116,7 +37118,9 @@ var contactsIndex = function (_React$Component) {
           _this2.setState({ imageUrl: url });
           _this2.props.createContact({ name: _this2.state.name, address: _this2.state.address, imageUrl: url, username: _this2.state.username }).then(function () {
             return _this2.setState({ modalIsOpen: false });
-          }).then(_this2.props.fetchContacts());
+          }).then(function () {
+            return _this2.props.fetchContacts();
+          });
         });
       }
     }
