@@ -8,7 +8,7 @@ export default class Header extends React.Component {
 
   logoutUser(e) {
     e.preventDefault()
-    this.props.logout({username: 'guest', password: 'password'}).then(hashHistory.push('/login'))
+    this.props.logout({username: 'guest', password: 'password'}).then(() => hashHistory.push('/login'))
   }
 
   render() {

@@ -9,7 +9,6 @@ aws.config.region = config.region
 aws.config.accessKeyId = config.accessKeyId
 aws.config.secretAccessKey = config.secretAccessKey
 
-
 const bucket = new aws.S3({signatureVersion: 'v4'});
 
 export default class contactsIndex extends React.Component {

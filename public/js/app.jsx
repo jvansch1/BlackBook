@@ -31,6 +31,12 @@ export default class App extends React.Component {
     }
   }
 
+  _checkIfLoggedIn(nextState, replace) {
+    if (!store.getState().session.username) {
+      replace('/login')
+    }
+  }
+
 
 
   render() {
@@ -39,8 +45,8 @@ export default class App extends React.Component {
         <Router history={hashHistory}>
           <Route path='/' component={SignUpContainer} onEnter={this._redirectIfLoggedIn}/>
           <Route path='/login' component={LoginContainer} onEnter={this._redirectIfLoggedIn}/>
-          <Route path='/contacts' component={contactsIndexContainer} />
-          <Route path='/contacts/:id' component={contactsShowContainer} />
+          <Route path='/contacts' component={contactsIndexContainer} onEnter={this._checkIfLoggedIn}/>
+          <Route path='/contacts/:id' component={contactsShowContainer} onEnter={this._checkIfLoggedIn}/>
         </Router>
       </Provider>
     )

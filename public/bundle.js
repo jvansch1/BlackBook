@@ -18015,7 +18015,9 @@ var Header = function (_React$Component) {
     key: 'logoutUser',
     value: function logoutUser(e) {
       e.preventDefault();
-      this.props.logout({ username: 'guest', password: 'password' }).then(_reactRouter.hashHistory.push('/login'));
+      this.props.logout({ username: 'guest', password: 'password' }).then(function () {
+        return _reactRouter.hashHistory.push('/login');
+      });
     }
   }, {
     key: 'render',
@@ -26261,6 +26263,13 @@ var App = function (_React$Component) {
       }
     }
   }, {
+    key: '_checkIfLoggedIn',
+    value: function _checkIfLoggedIn(nextState, replace) {
+      if (!store.getState().session.username) {
+        replace('/login');
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -26271,8 +26280,8 @@ var App = function (_React$Component) {
           { history: _reactRouter.hashHistory },
           _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default, onEnter: this._redirectIfLoggedIn }),
-          _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
-          _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
+          _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default, onEnter: this._checkIfLoggedIn }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default, onEnter: this._checkIfLoggedIn })
         )
       );
     }
@@ -37250,9 +37259,9 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _header = __webpack_require__(147);
+var _headerContainer = __webpack_require__(361);
 
-var _header2 = _interopRequireDefault(_header);
+var _headerContainer2 = _interopRequireDefault(_headerContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37318,7 +37327,7 @@ var contactsShow = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_header2.default, null),
+        _react2.default.createElement(_headerContainer2.default, null),
         _react2.default.createElement(
           'h1',
           null,
