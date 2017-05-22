@@ -37055,7 +37055,8 @@ var contactsIndex = function (_React$Component) {
       address: '',
       username: props.username,
       imageUrl: null,
-      imageFile: null
+      imageFile: null,
+      mounted: false
     };
     _this.openModal = _this.openModal.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
@@ -37072,6 +37073,8 @@ var contactsIndex = function (_React$Component) {
         return _this2.setState({ username: _this2.props.username });
       }).then(function () {
         return _this2.props.fetchContacts(_this2.props.username);
+      }).then(function () {
+        return _this2.setState({ mounted: true });
       });
     }
   }, {
@@ -37164,6 +37167,7 @@ var contactsIndex = function (_React$Component) {
     key: 'render',
     value: function render() {
       if (!this.props.username) return null;
+      if (!this.state.mounted) return null;
       return _react2.default.createElement(
         'div',
         null,

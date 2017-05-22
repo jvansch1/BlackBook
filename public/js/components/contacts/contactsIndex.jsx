@@ -20,7 +20,8 @@ export default class contactsIndex extends React.Component {
       address: '',
       username: props.username,
       imageUrl: null,
-      imageFile: null
+      imageFile: null,
+      mounted: false
     }
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
@@ -28,7 +29,7 @@ export default class contactsIndex extends React.Component {
   }
 
   componentDidMount() {
-      this.props.fetchContacts(this.props.username).then(() => this.setState({username: this.props.username})).then(() => this.props.fetchContacts(this.props.username))
+      this.props.fetchContacts(this.props.username).then(() => this.setState({username: this.props.username})).then(() => this.props.fetchContacts(this.props.username)).then(() => this.setState({mounted: true}))
   }
 
   openModal() {
@@ -102,6 +103,7 @@ export default class contactsIndex extends React.Component {
 
   render() {
     if (!this.props.username) return null;
+    if (!this.state.mounted) return null;
     return (
       <div>
         <HeaderContainer />
