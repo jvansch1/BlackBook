@@ -62,7 +62,7 @@ export default class contactsIndex extends React.Component {
       })
       bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
         this.setState({ imageUrl: url })
-        this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: url, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts())
+        this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: url, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
       })
     }
   }
@@ -89,21 +89,17 @@ export default class contactsIndex extends React.Component {
 
   renderList() {
     return this.props.contacts.map((contact, idx) => {
-      // console.log("props: " + this.props.username)
-      // console.log("contact: " + contact.username)
-      if (this.props.username === contact.username) {
         return (
           <Link to={`/contacts/${contact._id}`} key={idx}>
             <ContactsIndexItem contact={contact}/>
           </Link>
         )
-      }
       })
     }
 
   render() {
-    if (!this.props.username) return null;
-    if (!this.state.mounted) return null;
+    if (!this.props.username && !this.state.mounted) return null;
+    // if (!this.state.mounted) return null;
     return (
       <div>
         <HeaderContainer />

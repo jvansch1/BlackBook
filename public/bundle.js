@@ -37118,7 +37118,7 @@ var contactsIndex = function (_React$Component) {
           _this3.props.createContact({ name: _this3.state.name, address: _this3.state.address, imageUrl: url, username: _this3.props.username }).then(function () {
             return _this3.setState({ modalIsOpen: false });
           }).then(function () {
-            return _this3.props.fetchContacts();
+            return _this3.props.fetchContacts(_this3.props.username);
           });
         });
       }
@@ -37149,25 +37149,19 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'renderList',
     value: function renderList() {
-      var _this4 = this;
-
       return this.props.contacts.map(function (contact, idx) {
-        // console.log("props: " + this.props.username)
-        // console.log("contact: " + contact.username)
-        if (_this4.props.username === contact.username) {
-          return _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/contacts/' + contact._id, key: idx },
-            _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
-          );
-        }
+        return _react2.default.createElement(
+          _reactRouter.Link,
+          { to: '/contacts/' + contact._id, key: idx },
+          _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
+        );
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      if (!this.props.username) return null;
-      if (!this.state.mounted) return null;
+      if (!this.props.username && !this.state.mounted) return null;
+      // if (!this.state.mounted) return null;
       return _react2.default.createElement(
         'div',
         null,
