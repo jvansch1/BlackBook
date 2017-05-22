@@ -28,7 +28,7 @@ export default class contactsIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchContacts(this.props.username).then(() => this.setState({username: this.props.username}))
+      this.props.fetchContacts(this.props.username).then(() => this.setState({username: this.props.username})).then(() => this.props.fetchContacts(this.props.username))
   }
 
   openModal() {
@@ -88,8 +88,8 @@ export default class contactsIndex extends React.Component {
 
   renderList() {
     return this.props.contacts.map((contact, idx) => {
-      console.log("props: " + this.props.username)
-      console.log("contact: " + contact.username)
+      // console.log("props: " + this.props.username)
+      // console.log("contact: " + contact.username)
       if (this.props.username === contact.username) {
         return (
           <Link to={`/contacts/${contact._id}`} key={idx}>

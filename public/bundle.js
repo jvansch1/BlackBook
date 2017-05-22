@@ -37070,6 +37070,8 @@ var contactsIndex = function (_React$Component) {
 
       this.props.fetchContacts(this.props.username).then(function () {
         return _this2.setState({ username: _this2.props.username });
+      }).then(function () {
+        return _this2.props.fetchContacts(_this2.props.username);
       });
     }
   }, {
@@ -37147,8 +37149,8 @@ var contactsIndex = function (_React$Component) {
       var _this4 = this;
 
       return this.props.contacts.map(function (contact, idx) {
-        console.log("props: " + _this4.props.username);
-        console.log("contact: " + contact.username);
+        // console.log("props: " + this.props.username)
+        // console.log("contact: " + contact.username)
         if (_this4.props.username === contact.username) {
           return _react2.default.createElement(
             _reactRouter.Link,
@@ -37756,6 +37758,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var fetchContacts = exports.fetchContacts = function fetchContacts(username) {
+  console.log(username);
+  debugger;
   return $.ajax({
     method: 'GET',
     url: 'api/contacts',

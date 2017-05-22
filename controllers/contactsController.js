@@ -3,8 +3,9 @@ const Contacts = require('../models/contactsModel.js')
 module.exports = (app) => {
 
   app.get('/api/contacts', (req, res) => {
-    console.log(req)
-    Contacts.find((err, contacts) => {
+    console.log(req._parsedOriginalUrl.query)
+    let username = req._parsedOriginalUrl.query
+    Contacts.find({username: username}, (err, contacts) => {
       if (err) {
         res.status(500).send(err)
       }
@@ -26,7 +27,6 @@ module.exports = (app) => {
   })
 
   app.post('/api/contacts', (req, res) => {
-    console.log(req.body)
     let newContact = Contacts({
       name: req.body.name,
       address: req.body.address,
