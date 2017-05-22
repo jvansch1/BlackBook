@@ -1,6 +1,5 @@
 
 export const fetchContacts = (username) => {
-  debugger
   return $.ajax({
     method: 'GET',
     url: 'api/contacts',

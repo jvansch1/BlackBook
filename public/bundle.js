@@ -37066,7 +37066,11 @@ var contactsIndex = function (_React$Component) {
   _createClass(contactsIndex, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchContacts(this.props.username);
+      var _this2 = this;
+
+      this.props.fetchContacts(this.props.username).then(function () {
+        return _this2.setState({ username: _this2.props.username });
+      });
     }
   }, {
     key: 'openModal',
@@ -37081,13 +37085,13 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'submitContact',
     value: function submitContact(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.state.imageFile === null) {
         this.props.createContact({ name: this.state.name, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
-          return _this2.setState({ modalIsOpen: false });
+          return _this3.setState({ modalIsOpen: false });
         }).then(function () {
-          return _this2.props.fetchContacts();
+          return _this3.props.fetchContacts();
         });
       } else {
         var params = { Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
@@ -37105,11 +37109,11 @@ var contactsIndex = function (_React$Component) {
           }
         });
         bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
-          _this2.setState({ imageUrl: url });
-          _this2.props.createContact({ name: _this2.state.name, address: _this2.state.address, imageUrl: url, username: _this2.state.username }).then(function () {
-            return _this2.setState({ modalIsOpen: false });
+          _this3.setState({ imageUrl: url });
+          _this3.props.createContact({ name: _this3.state.name, address: _this3.state.address, imageUrl: url, username: _this3.props.username }).then(function () {
+            return _this3.setState({ modalIsOpen: false });
           }).then(function () {
-            return _this2.props.fetchContacts();
+            return _this3.props.fetchContacts();
           });
         });
       }
@@ -37140,21 +37144,24 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'renderList',
     value: function renderList() {
+      var _this4 = this;
+
       return this.props.contacts.map(function (contact, idx) {
-        // if (this.props.username === contact.username) {
-        return _react2.default.createElement(
-          _reactRouter.Link,
-          { to: '/contacts/' + contact._id, key: idx },
-          _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
-        );
-        // }
+        console.log("props: " + _this4.props.username);
+        console.log("contact: " + contact.username);
+        if (_this4.props.username === contact.username) {
+          return _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/contacts/' + contact._id, key: idx },
+            _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
+          );
+        }
       });
     }
   }, {
     key: 'render',
     value: function render() {
       if (!this.props.username) return null;
-      debugger;
       return _react2.default.createElement(
         'div',
         null,
@@ -37749,7 +37756,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var fetchContacts = exports.fetchContacts = function fetchContacts(username) {
-  debugger;
   return $.ajax({
     method: 'GET',
     url: 'api/contacts',

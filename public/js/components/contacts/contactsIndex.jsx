@@ -28,7 +28,7 @@ export default class contactsIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchContacts(this.props.username)
+    this.props.fetchContacts(this.props.username).then(() => this.setState({username: this.props.username}))
   }
 
   openModal() {
@@ -61,7 +61,7 @@ export default class contactsIndex extends React.Component {
       })
       bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
         this.setState({ imageUrl: url })
-        this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: url, username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts())
+        this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: url, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts())
       })
     }
   }
@@ -88,19 +88,20 @@ export default class contactsIndex extends React.Component {
 
   renderList() {
     return this.props.contacts.map((contact, idx) => {
-      // if (this.props.username === contact.username) {
+      console.log("props: " + this.props.username)
+      console.log("contact: " + contact.username)
+      if (this.props.username === contact.username) {
         return (
           <Link to={`/contacts/${contact._id}`} key={idx}>
             <ContactsIndexItem contact={contact}/>
           </Link>
         )
-      // }
+      }
       })
     }
 
   render() {
     if (!this.props.username) return null;
-    debugger
     return (
       <div>
         <HeaderContainer />
