@@ -3,8 +3,7 @@ import contactsIndex from './contactsIndex.jsx'
 import { fetchContacts, createContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state) => {
-  // debugger
-  if (state.session) {
+  if (state.session.username) {
     let username = state.session.username
     return {
       contacts: Object.keys(state.contacts).map(key => state.contacts[key]),

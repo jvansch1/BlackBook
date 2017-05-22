@@ -100,6 +100,7 @@ export default class contactsIndex extends React.Component {
 
   render() {
     if (!this.props.username) return null;
+    debugger
     return (
       <div>
         <HeaderContainer />

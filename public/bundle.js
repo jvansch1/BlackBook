@@ -36874,27 +36874,31 @@ var SignUp = function (_React$Component) {
   _createClass(SignUp, [{
     key: 'createUser',
     value: function createUser(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.props.createUser(this.state).then(function () {
+      this.props.createUser(this.state).then(function (user) {
+        return _this2.props.login(user.user);
+      }).then(function () {
         return _reactRouter.hashHistory.push('/contacts');
       });
     }
   }, {
     key: 'updateUsername',
     value: function updateUsername(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.setState({ username: e.currentTarget.value }, function () {
-        return console.log(_this2.state);
+        return console.log(_this3.state);
       });
     }
   }, {
     key: 'updatePassword',
     value: function updatePassword(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.setState({ password: e.currentTarget.value }, function () {
-        return console.log(_this3.state);
+        return console.log(_this4.state);
       });
     }
   }, {
@@ -36963,6 +36967,8 @@ var _signup2 = _interopRequireDefault(_signup);
 
 var _userActions = __webpack_require__(146);
 
+var _sessionActions = __webpack_require__(87);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -36973,6 +36979,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createUser: function createUser(user) {
       return dispatch((0, _userActions.createUser)(user));
+    },
+    login: function login(user) {
+      return dispatch((0, _sessionActions.login)(user));
     }
   };
 };
@@ -37145,6 +37154,7 @@ var contactsIndex = function (_React$Component) {
     key: 'render',
     value: function render() {
       if (!this.props.username) return null;
+      debugger;
       return _react2.default.createElement(
         'div',
         null,
@@ -37213,8 +37223,7 @@ var _contactActions = __webpack_require__(86);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
-  if (state.session) {
+  if (state.session.username) {
     var username = state.session.username;
     return {
       contacts: Object.keys(state.contacts).map(function (key) {
@@ -37642,7 +37651,6 @@ var SessionReducer = function SessionReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
-  debugger;
   switch (action.type) {
     case _sessionActions.LOGIN:
       return action.user;
@@ -37741,6 +37749,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var fetchContacts = exports.fetchContacts = function fetchContacts(username) {
+  debugger;
   return $.ajax({
     method: 'GET',
     url: 'api/contacts',

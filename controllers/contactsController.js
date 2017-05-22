@@ -3,7 +3,7 @@ const Contacts = require('../models/contactsModel.js')
 module.exports = (app) => {
 
   app.get('/api/contacts', (req, res) => {
-    console.log(req.body)
+    console.log(req)
     Contacts.find((err, contacts) => {
       if (err) {
         res.status(500).send(err)

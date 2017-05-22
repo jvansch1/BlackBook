@@ -12,7 +12,7 @@ export default class SignUp extends React.Component {
 
   createUser(e) {
     e.preventDefault()
-    this.props.createUser(this.state).then(() => hashHistory.push('/contacts'))
+    this.props.createUser(this.state).then(user => this.props.login(user.user)).then(() => hashHistory.push('/contacts'))
   }
 
   updateUsername(e) {
