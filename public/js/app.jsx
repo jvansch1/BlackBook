@@ -9,13 +9,14 @@ import configureStore from './store/store.js'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { saveState } from './localStorage.js'
 
-let store
+let store;
 if (window.currentUser) {
-  store = configureStore()
+  store = configureStore();
 }
 else {
-  store = configureStore()
+  store = configureStore();
 }
+
 persistStore(store)
 
 window.store = store

@@ -3,6 +3,7 @@ import merge from 'lodash/merge'
 
 
 const SessionReducer = (state = {}, action) => {
+  debugger
   switch (action.type) {
     case LOGIN:
       return action.user

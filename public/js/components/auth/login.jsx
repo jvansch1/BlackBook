@@ -12,7 +12,6 @@ export default class Login extends React.Component {
 
   login(e) {
     e.preventDefault()
-    console.log(this.props.login)
     this.props.login(this.state).then(() => hashHistory.push('/contacts'))
   }
 
