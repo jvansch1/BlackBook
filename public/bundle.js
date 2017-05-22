@@ -37160,8 +37160,8 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (!this.props.username && !this.state.mounted) return null;
-      // if (!this.state.mounted) return null;
+      if (!this.props.username) return null;
+      if (!this.state.mounted) return null;
       return _react2.default.createElement(
         'div',
         null,

@@ -98,8 +98,8 @@ export default class contactsIndex extends React.Component {
     }
 
   render() {
-    if (!this.props.username && !this.state.mounted) return null;
-    // if (!this.state.mounted) return null;
+    if (!this.props.username) return null;
+    if (!this.state.mounted) return null;
     return (
       <div>
         <HeaderContainer />
