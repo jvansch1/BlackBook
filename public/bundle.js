@@ -37114,8 +37114,8 @@ var contactsIndex = function (_React$Component) {
           }
         });
         bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
-          _this3.setState({ imageUrl: url });
-          _this3.props.createContact({ name: _this3.state.name, address: _this3.state.address, imageUrl: url, username: _this3.props.username }).then(function () {
+          _this3.setState({ imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name });
+          _this3.props.createContact({ name: _this3.state.name, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
             return _this3.setState({ modalIsOpen: false });
           }).then(function () {
             return _this3.props.fetchContacts(_this3.props.username);
@@ -37295,6 +37295,7 @@ var ContactsIndexItem = function (_React$Component) {
       return _react2.default.createElement(
         'li',
         { className: 'contact', key: this.props.contact._id },
+        console.log(this.props.contact),
         _react2.default.createElement('img', { className: 'contact-image', src: this.props.contact.imageUrl }),
         _react2.default.createElement(
           'div',
@@ -37757,7 +37758,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 var fetchContacts = exports.fetchContacts = function fetchContacts(username) {
   console.log(username);
-  debugger;
   return $.ajax({
     method: 'GET',
     url: 'api/contacts',
