@@ -10,6 +10,10 @@
   margin-top: 200px;
 }
 
+#guest-button:hover {
+  cursor: pointer;
+}
+
 #landing-div span {
   display: flex;
   text-align: center;

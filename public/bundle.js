@@ -163536,7 +163536,7 @@ var Landing = function (_React$Component) {
             ),
             _react2.default.createElement(
               'div',
-              { onClick: this.loginGuest.bind(this) },
+              { id: 'guest-button', onClick: this.loginGuest.bind(this) },
               'GUEST'
             )
           )

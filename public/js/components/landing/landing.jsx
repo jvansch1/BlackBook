@@ -24,7 +24,7 @@ export default class Landing extends React.Component {
           <img id='landing-img' src='/static/img/PetitFormalLogo.png' />
           <span>
             <Link to='signup'><div>SIGNUP</div></Link>
-            <div onClick={this.loginGuest.bind(this)}>GUEST</div>
+            <div id='guest-button' onClick={this.loginGuest.bind(this)}>GUEST</div>
           </span>
         </div>
       </div>
