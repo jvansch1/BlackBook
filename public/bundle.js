@@ -26182,6 +26182,10 @@ var _loginContainer = __webpack_require__(355);
 
 var _loginContainer2 = _interopRequireDefault(_loginContainer);
 
+var _landing = __webpack_require__(831);
+
+var _landing2 = _interopRequireDefault(_landing);
+
 var _store = __webpack_require__(369);
 
 var _store2 = _interopRequireDefault(_store);
@@ -26241,8 +26245,9 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           _reactRouter.Router,
           { history: _reactRouter.hashHistory },
-          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _signupContainer2.default, onEnter: this._redirectIfLoggedIn }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _landing2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default, onEnter: this._redirectIfLoggedIn }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _signupContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
         )
@@ -163452,6 +163457,64 @@ module.exports = warning;
 
 }).call(this);
 
+
+/***/ }),
+/* 831 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Landing = function (_React$Component) {
+  _inherits(Landing, _React$Component);
+
+  function Landing(props) {
+    _classCallCheck(this, Landing);
+
+    return _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).call(this, props));
+  }
+
+  _createClass(Landing, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'landing' },
+        _react2.default.createElement(
+          'div',
+          { id: 'video-wrapper' },
+          _react2.default.createElement(
+            'video',
+            { autoPlay: 'true', height: '100%', loop: true },
+            _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return Landing;
+}(_react2.default.Component);
+
+exports.default = Landing;
 
 /***/ })
 /******/ ]);
