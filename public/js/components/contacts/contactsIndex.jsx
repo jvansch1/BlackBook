@@ -21,6 +21,7 @@ export default class contactsIndex extends React.Component {
       username: props.username,
       email: '',
       phone: '',
+      notes: '',
       imageUrl: null,
       imageFile: null,
       mounted: false
@@ -87,6 +88,10 @@ export default class contactsIndex extends React.Component {
     this.setState({ phone: e.currentTarget.value })
   }
 
+  updateNotes(e) {
+    this.setState({notes: e.currentTarget.value})
+  }
+
   addFile(e) {
     const file = e.currentTarget.files[0]
     const fileReader = new FileReader();
@@ -140,6 +145,8 @@ export default class contactsIndex extends React.Component {
             <input type='text' onChange={this.updatePhone.bind(this)}/>
             Picture
             <input type='file' onChange={this.addFile.bind(this)}/>
+            <textarea onChange={this.updateNotes.bind(this)} maxLength="140"></textarea>
+            <p>{this.state.notes.length}/140</p>
             <input type='submit' />
           </form>
         </Modal>

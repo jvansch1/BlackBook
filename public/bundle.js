@@ -37121,6 +37121,7 @@ var contactsIndex = function (_React$Component) {
       username: props.username,
       email: '',
       phone: '',
+      notes: '',
       imageUrl: null,
       imageFile: null,
       mounted: false
@@ -37213,6 +37214,11 @@ var contactsIndex = function (_React$Component) {
       this.setState({ phone: e.currentTarget.value });
     }
   }, {
+    key: 'updateNotes',
+    value: function updateNotes(e) {
+      this.setState({ notes: e.currentTarget.value });
+    }
+  }, {
     key: 'addFile',
     value: function addFile(e) {
       var file = e.currentTarget.files[0];
@@ -37288,6 +37294,13 @@ var contactsIndex = function (_React$Component) {
             _react2.default.createElement('input', { type: 'text', onChange: this.updatePhone.bind(this) }),
             'Picture',
             _react2.default.createElement('input', { type: 'file', onChange: this.addFile.bind(this) }),
+            _react2.default.createElement('textarea', { onChange: this.updateNotes.bind(this), maxLength: '140' }),
+            _react2.default.createElement(
+              'p',
+              null,
+              this.state.notes.length,
+              '/140'
+            ),
             _react2.default.createElement('input', { type: 'submit' })
           )
         )
