@@ -37161,7 +37161,7 @@ var contactsIndex = function (_React$Component) {
       var _this3 = this;
 
       if (this.state.imageFile === null) {
-        this.props.createContact({ name: this.state.name, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
+        this.props.createContact({ name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
           return _this3.setState({ modalIsOpen: false });
         }).then(function () {
           return _this3.props.fetchContacts(_this3.props.username);
@@ -37183,7 +37183,7 @@ var contactsIndex = function (_React$Component) {
         });
         bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
           _this3.setState({ imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name });
-          _this3.props.createContact({ name: _this3.state.name, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
+          _this3.props.createContact({ name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
             return _this3.setState({ modalIsOpen: false });
           }).then(function () {
             return _this3.props.fetchContacts(_this3.props.username);
@@ -37400,10 +37400,11 @@ var ContactsIndexItem = function (_React$Component) {
       return _react2.default.createElement(
         'li',
         { className: 'contact', key: this.props.contact._id },
+        console.log(this.props.contact),
         _react2.default.createElement('img', { className: 'contact-image', src: this.props.contact.imageUrl }),
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'contact-content' },
           _react2.default.createElement(
             'p',
             null,
@@ -37427,6 +37428,12 @@ var ContactsIndexItem = function (_React$Component) {
             null,
             'Phone Number: ',
             this.props.contact.phone
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Notes: ',
+            this.props.contact.notes
           )
         )
       );

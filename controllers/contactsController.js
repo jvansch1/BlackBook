@@ -33,6 +33,7 @@ module.exports = (app) => {
       username: req.body.username,
       imageUrl: req.body.imageUrl,
       email: req.body.email,
+      notes: req.body.notes,
       phone: req.body.phone
     })
     newContact.save((err, newCreatedContact) => {

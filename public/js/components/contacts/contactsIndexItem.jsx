@@ -9,11 +9,12 @@ export default class ContactsIndexItem extends React.Component {
     return (
       <li className='contact' key={this.props.contact._id}>
         <img className='contact-image' src={this.props.contact.imageUrl} />
-        <div>
+        <div className='contact-content'>
           <p>Name: {this.props.contact.name}</p>
           <p>Address: {this.props.contact.address}</p>
           <p>Email: {this.props.contact.email}</p>
           <p>Phone Number: {this.props.contact.phone}</p>
+          <p>Notes: {this.props.contact.notes}</p>
         </div>
       </li>
     )

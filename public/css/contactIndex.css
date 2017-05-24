@@ -16,6 +16,10 @@
   height: 75px;
 }
 
+.contact-content {
+  margin-left: 10px;
+}
+
 #no-contacts {
   font-size: 20px;
   text-align: center;
