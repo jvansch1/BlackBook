@@ -32,13 +32,17 @@ export default class SignUp extends React.Component {
           </video>
         </div>
         <div id='login-form-wrapper'>
-          <h1>Signup</h1>
+          <h1 className='auth-title'>Signup</h1>
           <form onSubmit={this.createUser.bind(this)}>
-            <p>Username</p>
-            <input type='text' onChange={this.updateUsername.bind(this)} />
-            <p>Password</p>
-            <input type='password' onChange={this.updatePassword.bind(this)} />
-            <input type='submit' value='Sign up'/>
+            <div className='input-container'>
+              <p>Username</p>
+              <input type='text' onChange={this.updateUsername.bind(this)} />
+            </div>
+            <div className='input-container'>
+              <p>Password</p>
+              <input type='password' onChange={this.updatePassword.bind(this)} />
+            </div>
+            <div className='auth-button' onClick={this.createUser.bind(this)}>Signup</div>
           </form>
           <p>Already a user?<Link to='/login'>Login!</Link></p>
         </div>

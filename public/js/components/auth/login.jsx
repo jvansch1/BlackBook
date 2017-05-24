@@ -32,13 +32,17 @@ export default class Login extends React.Component {
           </video>
         </div>
         <div id='login-form-wrapper'>
-          <h1>Login</h1>
+          <h1 className='auth-title'>Login</h1>
           <form onSubmit={this.login.bind(this)}>
-            <p>Username</p>
-            <input type='text' onChange={this.updateUsername.bind(this)}/>
-            <p>Password</p>
-            <input type='text' onChange={this.updatePassword.bind(this)}/>
-            <input type='submit' value='Login'/>
+            <div className='input-container'>
+              <p>Username</p>
+              <input type='text' onChange={this.updateUsername.bind(this)}/>
+            </div>
+            <div className='input-container'>
+              <p>Password</p>
+              <input type='text' onChange={this.updatePassword.bind(this)}/>
+            </div>
+            <div className='auth-button' onClick={this.login.bind(this)}>Signup</div>
           </form>
           <p>Not a user? <Link to='/'>Sign Up!</Link></p>
         </div>

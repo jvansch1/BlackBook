@@ -36775,25 +36775,37 @@ var Login = function (_React$Component) {
           { id: 'login-form-wrapper' },
           _react2.default.createElement(
             'h1',
-            null,
+            { className: 'auth-title' },
             'Login'
           ),
           _react2.default.createElement(
             'form',
             { onSubmit: this.login.bind(this) },
             _react2.default.createElement(
-              'p',
-              null,
-              'Username'
+              'div',
+              { className: 'input-container' },
+              _react2.default.createElement(
+                'p',
+                null,
+                'Username'
+              ),
+              _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) })
             ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) }),
             _react2.default.createElement(
-              'p',
-              null,
-              'Password'
+              'div',
+              { className: 'input-container' },
+              _react2.default.createElement(
+                'p',
+                null,
+                'Password'
+              ),
+              _react2.default.createElement('input', { type: 'text', onChange: this.updatePassword.bind(this) })
             ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.updatePassword.bind(this) }),
-            _react2.default.createElement('input', { type: 'submit', value: 'Login' })
+            _react2.default.createElement(
+              'div',
+              { className: 'auth-button', onClick: this.login.bind(this) },
+              'Signup'
+            )
           ),
           _react2.default.createElement(
             'p',
@@ -36944,25 +36956,37 @@ var SignUp = function (_React$Component) {
           { id: 'login-form-wrapper' },
           _react2.default.createElement(
             'h1',
-            null,
+            { className: 'auth-title' },
             'Signup'
           ),
           _react2.default.createElement(
             'form',
             { onSubmit: this.createUser.bind(this) },
             _react2.default.createElement(
-              'p',
-              null,
-              'Username'
+              'div',
+              { className: 'input-container' },
+              _react2.default.createElement(
+                'p',
+                null,
+                'Username'
+              ),
+              _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) })
             ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) }),
             _react2.default.createElement(
-              'p',
-              null,
-              'Password'
+              'div',
+              { className: 'input-container' },
+              _react2.default.createElement(
+                'p',
+                null,
+                'Password'
+              ),
+              _react2.default.createElement('input', { type: 'password', onChange: this.updatePassword.bind(this) })
             ),
-            _react2.default.createElement('input', { type: 'password', onChange: this.updatePassword.bind(this) }),
-            _react2.default.createElement('input', { type: 'submit', value: 'Sign up' })
+            _react2.default.createElement(
+              'div',
+              { className: 'auth-button', onClick: this.createUser.bind(this) },
+              'Signup'
+            )
           ),
           _react2.default.createElement(
             'p',
