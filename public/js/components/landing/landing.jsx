@@ -1,12 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 
 export default class Landing extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  loginGuest(e) {
+    e.preventDefault()
+    this.props.login({username: 'guest', password: 'password'}).then(() => hashHistory.push('/contacts'))
+  }
+
   render() {
+    console.log(this.props)
     return (
       <div id='landing'>
         <div id='video-wrapper'>
@@ -18,7 +24,7 @@ export default class Landing extends React.Component {
           <img id='landing-img' src='/static/img/PetitFormalLogo.png' />
           <span>
             <Link to='signup'><div>SIGNUP</div></Link>
-            <div>GUEST</div>
+            <div onClick={this.loginGuest.bind(this)}>GUEST</div>
           </span>
         </div>
       </div>

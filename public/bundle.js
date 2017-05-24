@@ -26182,9 +26182,9 @@ var _loginContainer = __webpack_require__(355);
 
 var _loginContainer2 = _interopRequireDefault(_loginContainer);
 
-var _landing = __webpack_require__(831);
+var _landingContainer = __webpack_require__(832);
 
-var _landing2 = _interopRequireDefault(_landing);
+var _landingContainer2 = _interopRequireDefault(_landingContainer);
 
 var _store = __webpack_require__(369);
 
@@ -26245,7 +26245,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           _reactRouter.Router,
           { history: _reactRouter.hashHistory },
-          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _landing2.default, onEnter: this._redirectIfLoggedIn }),
+          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _landingContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _signupContainer2.default, onEnter: this._redirectIfLoggedIn }),
           _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
@@ -37569,7 +37569,7 @@ var Header = function (_React$Component) {
     value: function logoutUser(e) {
       e.preventDefault();
       this.props.logout({ username: 'guest', password: 'password' }).then(function () {
-        return _reactRouter.hashHistory.push('/login');
+        return _reactRouter.hashHistory.push('/');
       });
     }
   }, {
@@ -163495,8 +163495,17 @@ var Landing = function (_React$Component) {
   }
 
   _createClass(Landing, [{
+    key: 'loginGuest',
+    value: function loginGuest(e) {
+      e.preventDefault();
+      this.props.login({ username: 'guest', password: 'password' }).then(function () {
+        return _reactRouter.hashHistory.push('/contacts');
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      console.log(this.props);
       return _react2.default.createElement(
         'div',
         { id: 'landing' },
@@ -163527,7 +163536,7 @@ var Landing = function (_React$Component) {
             ),
             _react2.default.createElement(
               'div',
-              null,
+              { onClick: this.loginGuest.bind(this) },
               'GUEST'
             )
           )
@@ -163540,6 +163549,37 @@ var Landing = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Landing;
+
+/***/ }),
+/* 832 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(42);
+
+var _sessionActions = __webpack_require__(60);
+
+var _landing = __webpack_require__(831);
+
+var _landing2 = _interopRequireDefault(_landing);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    login: function login(user) {
+      return dispatch((0, _sessionActions.login)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(_landing2.default);
 
 /***/ })
 /******/ ]);

@@ -5,7 +5,7 @@ import contactsIndexContainer from './components/contacts/contactsIndexContainer
 import contactsShowContainer from './components/contacts/contactsShowContainer.jsx'
 import SignUpContainer from './components/auth/signupContainer.jsx'
 import LoginContainer from './components/auth/loginContainer.jsx'
-import Landing from './components/landing/landing.jsx'
+import LandingContainer from './components/landing/landingContainer.jsx'
 import configureStore from './store/store.js'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { saveState } from './localStorage.js'
@@ -45,7 +45,7 @@ export default class App extends React.Component {
     return(
       <Provider store={store}>
         <Router history={hashHistory}>
-          <Route path='/' component={Landing} onEnter={this._redirectIfLoggedIn}/>
+          <Route path='/' component={LandingContainer} onEnter={this._redirectIfLoggedIn}/>
           <Route path='/login' component={LoginContainer} onEnter={this._redirectIfLoggedIn}/>
           <Route path='/signup' component={SignUpContainer} onEnter={this._redirectIfLoggedIn}/>
           <Route path='/contacts' component={contactsIndexContainer} />
