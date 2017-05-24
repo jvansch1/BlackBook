@@ -1,5 +1,5 @@
 import React from 'react'
-import { hashHistory } from 'react-router'
+import { hashHistory, Link } from 'react-router'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -25,10 +25,12 @@ export default class Login extends React.Component {
 
   render() {
     return(
-      <div>
-        <video autoPlay='true'>
-          <source src="https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4" type="video/mp4"/>
-        </video>
+      <div id="auth-wrapper">
+        <div id='video-wrapper'>
+          <video autoPlay='true' height='100%' loop>
+            <source src="https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4" type="video/mp4"/>
+          </video>
+        </div>
         <div id='login-form-wrapper'>
           <h1>Login</h1>
           <form onSubmit={this.login.bind(this)}>
@@ -38,6 +40,7 @@ export default class Login extends React.Component {
             <input type='text' onChange={this.updatePassword.bind(this)}/>
             <input type='submit' value='Login'/>
           </form>
+          <p>Not a user? <Link to='/'>Sign Up!</Link></p>
         </div>
       </div>
     )

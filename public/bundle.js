@@ -36760,11 +36760,15 @@ var Login = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'auth-wrapper' },
         _react2.default.createElement(
-          'video',
-          { autoPlay: 'true' },
-          _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
+          'div',
+          { id: 'video-wrapper' },
+          _react2.default.createElement(
+            'video',
+            { autoPlay: 'true', height: '100%', loop: true },
+            _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
+          )
         ),
         _react2.default.createElement(
           'div',
@@ -36790,6 +36794,16 @@ var Login = function (_React$Component) {
             ),
             _react2.default.createElement('input', { type: 'text', onChange: this.updatePassword.bind(this) }),
             _react2.default.createElement('input', { type: 'submit', value: 'Login' })
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Not a user? ',
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/' },
+              'Sign Up!'
+            )
           )
         )
       );
@@ -36915,37 +36929,50 @@ var SignUp = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'auth-wrapper' },
         _react2.default.createElement(
-          'h1',
-          null,
-          'Signup'
+          'div',
+          { id: 'video-wrapper' },
+          _react2.default.createElement(
+            'video',
+            { autoPlay: 'true', height: '100%', loop: true },
+            _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
+          )
         ),
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.createUser.bind(this) },
+          'div',
+          { id: 'login-form-wrapper' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Signup'
+          ),
+          _react2.default.createElement(
+            'form',
+            { onSubmit: this.createUser.bind(this) },
+            _react2.default.createElement(
+              'p',
+              null,
+              'Username'
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) }),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Password'
+            ),
+            _react2.default.createElement('input', { type: 'password', onChange: this.updatePassword.bind(this) }),
+            _react2.default.createElement('input', { type: 'submit', value: 'Sign up' })
+          ),
           _react2.default.createElement(
             'p',
             null,
-            'Username'
-          ),
-          _react2.default.createElement('input', { type: 'text', onChange: this.updateUsername.bind(this) }),
-          _react2.default.createElement(
-            'p',
-            null,
-            'Password'
-          ),
-          _react2.default.createElement('input', { type: 'password', onChange: this.updatePassword.bind(this) }),
-          _react2.default.createElement('input', { type: 'submit', value: 'Sign up' })
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'Already a user?',
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/login' },
-            'Login!'
+            'Already a user?',
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/login' },
+              'Login!'
+            )
           )
         )
       );
