@@ -37119,6 +37119,8 @@ var contactsIndex = function (_React$Component) {
       name: '',
       address: '',
       username: props.username,
+      email: '',
+      phone: '',
       imageUrl: null,
       imageFile: null,
       mounted: false
@@ -37158,10 +37160,10 @@ var contactsIndex = function (_React$Component) {
       var _this3 = this;
 
       if (this.state.imageFile === null) {
-        this.props.createContact({ name: this.state.name, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
+        this.props.createContact({ name: this.state.name, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
           return _this3.setState({ modalIsOpen: false });
         }).then(function () {
-          return _this3.props.fetchContacts();
+          return _this3.props.fetchContacts(_this3.props.username);
         });
       } else {
         var params = { Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
@@ -37180,7 +37182,7 @@ var contactsIndex = function (_React$Component) {
         });
         bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
           _this3.setState({ imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name });
-          _this3.props.createContact({ name: _this3.state.name, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
+          _this3.props.createContact({ name: _this3.state.name, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
             return _this3.setState({ modalIsOpen: false });
           }).then(function () {
             return _this3.props.fetchContacts(_this3.props.username);
@@ -37199,6 +37201,18 @@ var contactsIndex = function (_React$Component) {
       this.setState({ address: e.currentTarget.value });
     }
   }, {
+    key: 'updateEmail',
+    value: function updateEmail(e) {
+      console.log(this.state);
+      this.setState({ email: e.currentTarget.value });
+    }
+  }, {
+    key: 'updatePhone',
+    value: function updatePhone(e) {
+      console.log(e.currentTarget.value);
+      this.setState({ phone: e.currentTarget.value });
+    }
+  }, {
     key: 'addFile',
     value: function addFile(e) {
       var file = e.currentTarget.files[0];
@@ -37214,13 +37228,21 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'renderList',
     value: function renderList() {
-      return this.props.contacts.map(function (contact, idx) {
+      if (this.props.contacts.length === 0) {
         return _react2.default.createElement(
-          _reactRouter.Link,
-          { to: '/contacts/' + contact._id, key: idx },
-          _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
+          'p',
+          { id: 'no-contacts' },
+          'No Contacts'
         );
-      });
+      } else {
+        return this.props.contacts.map(function (contact, idx) {
+          return _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/contacts/' + contact._id, key: idx },
+            _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
+          );
+        });
+      }
     }
   }, {
     key: 'render',
@@ -37260,6 +37282,11 @@ var contactsIndex = function (_React$Component) {
             _react2.default.createElement('input', { type: 'text', onChange: this.updateName.bind(this) }),
             'Address',
             _react2.default.createElement('input', { type: 'text', onChange: this.updateAddress.bind(this) }),
+            'Email',
+            _react2.default.createElement('input', { type: 'text', onChange: this.updateEmail.bind(this) }),
+            'Phone',
+            _react2.default.createElement('input', { type: 'text', onChange: this.updatePhone.bind(this) }),
+            'Picture',
             _react2.default.createElement('input', { type: 'file', onChange: this.addFile.bind(this) }),
             _react2.default.createElement('input', { type: 'submit' })
           )
@@ -37360,7 +37387,6 @@ var ContactsIndexItem = function (_React$Component) {
       return _react2.default.createElement(
         'li',
         { className: 'contact', key: this.props.contact._id },
-        console.log(this.props.contact),
         _react2.default.createElement('img', { className: 'contact-image', src: this.props.contact.imageUrl }),
         _react2.default.createElement(
           'div',
@@ -37376,6 +37402,18 @@ var ContactsIndexItem = function (_React$Component) {
             null,
             'Address: ',
             this.props.contact.address
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Email: ',
+            this.props.contact.email
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Phone Number: ',
+            this.props.contact.phone
           )
         )
       );
@@ -37838,6 +37876,7 @@ var fetchContact = exports.fetchContact = function fetchContact(id) {
 };
 
 var createContact = exports.createContact = function createContact(contact) {
+  console.log(contact);
   return $.ajax({
     method: 'POST',
     url: 'api/contacts',
@@ -163538,6 +163577,16 @@ var Landing = function (_React$Component) {
               'div',
               { id: 'guest-button', onClick: this.loginGuest.bind(this) },
               'GUEST'
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            { id: 'link-to-login' },
+            'Already a User? ',
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/login' },
+              'Log In!'
             )
           )
         )

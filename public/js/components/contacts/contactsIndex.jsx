@@ -19,6 +19,8 @@ export default class contactsIndex extends React.Component {
       name: '',
       address: '',
       username: props.username,
+      email: '',
+      phone: '',
       imageUrl: null,
       imageFile: null,
       mounted: false
@@ -42,7 +44,7 @@ export default class contactsIndex extends React.Component {
 
   submitContact(e) {
     if (this.state.imageFile === null) {
-      this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts())
+      this.props.createContact({name: this.state.name, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
     }
     else {
       let params = {Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: config.awsbucket}
@@ -62,7 +64,7 @@ export default class contactsIndex extends React.Component {
       })
       bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
         this.setState({ imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` })
-        this.props.createContact({name: this.state.name, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
+        this.props.createContact({name: this.state.name, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
       })
     }
   }
@@ -73,6 +75,16 @@ export default class contactsIndex extends React.Component {
 
   updateAddress(e) {
     this.setState({ address: e.currentTarget.value })
+  }
+
+  updateEmail(e) {
+    console.log(this.state)
+    this.setState({ email: e.currentTarget.value })
+  }
+
+  updatePhone(e) {
+    console.log(e.currentTarget.value)
+    this.setState({ phone: e.currentTarget.value })
   }
 
   addFile(e) {
@@ -88,7 +100,10 @@ export default class contactsIndex extends React.Component {
   }
 
   renderList() {
-    return this.props.contacts.map((contact, idx) => {
+    if (this.props.contacts.length === 0) {
+      return (<p id='no-contacts'>No Contacts</p>)
+    } else {
+      return this.props.contacts.map((contact, idx) => {
         return (
           <Link to={`/contacts/${contact._id}`} key={idx}>
             <ContactsIndexItem contact={contact}/>
@@ -96,6 +111,7 @@ export default class contactsIndex extends React.Component {
         )
       })
     }
+  }
 
   render() {
     if (!this.props.username) return null;
@@ -118,6 +134,11 @@ export default class contactsIndex extends React.Component {
             <input type='text' onChange={this.updateName.bind(this)}/>
             Address
             <input type='text' onChange={this.updateAddress.bind(this)}/>
+            Email
+            <input type='text' onChange={this.updateEmail.bind(this)}/>
+            Phone
+            <input type='text' onChange={this.updatePhone.bind(this)}/>
+            Picture
             <input type='file' onChange={this.addFile.bind(this)}/>
             <input type='submit' />
           </form>

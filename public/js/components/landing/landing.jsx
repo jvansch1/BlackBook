@@ -26,6 +26,7 @@ export default class Landing extends React.Component {
             <Link to='signup'><div>SIGNUP</div></Link>
             <div id='guest-button' onClick={this.loginGuest.bind(this)}>GUEST</div>
           </span>
+          <p id='link-to-login'>Already a User? <Link to='/login'>Log In!</Link></p>
         </div>
       </div>
     )

@@ -14,12 +14,29 @@
   cursor: pointer;
 }
 
+#guest-button {
+  text-decoration: underline;
+}
+
+
 #landing-div span {
   display: flex;
   text-align: center;
   width: 300px;
   margin: 0 auto;
   margin-top: 20px;
+}
+
+#link-to-login {
+  color: white;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 25px;
+  width: 300px;
+}
+
+#link-to-login a {
+  color: white;
 }
 
 #landing-div span div {

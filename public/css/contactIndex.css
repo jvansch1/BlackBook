@@ -15,3 +15,9 @@
   width: 75px;
   height: 75px;
 }
+
+#no-contacts {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}

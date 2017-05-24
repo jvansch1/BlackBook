@@ -31,7 +31,9 @@ module.exports = (app) => {
       name: req.body.name,
       address: req.body.address,
       username: req.body.username,
-      imageUrl: req.body.imageUrl
+      imageUrl: req.body.imageUrl,
+      email: req.body.email,
+      phone: req.body.phone
     })
     newContact.save((err, newCreatedContact) => {
       if (err) {
