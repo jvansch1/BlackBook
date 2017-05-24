@@ -1,0 +1,33 @@
+#landing-div {
+  z-index: 100000;
+  position: absolute;
+  width: 400px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0 auto;
+  margin-top: 200px;
+}
+
+#landing-div span {
+  display: flex;
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+#landing-div span div {
+  z-index: 1000000;
+  color: white;
+  background: black;
+  padding: 10px 20px 10px 20px;
+  font-weight: bold;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+#landing-image {
+  z=index: 100000;
+}

@@ -163475,6 +163475,8 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(57);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -163505,6 +163507,29 @@ var Landing = function (_React$Component) {
             'video',
             { autoPlay: 'true', height: '100%', loop: true },
             _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'landing-div' },
+          _react2.default.createElement('img', { id: 'landing-img', src: '/static/img/PetitFormalLogo.png' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: 'signup' },
+              _react2.default.createElement(
+                'div',
+                null,
+                'SIGNUP'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              'GUEST'
+            )
           )
         )
       );
