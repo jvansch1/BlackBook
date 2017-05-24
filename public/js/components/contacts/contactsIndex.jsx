@@ -22,6 +22,7 @@ export default class contactsIndex extends React.Component {
       email: '',
       phone: '',
       notes: '',
+      search: '',
       imageUrl: null,
       imageFile: null,
       mounted: false
@@ -92,6 +93,11 @@ export default class contactsIndex extends React.Component {
     this.setState({notes: e.currentTarget.value})
   }
 
+  updateSearch(e) {
+    console.log(this.state)
+    this.setState({search: e.currentTarget.value})
+  }
+
   addFile(e) {
     const file = e.currentTarget.files[0]
     const fileReader = new FileReader();
@@ -109,11 +115,13 @@ export default class contactsIndex extends React.Component {
       return (<p id='no-contacts'>No Contacts</p>)
     } else {
       return this.props.contacts.map((contact, idx) => {
-        return (
-          <Link to={`/contacts/${contact._id}`} key={idx}>
-            <ContactsIndexItem contact={contact}/>
-          </Link>
-        )
+        if ((contact.name.toLowerCase()).includes(this.state.search)) {
+          return (
+            <Link to={`/contacts/${contact._id}`} key={idx}>
+              <ContactsIndexItem contact={contact}/>
+            </Link>
+          )
+        }
       })
     }
   }
@@ -125,6 +133,7 @@ export default class contactsIndex extends React.Component {
       <div>
         <HeaderContainer />
         <div>
+          <textarea onChange={this.updateSearch.bind(this)}></textarea>
           <ul id='contact-list'>
             {
               this.renderList()

@@ -37122,6 +37122,7 @@ var contactsIndex = function (_React$Component) {
       email: '',
       phone: '',
       notes: '',
+      search: '',
       imageUrl: null,
       imageFile: null,
       mounted: false
@@ -37219,6 +37220,12 @@ var contactsIndex = function (_React$Component) {
       this.setState({ notes: e.currentTarget.value });
     }
   }, {
+    key: 'updateSearch',
+    value: function updateSearch(e) {
+      console.log(this.state);
+      this.setState({ search: e.currentTarget.value });
+    }
+  }, {
     key: 'addFile',
     value: function addFile(e) {
       var file = e.currentTarget.files[0];
@@ -37234,6 +37241,8 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'renderList',
     value: function renderList() {
+      var _this4 = this;
+
       if (this.props.contacts.length === 0) {
         return _react2.default.createElement(
           'p',
@@ -37242,11 +37251,13 @@ var contactsIndex = function (_React$Component) {
         );
       } else {
         return this.props.contacts.map(function (contact, idx) {
-          return _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/contacts/' + contact._id, key: idx },
-            _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
-          );
+          if (contact.name.toLowerCase().includes(_this4.state.search)) {
+            return _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/contacts/' + contact._id, key: idx },
+              _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
+            );
+          }
         });
       }
     }
@@ -37262,6 +37273,7 @@ var contactsIndex = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
+          _react2.default.createElement('textarea', { onChange: this.updateSearch.bind(this) }),
           _react2.default.createElement(
             'ul',
             { id: 'contact-list' },
@@ -37400,7 +37412,6 @@ var ContactsIndexItem = function (_React$Component) {
       return _react2.default.createElement(
         'li',
         { className: 'contact', key: this.props.contact._id },
-        console.log(this.props.contact),
         _react2.default.createElement('img', { className: 'contact-image', src: this.props.contact.imageUrl }),
         _react2.default.createElement(
           'div',
