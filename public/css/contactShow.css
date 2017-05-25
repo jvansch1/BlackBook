@@ -2,3 +2,15 @@
   width: 225px;
   height: 225px;
 }
+
+#show-content {
+  width: 400px;
+}
+
+#edit-button-wrapper {
+  position: relative;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

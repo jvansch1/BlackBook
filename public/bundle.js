@@ -37512,6 +37512,10 @@ var _headerContainer = __webpack_require__(147);
 
 var _headerContainer2 = _interopRequireDefault(_headerContainer);
 
+var _reactModal = __webpack_require__(749);
+
+var _reactModal2 = _interopRequireDefault(_reactModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37526,13 +37530,75 @@ var contactsShow = function (_React$Component) {
   function contactsShow(props) {
     _classCallCheck(this, contactsShow);
 
-    return _possibleConstructorReturn(this, (contactsShow.__proto__ || Object.getPrototypeOf(contactsShow)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (contactsShow.__proto__ || Object.getPrototypeOf(contactsShow)).call(this, props));
+
+    _this.state = {
+      modalIsOpen: false,
+      name: props.name,
+      address: props.address,
+      username: props.username,
+      email: props.email,
+      phone: props.phone,
+      notes: props.notes,
+      imageUrl: props.imageUrl,
+      imageFile: null,
+      mounted: false
+    };
+    return _this;
   }
 
   _createClass(contactsShow, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchOneContact(this.props.id);
+      var _this2 = this;
+
+      this.props.fetchOneContact(this.props.id).then(function (contact) {
+        _this2.setState({
+          modalIsOpen: false,
+          name: contact.contact.name,
+          address: contact.contact.address,
+          username: contact.contact.username,
+          email: contact.contact.email,
+          phone: contact.contact.phone,
+          notes: contact.contact.notes,
+          imageUrl: contact.contact.imageUrl,
+          imageFile: null,
+          mounted: false
+        });
+        return null;
+      });
+    }
+  }, {
+    key: 'openModal',
+    value: function openModal() {
+      this.setState({ modalIsOpen: true });
+    }
+  }, {
+    key: 'updateName',
+    value: function updateName(e) {
+      this.setState({ name: e.currentTarget.value });
+    }
+  }, {
+    key: 'updateAddress',
+    value: function updateAddress(e) {
+      this.setState({ address: e.currentTarget.value });
+    }
+  }, {
+    key: 'updateEmail',
+    value: function updateEmail(e) {
+      console.log(this.state);
+      this.setState({ email: e.currentTarget.value });
+    }
+  }, {
+    key: 'updatePhone',
+    value: function updatePhone(e) {
+      console.log(e.currentTarget.value);
+      this.setState({ phone: e.currentTarget.value });
+    }
+  }, {
+    key: 'updateNotes',
+    value: function updateNotes(e) {
+      this.setState({ notes: e.currentTarget.value });
     }
   }, {
     key: 'renderContact',
@@ -37547,7 +37613,7 @@ var contactsShow = function (_React$Component) {
           _react2.default.createElement('img', { id: 'contact-show-image', src: this.props.contact.imageUrl }),
           _react2.default.createElement(
             'div',
-            null,
+            { id: 'show-content' },
             _react2.default.createElement(
               'p',
               null,
@@ -37579,7 +37645,75 @@ var contactsShow = function (_React$Component) {
               this.props.contact.notes
             )
           ),
-          _react2.default.createElement('i', { className: 'fa fa-pencil-square', 'aria-hidden': 'true' })
+          _react2.default.createElement(
+            'div',
+            { id: 'edit-button-wrapper' },
+            _react2.default.createElement('i', { onClick: this.openModal.bind(this), className: 'fa fa-pencil-square', 'aria-hidden': 'true' })
+          )
+        )
+      );
+    }
+  }, {
+    key: 'addFile',
+    value: function addFile(e) {
+      var file = e.currentTarget.files[0];
+      var fileReader = new FileReader();
+      fileReader.onloadend = function () {
+        this.setState({ imageFile: file, imageUrl: fileReader.result });
+      }.bind(this);
+
+      if (file) {
+        fileReader.readAsDataURL(file);
+      }
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal() {
+      this.setState({ modalIsOpen: false });
+    }
+  }, {
+    key: 'Modal',
+    value: function Modal() {
+      console.log(this.state);
+      return _react2.default.createElement(
+        _reactModal2.default,
+        { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
+        _react2.default.createElement(
+          'button',
+          { onClick: this.closeModal.bind(this) },
+          'Close'
+        ),
+        _react2.default.createElement(
+          'form',
+          { id: 'contacts-form', onSubmit: this.submitContact },
+          _react2.default.createElement(
+            'span',
+            null,
+            'Name',
+            _react2.default.createElement('input', { type: 'text', onChange: this.updateName.bind(this), value: this.state.name })
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            'Address',
+            _react2.default.createElement('input', { type: 'text', onChange: this.updateAddress.bind(this), value: this.state.address })
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            'Email',
+            _react2.default.createElement('input', { type: 'text', onChange: this.updateEmail.bind(this), value: this.state.email })
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            'Phone',
+            _react2.default.createElement('input', { type: 'text', onChange: this.updatePhone.bind(this), value: this.state.phone })
+          ),
+          'Picture',
+          _react2.default.createElement('input', { type: 'file', onChange: this.addFile.bind(this) }),
+          _react2.default.createElement('textarea', { onChange: this.updateNotes.bind(this), maxLength: '140', value: this.state.notes }),
+          _react2.default.createElement('input', { type: 'submit' })
         )
       );
     }
@@ -37595,7 +37729,8 @@ var contactsShow = function (_React$Component) {
           null,
           'Show'
         ),
-        this.renderContact()
+        this.renderContact(),
+        this.Modal()
       );
     }
   }]);
