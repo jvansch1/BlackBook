@@ -80,12 +80,10 @@ export default class contactsIndex extends React.Component {
   }
 
   updateEmail(e) {
-    console.log(this.state)
     this.setState({ email: e.currentTarget.value })
   }
 
   updatePhone(e) {
-    console.log(e.currentTarget.value)
     this.setState({ phone: e.currentTarget.value })
   }
 
@@ -144,7 +142,7 @@ export default class contactsIndex extends React.Component {
           </ul>
         </div>
         <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
-          <button onClick={this.closeModal}>Close</button>
+          <i className="fa fa-times-circle" aria-hidden="true" onClick={this.closeModal}></i>
           <form id='contacts-form' onSubmit={this.submitContact}>
             <span>
               Name
@@ -162,9 +160,14 @@ export default class contactsIndex extends React.Component {
               Phone
               <input type='text' onChange={this.updatePhone.bind(this)}/>
             </span>
-            Picture
-            <input type='file' onChange={this.addFile.bind(this)}/>
-            <textarea onChange={this.updateNotes.bind(this)} maxLength="140"></textarea>
+            <span>
+              Picture
+              <input type='file' onChange={this.addFile.bind(this)}/>
+            </span>
+            <span>
+              Notes
+              <textarea onChange={this.updateNotes.bind(this)} maxLength="140"></textarea>
+            </span>
             <p>{this.state.notes.length}/140</p>
             <input type='submit' />
           </form>

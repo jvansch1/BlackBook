@@ -18,7 +18,7 @@ export default class contactsShow extends React.Component {
       username: props.username,
       email: props.email,
       phone: props.phone,
-      notes: props.notes,
+      notes: '',
       id: null,
       imageUrl: props.imageUrl,
       imageFile: null,
@@ -141,7 +141,7 @@ export default class contactsShow extends React.Component {
   Modal() {
     return (
       <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
-        <button onClick={this.closeModal.bind(this)}>Close</button>
+        <i className="fa fa-times-circle" aria-hidden="true" onClick={this.closeModal.bind(this)}></i>
         <form id='contacts-form' onSubmit={this.submitContact.bind(this)}>
           <span>
             Name
@@ -159,9 +159,15 @@ export default class contactsShow extends React.Component {
             Phone
             <input type='text' onChange={this.updatePhone.bind(this)} value={this.state.phone} />
           </span>
-          Picture
-          <input type='file' onChange={this.addFile.bind(this)}/>
-          <textarea onChange={this.updateNotes.bind(this)} maxLength="140" value={this.state.notes}></textarea>
+          <span>
+            Picture
+            <input type='file' onChange={this.addFile.bind(this)}/>
+          </span>
+          <span>
+            Notes
+            <textarea onChange={this.updateNotes.bind(this)} maxLength="140" value={this.state.notes}></textarea>
+          </span>
+          <p>{this.state.notes.length}/140</p>
           <input type='submit' />
         </form>
       </Modal>

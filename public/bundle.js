@@ -37228,13 +37228,11 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'updateEmail',
     value: function updateEmail(e) {
-      console.log(this.state);
       this.setState({ email: e.currentTarget.value });
     }
   }, {
     key: 'updatePhone',
     value: function updatePhone(e) {
-      console.log(e.currentTarget.value);
       this.setState({ phone: e.currentTarget.value });
     }
   }, {
@@ -37315,11 +37313,7 @@ var contactsIndex = function (_React$Component) {
         _react2.default.createElement(
           _reactModal2.default,
           { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
-          _react2.default.createElement(
-            'button',
-            { onClick: this.closeModal },
-            'Close'
-          ),
+          _react2.default.createElement('i', { className: 'fa fa-times-circle', 'aria-hidden': 'true', onClick: this.closeModal }),
           _react2.default.createElement(
             'form',
             { id: 'contacts-form', onSubmit: this.submitContact },
@@ -37347,9 +37341,18 @@ var contactsIndex = function (_React$Component) {
               'Phone',
               _react2.default.createElement('input', { type: 'text', onChange: this.updatePhone.bind(this) })
             ),
-            'Picture',
-            _react2.default.createElement('input', { type: 'file', onChange: this.addFile.bind(this) }),
-            _react2.default.createElement('textarea', { onChange: this.updateNotes.bind(this), maxLength: '140' }),
+            _react2.default.createElement(
+              'span',
+              null,
+              'Picture',
+              _react2.default.createElement('input', { type: 'file', onChange: this.addFile.bind(this) })
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              'Notes',
+              _react2.default.createElement('textarea', { onChange: this.updateNotes.bind(this), maxLength: '140' })
+            ),
             _react2.default.createElement(
               'p',
               null,
@@ -37560,7 +37563,7 @@ var contactsShow = function (_React$Component) {
       username: props.username,
       email: props.email,
       phone: props.phone,
-      notes: props.notes,
+      notes: '',
       id: null,
       imageUrl: props.imageUrl,
       imageFile: null,
@@ -37742,11 +37745,7 @@ var contactsShow = function (_React$Component) {
       return _react2.default.createElement(
         _reactModal2.default,
         { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
-        _react2.default.createElement(
-          'button',
-          { onClick: this.closeModal.bind(this) },
-          'Close'
-        ),
+        _react2.default.createElement('i', { className: 'fa fa-times-circle', 'aria-hidden': 'true', onClick: this.closeModal.bind(this) }),
         _react2.default.createElement(
           'form',
           { id: 'contacts-form', onSubmit: this.submitContact.bind(this) },
@@ -37774,9 +37773,24 @@ var contactsShow = function (_React$Component) {
             'Phone',
             _react2.default.createElement('input', { type: 'text', onChange: this.updatePhone.bind(this), value: this.state.phone })
           ),
-          'Picture',
-          _react2.default.createElement('input', { type: 'file', onChange: this.addFile.bind(this) }),
-          _react2.default.createElement('textarea', { onChange: this.updateNotes.bind(this), maxLength: '140', value: this.state.notes }),
+          _react2.default.createElement(
+            'span',
+            null,
+            'Picture',
+            _react2.default.createElement('input', { type: 'file', onChange: this.addFile.bind(this) })
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            'Notes',
+            _react2.default.createElement('textarea', { onChange: this.updateNotes.bind(this), maxLength: '140', value: this.state.notes })
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            this.state.notes.length,
+            '/140'
+          ),
           _react2.default.createElement('input', { type: 'submit' })
         )
       );
