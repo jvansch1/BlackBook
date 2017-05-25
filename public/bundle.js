@@ -9539,7 +9539,7 @@ module.exports = { hash: hash };
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createContact = exports.fetchOneContact = exports.fetchContact = exports.fetchContacts = exports.receiveOneContact = exports.receiveContact = exports.receiveContacts = exports.RECEIVE_ONE_CONTACT = exports.RECEIVE_CONTACT = exports.RECEIVE_CONTACTS = undefined;
+exports.updateContact = exports.createContact = exports.fetchOneContact = exports.fetchContact = exports.fetchContacts = exports.receiveOneContact = exports.receiveContact = exports.receiveContacts = exports.RECEIVE_ONE_CONTACT = exports.RECEIVE_CONTACT = exports.RECEIVE_CONTACTS = undefined;
 
 var _contactsApiUtil = __webpack_require__(372);
 
@@ -9599,6 +9599,14 @@ var createContact = exports.createContact = function createContact(contact) {
   return function (dispatch) {
     return ContactsApiUtil.createContact(contact).then(function (contact) {
       return dispatch(receiveContact(contact));
+    });
+  };
+};
+
+var updateContact = exports.updateContact = function updateContact(contact) {
+  return function (dispatch) {
+    return ContactsApiUtil.updateContact(contact).then(function (contact) {
+      return dispatch(receiveOneContact(contact));
     });
   };
 };
@@ -37516,6 +37524,14 @@ var _reactModal = __webpack_require__(749);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
+var _awsSdk = __webpack_require__(303);
+
+var _awsSdk2 = _interopRequireDefault(_awsSdk);
+
+var _AwsConfig = __webpack_require__(352);
+
+var _AwsConfig2 = _interopRequireDefault(_AwsConfig);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37523,6 +37539,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+_awsSdk2.default.config.region = _AwsConfig2.default.region;
+_awsSdk2.default.config.accessKeyId = _AwsConfig2.default.accessKeyId;
+_awsSdk2.default.config.secretAccessKey = _AwsConfig2.default.secretAccessKey;
 
 var contactsShow = function (_React$Component) {
   _inherits(contactsShow, _React$Component);
@@ -37540,6 +37560,7 @@ var contactsShow = function (_React$Component) {
       email: props.email,
       phone: props.phone,
       notes: props.notes,
+      id: null,
       imageUrl: props.imageUrl,
       imageFile: null,
       mounted: false
@@ -37562,6 +37583,7 @@ var contactsShow = function (_React$Component) {
           phone: contact.contact.phone,
           notes: contact.contact.notes,
           imageUrl: contact.contact.imageUrl,
+          id: contact._id,
           imageFile: null,
           mounted: false
         });
@@ -37586,13 +37608,11 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'updateEmail',
     value: function updateEmail(e) {
-      console.log(this.state);
       this.setState({ email: e.currentTarget.value });
     }
   }, {
     key: 'updatePhone',
     value: function updatePhone(e) {
-      console.log(e.currentTarget.value);
       this.setState({ phone: e.currentTarget.value });
     }
   }, {
@@ -37654,6 +37674,42 @@ var contactsShow = function (_React$Component) {
       );
     }
   }, {
+    key: 'submitContact',
+    value: function submitContact(e) {
+      var _this3 = this;
+
+      if (this.state.imageFile === null) {
+        this.props.updateContact({ id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
+          return _this3.setState({ modalIsOpen: false });
+        }).then(function () {
+          return _this3.props.fetchContacts(_this3.props.username);
+        });
+      } else {
+        var params = { Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
+        e.preventDefault();
+        bucket.putObject({
+          ACL: 'public-read-write',
+          Bucket: _AwsConfig2.default.awsbucket,
+          Key: this.state.imageFile.name,
+          Body: this.state.imageFile
+        }, function (err, response) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(response);
+          }
+        });
+        bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
+          _this3.setState({ imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name });
+          _this3.props.updateContact({ id: _this3.props.id, name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
+            return _this3.setState({ modalIsOpen: false });
+          }).then(function () {
+            return _this3.props.fetchContacts(_this3.props.username);
+          });
+        });
+      }
+    }
+  }, {
     key: 'addFile',
     value: function addFile(e) {
       var file = e.currentTarget.files[0];
@@ -37685,7 +37741,7 @@ var contactsShow = function (_React$Component) {
         ),
         _react2.default.createElement(
           'form',
-          { id: 'contacts-form', onSubmit: this.submitContact },
+          { id: 'contacts-form', onSubmit: this.submitContact.bind(this) },
           _react2.default.createElement(
             'span',
             null,
@@ -37772,6 +37828,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchOneContact: function fetchOneContact(id) {
       return dispatch((0, _contactActions.fetchOneContact)(id));
+    },
+    updateContact: function updateContact(contact) {
+      return dispatch((0, _contactActions.updateContact)(contact));
     }
   };
 };
@@ -38223,10 +38282,18 @@ var fetchContact = exports.fetchContact = function fetchContact(id) {
 };
 
 var createContact = exports.createContact = function createContact(contact) {
-  console.log(contact);
   return $.ajax({
     method: 'POST',
     url: 'api/contacts',
+    data: contact
+  });
+};
+
+var updateContact = exports.updateContact = function updateContact(contact) {
+  console.log(contact);
+  return $.ajax({
+    method: 'PATCH',
+    url: 'api/contacts/' + contact.id,
     data: contact
   });
 };

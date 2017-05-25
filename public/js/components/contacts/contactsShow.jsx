@@ -1,6 +1,11 @@
 import React from 'react'
 import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
+import aws from 'aws-sdk'
+import config from '../../../../AwsConfig.js'
+aws.config.region = config.region
+aws.config.accessKeyId = config.accessKeyId
+aws.config.secretAccessKey = config.secretAccessKey
 
 export default class contactsShow extends React.Component {
   constructor(props) {
@@ -13,6 +18,7 @@ export default class contactsShow extends React.Component {
       email: props.email,
       phone: props.phone,
       notes: props.notes,
+      id: null,
       imageUrl: props.imageUrl,
       imageFile: null,
       mounted: false
@@ -30,6 +36,7 @@ export default class contactsShow extends React.Component {
         phone: contact.contact.phone,
         notes: contact.contact.notes,
         imageUrl: contact.contact.imageUrl,
+        id: contact._id,
         imageFile: null,
         mounted: false
       })
@@ -50,12 +57,10 @@ export default class contactsShow extends React.Component {
   }
 
   updateEmail(e) {
-    console.log(this.state)
     this.setState({ email: e.currentTarget.value })
   }
 
   updatePhone(e) {
-    console.log(e.currentTarget.value)
     this.setState({ phone: e.currentTarget.value })
   }
 
@@ -84,6 +89,33 @@ export default class contactsShow extends React.Component {
     )
   }
 
+  submitContact(e) {
+    if (this.state.imageFile === null) {
+      this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
+    }
+    else {
+      let params = {Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: config.awsbucket}
+      e.preventDefault()
+      bucket.putObject({
+        ACL:'public-read-write',
+        Bucket: config.awsbucket,
+        Key: this.state.imageFile.name,
+        Body: this.state.imageFile
+      }, (err, response) => {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          console.log(response)
+        }
+      })
+      bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
+        this.setState({ imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` })
+        this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
+      })
+    }
+  }
+
   addFile(e) {
     const file = e.currentTarget.files[0]
     const fileReader = new FileReader();
@@ -105,7 +137,7 @@ export default class contactsShow extends React.Component {
     return (
       <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
         <button onClick={this.closeModal.bind(this)}>Close</button>
-        <form id='contacts-form' onSubmit={this.submitContact}>
+        <form id='contacts-form' onSubmit={this.submitContact.bind(this)}>
           <span>
             Name
             <input type='text' onChange={this.updateName.bind(this)} value={this.state.name}/>

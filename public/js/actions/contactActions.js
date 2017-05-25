@@ -47,3 +47,10 @@ export const createContact = (contact) => {
       })
   }
 }
+
+export const updateContact = (contact) => {
+  return dispatch => {
+    return ContactsApiUtil.updateContact(contact)
+      .then(contact => dispatch(receiveOneContact(contact)))
+  }
+}
