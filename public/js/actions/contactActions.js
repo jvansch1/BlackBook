@@ -2,6 +2,7 @@ import * as ContactsApiUtil from '../util/contactsApiUtil.js'
 
 export const RECEIVE_CONTACTS = 'RECEIVE_CONTACTS'
 export const RECEIVE_CONTACT = 'RECEIVE_CONTACT'
+export const RECEIVE_ONE_CONTACT = 'RECEIVE_ONE_CONTACT'
 
 export const receiveContacts = (contacts) => ({
   type: RECEIVE_CONTACTS,
@@ -10,6 +11,11 @@ export const receiveContacts = (contacts) => ({
 
 export const receiveContact = (contact) => ({
   type: RECEIVE_CONTACT,
+  contact
+})
+
+export const receiveOneContact = (contact) => ({
+  type: RECEIVE_ONE_CONTACT,
   contact
 })
 
@@ -24,6 +30,12 @@ export const fetchContact = (id) => {
   return dispatch => {
     return ContactsApiUtil.fetchContact(id)
       .then(contact => dispatch(receiveContact(contact)))
+  }
+}
+export const fetchOneContact = (id) => {
+  return dispatch => {
+    return ContactsApiUtil.fetchContact(id)
+      .then(contact => dispatch(receiveOneContact(contact)))
   }
 }
 

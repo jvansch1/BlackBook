@@ -133,25 +133,35 @@ export default class contactsIndex extends React.Component {
       <div>
         <HeaderContainer />
         <div>
-          <textarea onChange={this.updateSearch.bind(this)}></textarea>
+          <span id='filter-container'>
+            <textarea id='filter' onChange={this.updateSearch.bind(this)} placeholder='Filter by Name'></textarea>
+            <button id='open-button' onClick={this.openModal}>Open Modal</button>
+          </span>
           <ul id='contact-list'>
             {
               this.renderList()
             }
           </ul>
         </div>
-        <button onClick={this.openModal}>Open Modal</button>
         <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
           <button onClick={this.closeModal}>Close</button>
           <form id='contacts-form' onSubmit={this.submitContact}>
-            Name
-            <input type='text' onChange={this.updateName.bind(this)}/>
-            Address
-            <input type='text' onChange={this.updateAddress.bind(this)}/>
-            Email
-            <input type='text' onChange={this.updateEmail.bind(this)}/>
-            Phone
-            <input type='text' onChange={this.updatePhone.bind(this)}/>
+            <span>
+              Name
+              <input type='text' onChange={this.updateName.bind(this)}/>
+            </span>
+            <span>
+              Address
+              <input type='text' onChange={this.updateAddress.bind(this)}/>
+            </span>
+            <span>
+              Email
+              <input type='text' onChange={this.updateEmail.bind(this)}/>
+            </span>
+            <span>
+              Phone
+              <input type='text' onChange={this.updatePhone.bind(this)}/>
+            </span>
             Picture
             <input type='file' onChange={this.addFile.bind(this)}/>
             <textarea onChange={this.updateNotes.bind(this)} maxLength="140"></textarea>

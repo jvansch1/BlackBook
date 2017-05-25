@@ -9,6 +9,7 @@
 #contact-list {
   width: 700px;
   margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .contact-image {
@@ -24,4 +25,66 @@
   font-size: 20px;
   text-align: center;
   margin-top: 20px;
+}
+
+#filter-container {
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+#filter {
+  border-radius: 4px;
+  resize: none;
+  border-radius: 4px;
+  border: 1px solid lightgrey;
+  width: 540px;
+  height: 30px;
+  margin: 0 auto;
+  margin-right: 10px;
+  font-size: 20px;
+  display: block;
+}
+
+
+#open-button {
+  height: 30px;
+  width: 150px;
+  border-radius: 4px;
+  border-style: none;
+  font-size: 16px;
+  color: white;
+  background: black;
+  font-weight: 900;
+}
+
+#open-button:hover {
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form span {
+  display: flex;
+  flex-direction: column;
+}
+
+#contacts-form {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.ReactModal__Content, .ReactModal__Content--after-open {
+  width: 700px;
+  margin: 0 auto;
+  background-color: black;
+}
+
+.ReactModal__Content {
+  background-color: black;
 }

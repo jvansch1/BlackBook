@@ -1,17 +1,18 @@
 import { connect } from 'react-redux'
 import contactsShow from './contactsShow.jsx'
-import { fetchContact } from '../../actions/contactActions.js'
+import { fetchOneContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state, ownProps) => {
+  debugger
   return {
-    contact: Object.keys(state.contacts).map(key => state.contacts[key]),
+    contact: state.contacts,
     id: ownProps.routeParams.id
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchContact: (id) => dispatch(fetchContact(id))
+    fetchOneContact: (id) => dispatch(fetchOneContact(id))
   }
 }
 
