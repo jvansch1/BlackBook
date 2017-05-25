@@ -28,6 +28,7 @@ export default class contactsShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchOneContact(this.props.id).then(contact => {
+      console.log(contact)
       this.setState({
         modalIsOpen: false,
         name: contact.contact.name,
@@ -37,10 +38,11 @@ export default class contactsShow extends React.Component {
         phone: contact.contact.phone,
         notes: contact.contact.notes,
         imageUrl: contact.contact.imageUrl,
-        id: contact._id,
+        id: contact.contact._id,
         imageFile: null,
         mounted: false
       })
+      console.log(this.state)
       return null;
     })
   }
@@ -91,7 +93,7 @@ export default class contactsShow extends React.Component {
   }
 
   submitContact(e) {
-    if (this.state.imageUrl.length > 0) {
+    if (this.state.imageUrl.length > 0 && this.state.imageFile === null) {
       this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
     }
      else if (this.state.imageFile === null) {
@@ -137,7 +139,6 @@ export default class contactsShow extends React.Component {
   }
 
   Modal() {
-    console.log(this.state)
     return (
       <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
         <button onClick={this.closeModal.bind(this)}>Close</button>

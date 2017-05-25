@@ -37575,6 +37575,7 @@ var contactsShow = function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchOneContact(this.props.id).then(function (contact) {
+        console.log(contact);
         _this2.setState({
           modalIsOpen: false,
           name: contact.contact.name,
@@ -37584,10 +37585,11 @@ var contactsShow = function (_React$Component) {
           phone: contact.contact.phone,
           notes: contact.contact.notes,
           imageUrl: contact.contact.imageUrl,
-          id: contact._id,
+          id: contact.contact._id,
           imageFile: null,
           mounted: false
         });
+        console.log(_this2.state);
         return null;
       });
     }
@@ -37679,7 +37681,7 @@ var contactsShow = function (_React$Component) {
     value: function submitContact(e) {
       var _this3 = this;
 
-      if (this.state.imageUrl.length > 0) {
+      if (this.state.imageUrl.length > 0 && this.state.imageFile === null) {
         this.props.updateContact({ id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username }).then(function () {
           return _this3.setState({ modalIsOpen: false });
         }).then(function () {
@@ -37737,7 +37739,6 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'Modal',
     value: function Modal() {
-      console.log(this.state);
       return _react2.default.createElement(
         _reactModal2.default,
         { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
@@ -38273,7 +38274,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var fetchContacts = exports.fetchContacts = function fetchContacts(username) {
-  console.log(username);
   return $.ajax({
     method: 'GET',
     url: 'api/contacts',
@@ -38299,7 +38299,7 @@ var createContact = exports.createContact = function createContact(contact) {
 var updateContact = exports.updateContact = function updateContact(contact) {
   console.log(contact);
   return $.ajax({
-    method: 'PATCH',
+    method: 'PUT',
     url: 'api/contacts/' + contact.id,
     data: contact
   });
