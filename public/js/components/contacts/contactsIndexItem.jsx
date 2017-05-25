@@ -14,7 +14,7 @@ export default class ContactsIndexItem extends React.Component {
           <p>Address: {this.props.contact.address}</p>
           <p>Email: {this.props.contact.email}</p>
           <p>Phone Number: {this.props.contact.phone}</p>
-          <p>Notes: {this.props.contact.notes}</p>
+          <p>Notes: <span id='index-notes'>{this.props.contact.notes}</span></p>
         </div>
       </li>
     )

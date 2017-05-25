@@ -37490,7 +37490,11 @@ var ContactsIndexItem = function (_React$Component) {
             'p',
             null,
             'Notes: ',
-            this.props.contact.notes
+            _react2.default.createElement(
+              'span',
+              { id: 'index-notes' },
+              this.props.contact.notes
+            )
           )
         )
       );
