@@ -3,7 +3,6 @@ import contactsShow from './contactsShow.jsx'
 import { fetchOneContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
   return {
     contact: state.contacts,
     id: ownProps.routeParams.id

@@ -11,25 +11,19 @@ export default class contactsShow extends React.Component {
   }
 
   renderContact() {
-    // if (this.props.contact.length == 0) return null;
-    // console.log(this.props.contact)
-    // let contact = []
-    // this.props.contact.forEach(contactObject => {
-    //   if (contactObject._id === this.props.id) {
-    //     contact.push(contactObject)
-    //   }
-    // })
-    console.log(this.props)
     if (!this.props.contact) return null;
     return (
       <div id='contact-list'>
         <div className='contact'>
           <img id='contact-show-image' src={this.props.contact.imageUrl} />
           <div>
-            <p>{this.props.contact.name}</p>
-            <p>{this.props.contact.address}</p>
-            <p>{this.props.contact.address}</p>
+            <p>Name: {this.props.contact.name}</p>
+            <p>Address: {this.props.contact.address}</p>
+            <p>Email: {this.props.contact.email}</p>
+            <p>Phone: {this.props.contact.phone}</p>
+            <p>Notes: {this.props.contact.notes}</p>
           </div>
+          <i className="fa fa-pencil-square" aria-hidden="true"></i>
         </div>
       </div>
     )

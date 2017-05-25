@@ -37537,15 +37537,6 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'renderContact',
     value: function renderContact() {
-      // if (this.props.contact.length == 0) return null;
-      // console.log(this.props.contact)
-      // let contact = []
-      // this.props.contact.forEach(contactObject => {
-      //   if (contactObject._id === this.props.id) {
-      //     contact.push(contactObject)
-      //   }
-      // })
-      console.log(this.props);
       if (!this.props.contact) return null;
       return _react2.default.createElement(
         'div',
@@ -37560,19 +37551,35 @@ var contactsShow = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
+              'Name: ',
               this.props.contact.name
             ),
             _react2.default.createElement(
               'p',
               null,
+              'Address: ',
               this.props.contact.address
             ),
             _react2.default.createElement(
               'p',
               null,
-              this.props.contact.address
+              'Email: ',
+              this.props.contact.email
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Phone: ',
+              this.props.contact.phone
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Notes: ',
+              this.props.contact.notes
             )
-          )
+          ),
+          _react2.default.createElement('i', { className: 'fa fa-pencil-square', 'aria-hidden': 'true' })
         )
       );
     }
@@ -37620,7 +37627,6 @@ var _contactActions = __webpack_require__(87);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  debugger;
   return {
     contact: state.contacts,
     id: ownProps.routeParams.id
