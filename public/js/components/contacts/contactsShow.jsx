@@ -6,6 +6,7 @@ import config from '../../../../AwsConfig.js'
 aws.config.region = config.region
 aws.config.accessKeyId = config.accessKeyId
 aws.config.secretAccessKey = config.secretAccessKey
+const bucket = new aws.S3({signatureVersion: 'v4'});
 
 export default class contactsShow extends React.Component {
   constructor(props) {
@@ -90,7 +91,10 @@ export default class contactsShow extends React.Component {
   }
 
   submitContact(e) {
-    if (this.state.imageFile === null) {
+    if (this.state.imageUrl.length > 0) {
+      this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
+    }
+     else if (this.state.imageFile === null) {
       this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
     }
     else {

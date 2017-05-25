@@ -37543,6 +37543,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 _awsSdk2.default.config.region = _AwsConfig2.default.region;
 _awsSdk2.default.config.accessKeyId = _AwsConfig2.default.accessKeyId;
 _awsSdk2.default.config.secretAccessKey = _AwsConfig2.default.secretAccessKey;
+var bucket = new _awsSdk2.default.S3({ signatureVersion: 'v4' });
 
 var contactsShow = function (_React$Component) {
   _inherits(contactsShow, _React$Component);
@@ -37678,7 +37679,13 @@ var contactsShow = function (_React$Component) {
     value: function submitContact(e) {
       var _this3 = this;
 
-      if (this.state.imageFile === null) {
+      if (this.state.imageUrl.length > 0) {
+        this.props.updateContact({ id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username }).then(function () {
+          return _this3.setState({ modalIsOpen: false });
+        }).then(function () {
+          return _this3.props.fetchContacts(_this3.props.username);
+        });
+      } else if (this.state.imageFile === null) {
         this.props.updateContact({ id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
           return _this3.setState({ modalIsOpen: false });
         }).then(function () {
