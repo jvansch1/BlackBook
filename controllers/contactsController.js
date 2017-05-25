@@ -45,4 +45,29 @@ module.exports = (app) => {
       }
     })
   })
+
+  app.patch('/api/contacts/:id', (req, res) => {
+    Contacts.findById(req.params.id, (err, contact) => {
+      let updatedContact = Contacts({
+        name: req.body.name,
+        address: req.body.address,
+        username: req.body.username,
+        imageUrl: req.body.imageUrl,
+        email: req.body.email,
+        notes: req.body.notes,
+        phone: req.body.phone
+      })
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        updatedContact.save((err, contact) => {
+          if (err) {
+            res.status(500).send(err)
+          } else {
+            res.send(contact)
+          }
+        })
+      }
+    })
+  })
 }
