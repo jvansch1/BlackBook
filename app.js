@@ -54,7 +54,7 @@ passport.deserializeUser(function(username, done) {
 contactsController(app)
 usersController(app)
 sessionController(app)
-mongoose.connect('mongodb://127.0.0.1/AddressBook')
+mongoose.connect('mongodb://jvansch1:Mrxbox53092@ds155091.mlab.com:55091/blackbook')
 
 app.use('/static', express.static(path.resolve(__dirname, 'public')))
 app.set('view engine', 'pug')
