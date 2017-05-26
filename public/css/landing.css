@@ -18,13 +18,18 @@
   text-decoration: underline;
 }
 
-
 #landing-div span {
   display: flex;
   text-align: center;
+  justify-content: space-between;
   width: 300px;
   margin: 0 auto;
-  margin-top: 20px;
+  /*margin-top: 20px;*/
+}
+
+#landing-div div, #landing-div a {
+  margin: 0 auto;
+  /*margin-top: 20px;*/
 }
 
 #link-to-login {
@@ -32,7 +37,9 @@
   text-align: center;
   margin: 0 auto;
   margin-top: 25px;
-  width: 300px;
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 #link-to-login a {
@@ -49,6 +56,9 @@
   border-radius: 4px;
 }
 
-#landing-image {
-  z=index: 100000;
+#landing-img {
+  display: block;
+  z-index: 100000;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }

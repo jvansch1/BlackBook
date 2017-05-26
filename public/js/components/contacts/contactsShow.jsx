@@ -90,8 +90,8 @@ export default class contactsShow extends React.Component {
             <p>Notes: {this.props.contact.notes}</p>
           </div>
           <div id='edit-button-wrapper'>
-            <i onClick={this.openModal.bind(this)} className="fa fa-pencil-square" aria-hidden="true"></i>
-            <i onClick={this.deleteContact.bind(this)} className="fa fa-trash" aria-hidden="true"></i>
+            <span><i onClick={this.openModal.bind(this)} className="fa fa-pencil-square" aria-hidden="true"></i><p>Edit</p></span>
+          <span><i onClick={this.deleteContact.bind(this)} className="fa fa-trash" aria-hidden="true"></i><p>Delete</p></span>
           </div>
         </div>
       </div>

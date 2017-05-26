@@ -23,10 +23,10 @@ export default class Landing extends React.Component {
         <div id='landing-div'>
           <img id='landing-img' src='/static/img/PetitFormalLogo.png' />
           <span>
-            <Link to='signup'><div>SIGNUP</div></Link>
+            <Link to='signup'><div><u>SIGNUP</u></div></Link>
             <div id='guest-button' onClick={this.loginGuest.bind(this)}>GUEST</div>
           </span>
-          <p id='link-to-login'>Already a User? <Link to='/login'>Log In!</Link></p>
+          <p id='link-to-login'>Already a User? <Link to='/login'><u>Log In!</u></Link></p>
         </div>
       </div>
     )

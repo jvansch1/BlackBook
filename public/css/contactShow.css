@@ -4,7 +4,8 @@
 }
 
 #show-content {
-  width: 400px;
+  width: 395px;
+  margin-left: 5px;
 }
 
 #edit-button-wrapper {
@@ -15,6 +16,20 @@
   justify-content: flex-end;
 }
 
+#edit-button-wrapper span {
+  display: flex;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 .fa-pencil-square:hover {
+  cursor: pointer;
+}
+
+.fa-trash, .fa-pencil-square {
+  margin-right: 5px;
+}
+
+.fa-trash:hover {
   cursor: pointer;
 }

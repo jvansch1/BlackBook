@@ -37711,8 +37711,26 @@ var contactsShow = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'edit-button-wrapper' },
-            _react2.default.createElement('i', { onClick: this.openModal.bind(this), className: 'fa fa-pencil-square', 'aria-hidden': 'true' }),
-            _react2.default.createElement('i', { onClick: this.deleteContact.bind(this), className: 'fa fa-trash', 'aria-hidden': 'true' })
+            _react2.default.createElement(
+              'span',
+              null,
+              _react2.default.createElement('i', { onClick: this.openModal.bind(this), className: 'fa fa-pencil-square', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'p',
+                null,
+                'Edit'
+              )
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              _react2.default.createElement('i', { onClick: this.deleteContact.bind(this), className: 'fa fa-trash', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'p',
+                null,
+                'Delete'
+              )
+            )
           )
         )
       );
@@ -38042,7 +38060,11 @@ var Landing = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 null,
-                'SIGNUP'
+                _react2.default.createElement(
+                  'u',
+                  null,
+                  'SIGNUP'
+                )
               )
             ),
             _react2.default.createElement(
@@ -38058,7 +38080,11 @@ var Landing = function (_React$Component) {
             _react2.default.createElement(
               _reactRouter.Link,
               { to: '/login' },
-              'Log In!'
+              _react2.default.createElement(
+                'u',
+                null,
+                'Log In!'
+              )
             )
           )
         )
