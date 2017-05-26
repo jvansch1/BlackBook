@@ -36861,12 +36861,16 @@ var Login = function (_React$Component) {
           ),
           _react2.default.createElement(
             'p',
-            null,
+            { className: 'auth-link' },
             'Not a user? ',
             _react2.default.createElement(
               _reactRouter.Link,
-              { to: '/' },
-              'Sign Up!'
+              { to: '/signup' },
+              _react2.default.createElement(
+                'u',
+                null,
+                'Sign Up!'
+              )
             )
           )
         )
@@ -37042,12 +37046,16 @@ var SignUp = function (_React$Component) {
           ),
           _react2.default.createElement(
             'p',
-            null,
-            'Already a user?',
+            { className: 'auth-link' },
+            'Already a user? ',
             _react2.default.createElement(
               _reactRouter.Link,
               { to: '/login' },
-              'Login!'
+              _react2.default.createElement(
+                'u',
+                null,
+                'Login!'
+              )
             )
           )
         )

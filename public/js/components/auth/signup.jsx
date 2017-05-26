@@ -44,7 +44,7 @@ export default class SignUp extends React.Component {
             </div>
             <div className='auth-button' onClick={this.createUser.bind(this)}>Signup</div>
           </form>
-          <p>Already a user?<Link to='/login'>Login!</Link></p>
+          <p className='auth-link'>Already a user? <Link to='/login'><u>Login!</u></Link></p>
         </div>
       </div>
     )

@@ -113,7 +113,7 @@ form span {
   font-weight: bold;
 }
 
-form input[type='text'] {
+form input[type='text'], input[type='password'] {
   border-radius: 4px;
   border-style: none;
   border: 1px solid lightgrey;
