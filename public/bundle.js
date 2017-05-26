@@ -6564,7 +6564,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logoutUser = exports.login = exports.logout = exports.receiveUser = exports.LOGOUT = exports.LOGIN = undefined;
+exports.logoutUser = exports.clearErrors = exports.login = exports.removeErrors = exports.receiveErrors = exports.logout = exports.receiveUser = exports.CLEAR_ERRORS = exports.RECEIVE_ERRORS = exports.LOGOUT = exports.LOGIN = undefined;
 
 var _sessionApiUtil = __webpack_require__(374);
 
@@ -6574,6 +6574,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var LOGIN = exports.LOGIN = 'LOGIN';
 var LOGOUT = exports.LOGOUT = 'LOGOUT';
+var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+var CLEAR_ERRORS = exports.CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 var receiveUser = exports.receiveUser = function receiveUser(user) {
   return {
@@ -6589,11 +6591,33 @@ var logout = exports.logout = function logout() {
   };
 };
 
+var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_ERRORS,
+    errors: errors
+  };
+};
+
+var removeErrors = exports.removeErrors = function removeErrors(errors) {
+  return {
+    type: CLEAR_ERRORS
+  };
+};
+
 var login = exports.login = function login(user) {
+  console.log(user);
   return function (dispatch) {
     return sessionApiUtil.login(user).then(function (user) {
       return dispatch(receiveUser(user));
+    }, function (err) {
+      return dispatch(receiveErrors(err));
     });
+  };
+};
+
+var clearErrors = exports.clearErrors = function clearErrors() {
+  return function (dispatch) {
+    return dispatch(removeErrors());
   };
 };
 
@@ -36782,29 +36806,51 @@ var Login = function (_React$Component) {
   }
 
   _createClass(Login, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.clearErrors();
+    }
+  }, {
     key: 'login',
     value: function login(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.props.login(this.state).then(function () {
-        return _reactRouter.hashHistory.push('/contacts');
+      this.props.login(this.state).then(function (session) {
+        if (session.type === "RECEIVE_ERRORS") {
+          _this2.setState({ username: '', password: '' });
+        } else {
+          _reactRouter.hashHistory.push('/contacts');
+        }
       });
+    }
+  }, {
+    key: 'renderErrors',
+    value: function renderErrors() {
+      if (this.props.currentUser.errors) {
+        return _react2.default.createElement(
+          'p',
+          { id: 'error' },
+          this.props.currentUser.errors[0]
+        );
+      }
     }
   }, {
     key: 'updateUsername',
     value: function updateUsername(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.setState({ username: e.currentTarget.value }, function () {
-        return console.log(_this2.state);
+        return console.log(_this3.state);
       });
     }
   }, {
     key: 'updatePassword',
     value: function updatePassword(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.setState({ password: e.currentTarget.value }, function () {
-        return console.log(_this3.state);
+        return console.log(_this4.state);
       });
     }
   }, {
@@ -36822,6 +36868,7 @@ var Login = function (_React$Component) {
             _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
           )
         ),
+        this.renderErrors(),
         _react2.default.createElement(
           'div',
           { id: 'login-form-wrapper' },
@@ -36856,7 +36903,7 @@ var Login = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'auth-button', onClick: this.login.bind(this) },
-              'Signup'
+              'Login'
             )
           ),
           _react2.default.createElement(
@@ -36914,6 +36961,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     login: function login(user) {
       return dispatch((0, _sessionActions.login)(user));
+    },
+    clearErrors: function clearErrors() {
+      return dispatch((0, _sessionActions.clearErrors)());
     }
   };
 };
@@ -38032,6 +38082,11 @@ var Landing = function (_React$Component) {
   }
 
   _createClass(Landing, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.clearErrors();
+    }
+  }, {
     key: 'loginGuest',
     value: function loginGuest(e) {
       e.preventDefault();
@@ -38130,6 +38185,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     login: function login(user) {
       return dispatch((0, _sessionActions.login)(user));
+    },
+    clearErrors: function clearErrors() {
+      return dispatch((0, _sessionActions.clearErrors)());
     }
   };
 };
@@ -38271,7 +38329,18 @@ var SessionReducer = function SessionReducer() {
     case _sessionActions.LOGOUT:
       return {};
     case 'persist/REHYDRATE':
-      return action.payload.session;
+      var persisted = action.payload.session;
+      persisted.errors = [];
+      return persisted;
+    case _sessionActions.RECEIVE_ERRORS:
+      var newState = (0, _merge2.default)({}, state);
+      newState.errors = ["Invalid username or password"];
+      return newState;
+    case _sessionActions.CLEAR_ERRORS:
+      var updatedState = (0, _merge2.default)({}, state);
+      debugger;
+      updatedState.errors = [];
+      return updatedState;
     default:
       return state;
   }
@@ -38412,6 +38481,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var login = exports.login = function login(user) {
+  console.log(user);
   return $.ajax({
     method: 'POST',
     url: 'login',

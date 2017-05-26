@@ -6,9 +6,13 @@ export default class Landing extends React.Component {
     super(props)
   }
 
+  componentDidMount() {
+    this.props.clearErrors();
+  }
+
   loginGuest(e) {
     e.preventDefault()
-    this.props.login({username: 'guest', password: 'password'}).then(() => hashHistory.push('/contacts'))
+    this.props.login({username: 'guest', password: 'password'}).then(() => hashHistory.push('/contacts'));
   }
 
   render() {

@@ -84,3 +84,7 @@ video {
   font-size: 20px;
   font-weight: bold;
 }
+
+#error {
+  color: white;
+}

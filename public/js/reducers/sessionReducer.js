@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../actions/sessionActions.js'
+import { LOGIN, LOGOUT, RECEIVE_ERRORS, CLEAR_ERRORS } from '../actions/sessionActions.js'
 import merge from 'lodash/merge'
 
 
@@ -9,7 +9,18 @@ const SessionReducer = (state = {}, action) => {
     case LOGOUT:
       return {}
     case 'persist/REHYDRATE':
-      return action.payload.session
+      let persisted = action.payload.session
+      persisted.errors = [];
+      return persisted
+    case RECEIVE_ERRORS:
+      let newState = merge({}, state)
+      newState.errors = ["Invalid username or password"]
+      return newState
+    case CLEAR_ERRORS:
+      let updatedState = merge({}, state)
+      debugger
+      updatedState.errors = [];
+      return updatedState
     default:
       return state
   }

@@ -10,9 +10,27 @@ export default class Login extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.clearErrors()
+  }
+
   login(e) {
     e.preventDefault()
-    this.props.login(this.state).then(() => hashHistory.push('/contacts'))
+    this.props.login(this.state).then((session) => {
+      if (session.type === "RECEIVE_ERRORS") {
+        this.setState({username: '', password: ''});
+      } else {
+        hashHistory.push('/contacts')
+      }
+    })
+  }
+
+  renderErrors() {
+    if (this.props.currentUser.errors) {
+      return(
+        <p id='error'>{this.props.currentUser.errors[0]}</p>
+      )
+    }
   }
 
   updateUsername(e) {
@@ -31,6 +49,7 @@ export default class Login extends React.Component {
             <source src="https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4" type="video/mp4"/>
           </video>
         </div>
+        {this.renderErrors()}
         <div id='login-form-wrapper'>
           <h1 className='auth-title'>Login</h1>
           <form onSubmit={this.login.bind(this)}>
@@ -42,7 +61,7 @@ export default class Login extends React.Component {
               <p>Password</p>
               <input type='text' onChange={this.updatePassword.bind(this)}/>
             </div>
-            <div className='auth-button' onClick={this.login.bind(this)}>Signup</div>
+            <div className='auth-button' onClick={this.login.bind(this)}>Login</div>
           </form>
           <p className='auth-link'>Not a user? <Link to='/signup'><u>Sign Up!</u></Link></p>
         </div>
