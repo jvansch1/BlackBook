@@ -1,9 +1,16 @@
 .contact {
   border: 1px solid lightgrey;
+  box-shadow: 2px 2px 5px #888888;
+  border-radius: 2px;
   margin-top: 10px;
   display: flex;
   text-decoration: none;
   padding: 5px;
+}
+
+.contact:hover {
+  box-shadow: none;
+  border: 1px solid black;
 }
 
 

@@ -30,3 +30,10 @@ export const updateContact = (contact) => {
     data: contact
   })
 }
+
+export const deleteContact = (id) => {
+  return $.ajax({
+    method: 'DELETE',
+    url: `api/contacts/${id}`
+  })
+}

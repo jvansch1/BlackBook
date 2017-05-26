@@ -1,6 +1,7 @@
 import React from 'react'
 import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
+import { hashHistory } from 'react-router';
 import aws from 'aws-sdk'
 import config from '../../../../AwsConfig.js'
 aws.config.region = config.region
@@ -71,6 +72,10 @@ export default class contactsShow extends React.Component {
     this.setState({notes: e.currentTarget.value})
   }
 
+  deleteContact() {
+    this.props.deleteContact(this.props.id).then(() => hashHistory.push('/contacts'))
+  }
+
   renderContact() {
     if (!this.props.contact) return null;
     return (
@@ -86,6 +91,7 @@ export default class contactsShow extends React.Component {
           </div>
           <div id='edit-button-wrapper'>
             <i onClick={this.openModal.bind(this)} className="fa fa-pencil-square" aria-hidden="true"></i>
+            <i onClick={this.deleteContact.bind(this)} className="fa fa-trash" aria-hidden="true"></i>
           </div>
         </div>
       </div>

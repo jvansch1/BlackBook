@@ -9,7 +9,7 @@
 
 #edit-button-wrapper {
   position: relative;
-  left: 50px;
+  /*left: 50px;*/
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

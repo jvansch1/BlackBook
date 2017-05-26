@@ -1,8 +1,9 @@
 import * as ContactsApiUtil from '../util/contactsApiUtil.js'
 
-export const RECEIVE_CONTACTS = 'RECEIVE_CONTACTS'
-export const RECEIVE_CONTACT = 'RECEIVE_CONTACT'
-export const RECEIVE_ONE_CONTACT = 'RECEIVE_ONE_CONTACT'
+export const RECEIVE_CONTACTS = 'RECEIVE_CONTACTS';
+export const RECEIVE_CONTACT = 'RECEIVE_CONTACT';
+export const REMOVE_CONTACT = 'REMOVE_CONTACT';
+export const RECEIVE_ONE_CONTACT = 'RECEIVE_ONE_CONTACT';
 
 export const receiveContacts = (contacts) => ({
   type: RECEIVE_CONTACTS,
@@ -17,6 +18,11 @@ export const receiveContact = (contact) => ({
 export const receiveOneContact = (contact) => ({
   type: RECEIVE_ONE_CONTACT,
   contact
+})
+
+export const removeContact = (id) => ({
+  type: REMOVE_CONTACT,
+  id
 })
 
 export const fetchContacts = (username) => {
@@ -52,5 +58,12 @@ export const updateContact = (contact) => {
   return dispatch => {
     return ContactsApiUtil.updateContact(contact)
       .then(contact => dispatch(receiveOneContact(contact)))
+  }
+}
+
+export const deleteContact = (id) => {
+  return dispatch => {
+    return ContactsApiUtil.deleteContact(id)
+      .then(response => dispatch(removeContact(response)))
   }
 }

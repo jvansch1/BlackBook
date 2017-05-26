@@ -68,4 +68,17 @@ module.exports = (app) => {
       }
     })
   })
+
+  app.delete('/api/contacts/:id', (req,res) => {
+    console.log(req.params)
+    console.log(req.body)
+    Contacts.findByIdAndRemove(req.params.id, (err, contact) => {
+      let response = {
+        message: 'Successfully deleted',
+        id: contact._id
+      };
+
+      res.send(response);
+    })
+  })
 }
