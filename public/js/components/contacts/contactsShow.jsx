@@ -83,11 +83,11 @@ export default class contactsShow extends React.Component {
         <div className='contact'>
           <img id='contact-show-image' src={this.props.contact.imageUrl} />
           <div id='show-content'>
-            <p>Name: {this.props.contact.name}</p>
-            <p>Address: {this.props.contact.address}</p>
-            <p>Email: {this.props.contact.email}</p>
-            <p>Phone: {this.props.contact.phone}</p>
-            <p>Notes: {this.props.contact.notes}</p>
+            <p>Name: <b>{this.props.contact.name}</b></p>
+            <p>Address: <b>{this.props.contact.address}</b></p>
+            <p>Email: <b>{this.props.contact.email}</b></p>
+            <p>Phone: <b>{this.props.contact.phone}</b></p>
+            <p id='notes-container'>Notes:&nbsp;<div id='show-notes'><b>{this.props.contact.notes}</b></div></p>
           </div>
           <div id='edit-button-wrapper'>
             <span><i onClick={this.openModal.bind(this)} className="fa fa-pencil-square" aria-hidden="true"></i><p>Edit</p></span>

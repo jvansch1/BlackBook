@@ -37361,7 +37361,6 @@ var contactsIndex = function (_React$Component) {
   }, {
     key: 'updateSearch',
     value: function updateSearch(e) {
-      console.log(this.state);
       this.setState({ search: e.currentTarget.value });
     }
   }, {
@@ -37390,7 +37389,7 @@ var contactsIndex = function (_React$Component) {
         );
       } else {
         return this.props.contacts.map(function (contact, idx) {
-          if (contact.name.toLowerCase().includes(_this4.state.search)) {
+          if (contact.name.toLowerCase().includes(_this4.state.search.toLowerCase())) {
             return _react2.default.createElement(
               _reactRouter.Link,
               { to: '/contacts/' + contact._id, key: idx },
@@ -37582,36 +37581,81 @@ var ContactsIndexItem = function (_React$Component) {
           { className: 'contact-content' },
           _react2.default.createElement(
             'p',
-            null,
-            'Name: ',
-            this.props.contact.name
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'Address: ',
-            this.props.contact.address
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'Email: ',
-            this.props.contact.email
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'Phone Number: ',
-            this.props.contact.phone
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'Notes: ',
+            { className: 'contact-field' },
             _react2.default.createElement(
-              'span',
+              'u',
+              null,
+              'Name:'
+            ),
+            ' ',
+            _react2.default.createElement(
+              'b',
+              null,
+              this.props.contact.name
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: 'contact-field' },
+            _react2.default.createElement(
+              'u',
+              null,
+              'Address:'
+            ),
+            ' ',
+            _react2.default.createElement(
+              'b',
+              null,
+              this.props.contact.address
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: 'contact-field' },
+            _react2.default.createElement(
+              'u',
+              null,
+              'Email:'
+            ),
+            ' ',
+            _react2.default.createElement(
+              'b',
+              null,
+              this.props.contact.email
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: 'contact-field' },
+            _react2.default.createElement(
+              'u',
+              null,
+              'Phone Number:'
+            ),
+            ' ',
+            _react2.default.createElement(
+              'b',
+              null,
+              this.props.contact.phone
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            { id: 'notes-container' },
+            _react2.default.createElement(
+              'u',
+              null,
+              'Notes:'
+            ),
+            '\xA0',
+            _react2.default.createElement(
+              'div',
               { id: 'index-notes' },
-              this.props.contact.notes
+              _react2.default.createElement(
+                'b',
+                null,
+                this.props.contact.notes
+              )
             )
           )
         )
@@ -37775,31 +37819,55 @@ var contactsShow = function (_React$Component) {
               'p',
               null,
               'Name: ',
-              this.props.contact.name
+              _react2.default.createElement(
+                'b',
+                null,
+                this.props.contact.name
+              )
             ),
             _react2.default.createElement(
               'p',
               null,
               'Address: ',
-              this.props.contact.address
+              _react2.default.createElement(
+                'b',
+                null,
+                this.props.contact.address
+              )
             ),
             _react2.default.createElement(
               'p',
               null,
               'Email: ',
-              this.props.contact.email
+              _react2.default.createElement(
+                'b',
+                null,
+                this.props.contact.email
+              )
             ),
             _react2.default.createElement(
               'p',
               null,
               'Phone: ',
-              this.props.contact.phone
+              _react2.default.createElement(
+                'b',
+                null,
+                this.props.contact.phone
+              )
             ),
             _react2.default.createElement(
               'p',
-              null,
-              'Notes: ',
-              this.props.contact.notes
+              { id: 'notes-container' },
+              'Notes:\xA0',
+              _react2.default.createElement(
+                'div',
+                { id: 'show-notes' },
+                _react2.default.createElement(
+                  'b',
+                  null,
+                  this.props.contact.notes
+                )
+              )
             )
           ),
           _react2.default.createElement(

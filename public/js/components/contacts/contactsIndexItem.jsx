@@ -10,11 +10,11 @@ export default class ContactsIndexItem extends React.Component {
       <li className='contact' key={this.props.contact._id}>
         <img className='contact-image' src={this.props.contact.imageUrl} />
         <div className='contact-content'>
-          <p>Name: {this.props.contact.name}</p>
-          <p>Address: {this.props.contact.address}</p>
-          <p>Email: {this.props.contact.email}</p>
-          <p>Phone Number: {this.props.contact.phone}</p>
-          <p>Notes: <span id='index-notes'>{this.props.contact.notes}</span></p>
+          <p className='contact-field'><u>Name:</u> <b>{this.props.contact.name}</b></p>
+          <p className='contact-field'><u>Address:</u> <b>{this.props.contact.address}</b></p>
+          <p className='contact-field'><u>Email:</u> <b>{this.props.contact.email}</b></p>
+          <p className='contact-field'><u>Phone Number:</u> <b>{this.props.contact.phone}</b></p>
+          <p id='notes-container'><u>Notes:</u>&nbsp;<div id='index-notes'><b>{this.props.contact.notes}</b></div></p>
         </div>
       </li>
     )

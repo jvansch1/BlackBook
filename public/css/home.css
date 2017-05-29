@@ -70,6 +70,10 @@ a {
 	color: black;
 }
 
+b {
+	font-weight: bold;
+}
+
 u {
 	text-decoration: underline;
 }

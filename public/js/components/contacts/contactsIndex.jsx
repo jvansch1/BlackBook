@@ -92,7 +92,6 @@ export default class contactsIndex extends React.Component {
   }
 
   updateSearch(e) {
-    console.log(this.state)
     this.setState({search: e.currentTarget.value})
   }
 
@@ -113,7 +112,7 @@ export default class contactsIndex extends React.Component {
       return (<p id='no-contacts'>No Contacts</p>)
     } else {
       return this.props.contacts.map((contact, idx) => {
-        if ((contact.name.toLowerCase()).includes(this.state.search)) {
+        if ((contact.name.toLowerCase()).includes(this.state.search.toLowerCase())) {
           return (
             <Link to={`/contacts/${contact._id}`} key={idx}>
               <ContactsIndexItem contact={contact}/>
