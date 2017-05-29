@@ -18051,7 +18051,7 @@ exports.default = config;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createUser = exports.receiveUser = exports.RECEIVE_USER = undefined;
+exports.createUser = exports.receiveErrors = exports.receiveUser = exports.RECEIVE_ERRORS = exports.RECEIVE_USER = undefined;
 
 var _userApiUtil = __webpack_require__(375);
 
@@ -18060,6 +18060,7 @@ var userApiUtil = _interopRequireWildcard(_userApiUtil);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
+var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 var receiveUser = exports.receiveUser = function receiveUser(user) {
   return {
@@ -18068,10 +18069,19 @@ var receiveUser = exports.receiveUser = function receiveUser(user) {
   };
 };
 
+var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_ERRORS,
+    errors: errors
+  };
+};
+
 var createUser = exports.createUser = function createUser(user) {
   return function (dispatch) {
     return userApiUtil.createUser(user).then(function (user) {
       return dispatch(receiveUser(user));
+    }, function (err) {
+      return dispatch(receiveErrors(err));
     });
   };
 };
@@ -37017,15 +37027,35 @@ var SignUp = function (_React$Component) {
   }
 
   _createClass(SignUp, [{
+    key: 'renderErrors',
+    value: function renderErrors() {
+      if (this.props.currentUser.errors) {
+        return _react2.default.createElement(
+          'ul',
+          { id: 'error-list' },
+          _react2.default.createElement(
+            'li',
+            { id: 'error' },
+            this.props.currentUser.errors[0]
+          )
+        );
+      }
+    }
+  }, {
     key: 'createUser',
     value: function createUser(e) {
       var _this2 = this;
 
       e.preventDefault();
-      this.props.createUser(this.state).then(function (user) {
-        return _this2.props.login(user.user);
-      }).then(function () {
-        return _reactRouter.hashHistory.push('/contacts');
+      this.props.createUser(this.state).then(function (user, err) {
+        // debugger
+        if (user.type === "RECEIVE_ERRORS") {
+          _this2.setState({ username: '', password: '' });
+        } else {
+          _this2.props.login(user.user).then(function () {
+            return _reactRouter.hashHistory.push('/contacts');
+          });
+        }
       });
     }
   }, {
@@ -37069,6 +37099,7 @@ var SignUp = function (_React$Component) {
             { className: 'auth-title' },
             'Signup'
           ),
+          this.renderErrors(),
           _react2.default.createElement(
             'form',
             { onSubmit: this.createUser.bind(this) },
@@ -37146,7 +37177,9 @@ var _sessionActions = __webpack_require__(50);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {};
+  return {
+    currentUser: state.user
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -38378,6 +38411,10 @@ var userReducer = function userReducer() {
   switch (action.type) {
     case _userActions.RECEIVE_USER:
       return action.user;
+    case _userActions.RECEIVE_ERRORS:
+      var newState = (0, _merge2.default)({}, state);
+      newState.errors = ["Must have a username and password"];
+      return newState;
     default:
       return state;
   }

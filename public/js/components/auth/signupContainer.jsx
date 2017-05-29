@@ -5,7 +5,7 @@ import { login } from '../../actions/sessionActions.js'
 
 const mapStateToProps = (state) => {
   return {
-
+    currentUser: state.user
   }
 }
 

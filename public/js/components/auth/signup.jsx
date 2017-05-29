@@ -10,9 +10,26 @@ export default class SignUp extends React.Component {
     }
   }
 
+  renderErrors() {
+    if (this.props.currentUser.errors) {
+      return (
+        <ul id='error-list'>
+          <li id='error'>{this.props.currentUser.errors[0]}</li>
+        </ul>
+      )
+    }
+  }
+
   createUser(e) {
     e.preventDefault()
-    this.props.createUser(this.state).then(user => this.props.login(user.user)).then(() => hashHistory.push('/contacts'))
+    this.props.createUser(this.state).then((user, err) => {
+      // debugger
+      if (user.type === "RECEIVE_ERRORS") {
+        this.setState({username: '', password: ''})
+      } else {
+        this.props.login(user.user).then(() => hashHistory.push('/contacts'))
+      }
+    })
   }
 
   updateUsername(e) {
@@ -33,6 +50,7 @@ export default class SignUp extends React.Component {
         </div>
         <div id='login-form-wrapper'>
           <h1 className='auth-title'>Signup</h1>
+          {this.renderErrors()}
           <form onSubmit={this.createUser.bind(this)}>
             <div className='input-container'>
               <p>Username</p>
