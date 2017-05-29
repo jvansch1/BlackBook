@@ -28,7 +28,9 @@ export default class Login extends React.Component {
   renderErrors() {
     if (this.props.currentUser.errors) {
       return(
-        <p id='error'>{this.props.currentUser.errors[0]}</p>
+        <ul id='error-list'>
+          <li id='error'>{this.props.currentUser.errors[0]}</li>
+        </ul>
       )
     }
   }
@@ -49,9 +51,9 @@ export default class Login extends React.Component {
             <source src="https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4" type="video/mp4"/>
           </video>
         </div>
-        {this.renderErrors()}
         <div id='login-form-wrapper'>
           <h1 className='auth-title'>Login</h1>
+          {this.renderErrors()}
           <form onSubmit={this.login.bind(this)}>
             <div className='input-container'>
               <p>Username</p>

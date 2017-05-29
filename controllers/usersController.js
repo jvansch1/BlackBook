@@ -20,6 +20,7 @@ module.exports = (app) => {
     })
     newUser.save((err, object) => {
       if (err) {
+        console.log(err)
         res.status(500).send(err)
       }
       else {

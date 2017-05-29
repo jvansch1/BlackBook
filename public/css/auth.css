@@ -85,6 +85,18 @@ video {
   font-weight: bold;
 }
 
+#error-list {
+  /*list-style: circle;*/
+  margin: 0 auto;
+  width: 300px;
+}
+
 #error {
-  color: white;
+  /*list-style: circle;*/
+  z-index: 100000000000000;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
 }
