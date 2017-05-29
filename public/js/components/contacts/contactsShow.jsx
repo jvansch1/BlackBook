@@ -24,7 +24,8 @@ export default class contactsShow extends React.Component {
       id: null,
       imageUrl: props.imageUrl,
       imageFile: null,
-      mounted: false
+      mounted: false,
+      loading: false
     }
   }
 

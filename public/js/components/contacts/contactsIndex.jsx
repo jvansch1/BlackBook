@@ -26,7 +26,8 @@ export default class contactsIndex extends React.Component {
       search: '',
       imageUrl: null,
       imageFile: null,
-      mounted: false
+      mounted: false,
+      loading: false
     }
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
@@ -64,9 +65,9 @@ export default class contactsIndex extends React.Component {
         else {
           console.log(response)
           bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
-            setState(this, { imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` }).then(() => {
+            setState(this, { imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, loading: true }).then(() => {
               this.props.createContact({name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username })
-              .then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
+              .then(() => this.setState({ modalIsOpen: false, loading: true})).then(() => this.props.fetchContacts(this.props.username))
             })
           })
         }
@@ -126,12 +127,36 @@ export default class contactsIndex extends React.Component {
     }
   }
 
+  renderSpinner() {
+    if (this.state.loading) {
+      return (
+        <div className="sk-circle">
+          <div className="sk-circle1 sk-child"></div>
+          <div className="sk-circle2 sk-child"></div>
+          <div className="sk-circle3 sk-child"></div>
+          <div className="sk-circle4 sk-child"></div>
+          <div className="sk-circle5 sk-child"></div>
+          <div className="sk-circle6 sk-child"></div>
+          <div className="sk-circle7 sk-child"></div>
+          <div className="sk-circle8 sk-child"></div>
+          <div className="sk-circle9 sk-child"></div>
+          <div className="sk-circle10 sk-child"></div>
+          <div className="sk-circle11 sk-child"></div>
+          <div className="sk-circle12 sk-child"></div>
+        </div>
+      )
+    }
+    return null;
+  }
+
   render() {
     if (!this.props.username) return null;
     if (!this.state.mounted) return null;
+    console.log(this.state.loading)
     return (
       <div>
         <HeaderContainer />
+          {this.renderSpinner()}
         <div>
           <span id='filter-container'>
             <textarea id='filter' onChange={this.updateSearch.bind(this)} placeholder='Filter by Name'></textarea>

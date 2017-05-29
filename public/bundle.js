@@ -37270,7 +37270,8 @@ var contactsIndex = function (_React$Component) {
       search: '',
       imageUrl: null,
       imageFile: null,
-      mounted: false
+      mounted: false,
+      loading: false
     };
     _this.openModal = _this.openModal.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
@@ -37326,9 +37327,9 @@ var contactsIndex = function (_React$Component) {
           } else {
             console.log(response);
             bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: _this3.state.imageFile.name }, function (err, url) {
-              (0, _reactStatePromise2.default)(_this3, { imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name }).then(function () {
+              (0, _reactStatePromise2.default)(_this3, { imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, loading: true }).then(function () {
                 _this3.props.createContact({ name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
-                  return _this3.setState({ modalIsOpen: false });
+                  return _this3.setState({ modalIsOpen: false, loading: true });
                 }).then(function () {
                   return _this3.props.fetchContacts(_this3.props.username);
                 });
@@ -37405,14 +37406,39 @@ var contactsIndex = function (_React$Component) {
       }
     }
   }, {
+    key: 'renderSpinner',
+    value: function renderSpinner() {
+      if (this.state.loading) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'sk-circle' },
+          _react2.default.createElement('div', { className: 'sk-circle1 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle2 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle3 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle4 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle5 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle6 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle7 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle8 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle9 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle10 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle11 sk-child' }),
+          _react2.default.createElement('div', { className: 'sk-circle12 sk-child' })
+        );
+      }
+      return null;
+    }
+  }, {
     key: 'render',
     value: function render() {
       if (!this.props.username) return null;
       if (!this.state.mounted) return null;
+      console.log(this.state.loading);
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(_headerContainer2.default, null),
+        this.renderSpinner(),
         _react2.default.createElement(
           'div',
           null,
@@ -37749,7 +37775,8 @@ var contactsShow = function (_React$Component) {
       id: null,
       imageUrl: props.imageUrl,
       imageFile: null,
-      mounted: false
+      mounted: false,
+      loading: false
     };
     return _this;
   }
