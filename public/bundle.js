@@ -37432,6 +37432,11 @@ var contactsIndex = function (_React$Component) {
           { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
           _react2.default.createElement('i', { className: 'fa fa-times-circle', 'aria-hidden': 'true', onClick: this.closeModal }),
           _react2.default.createElement(
+            'h1',
+            { className: 'form-header' },
+            'Add Contact'
+          ),
+          _react2.default.createElement(
             'form',
             { id: 'contacts-form', onSubmit: this.submitContact },
             _react2.default.createElement(
@@ -37818,7 +37823,12 @@ var contactsShow = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
-              'Name: ',
+              _react2.default.createElement(
+                'u',
+                null,
+                'Name:'
+              ),
+              ' ',
               _react2.default.createElement(
                 'b',
                 null,
@@ -37828,7 +37838,12 @@ var contactsShow = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
-              'Address: ',
+              _react2.default.createElement(
+                'u',
+                null,
+                'Address:'
+              ),
+              ' ',
               _react2.default.createElement(
                 'b',
                 null,
@@ -37838,7 +37853,12 @@ var contactsShow = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
-              'Email: ',
+              _react2.default.createElement(
+                'u',
+                null,
+                'Email:'
+              ),
+              ' ',
               _react2.default.createElement(
                 'b',
                 null,
@@ -37848,7 +37868,12 @@ var contactsShow = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
-              'Phone: ',
+              _react2.default.createElement(
+                'u',
+                null,
+                'Phone:'
+              ),
+              ' ',
               _react2.default.createElement(
                 'b',
                 null,
@@ -37858,7 +37883,12 @@ var contactsShow = function (_React$Component) {
             _react2.default.createElement(
               'p',
               { id: 'notes-container' },
-              'Notes:\xA0',
+              _react2.default.createElement(
+                'u',
+                null,
+                'Notes:'
+              ),
+              '\xA0',
               _react2.default.createElement(
                 'div',
                 { id: 'show-notes' },
@@ -37964,6 +37994,11 @@ var contactsShow = function (_React$Component) {
         _reactModal2.default,
         { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
         _react2.default.createElement('i', { className: 'fa fa-times-circle', 'aria-hidden': 'true', onClick: this.closeModal.bind(this) }),
+        _react2.default.createElement(
+          'h1',
+          { className: 'form-header' },
+          'Edit Contact'
+        ),
         _react2.default.createElement(
           'form',
           { id: 'contacts-form', onSubmit: this.submitContact.bind(this) },

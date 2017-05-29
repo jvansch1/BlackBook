@@ -142,6 +142,7 @@ export default class contactsIndex extends React.Component {
         </div>
         <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
           <i className="fa fa-times-circle" aria-hidden="true" onClick={this.closeModal}></i>
+          <h1 className='form-header'>Add Contact</h1>
           <form id='contacts-form' onSubmit={this.submitContact}>
             <span>
               Name
