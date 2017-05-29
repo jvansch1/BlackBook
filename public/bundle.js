@@ -37048,7 +37048,6 @@ var SignUp = function (_React$Component) {
 
       e.preventDefault();
       this.props.createUser(this.state).then(function (user, err) {
-        // debugger
         if (user.type === "RECEIVE_ERRORS") {
           _this2.setState({ username: '', password: '' });
         } else {
@@ -37953,11 +37952,6 @@ var contactsShow = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(_headerContainer2.default, null),
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Show'
-        ),
         this.renderContact(),
         this.Modal()
       );

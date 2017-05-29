@@ -184,7 +184,6 @@ export default class contactsShow extends React.Component {
     return (
       <div>
         <HeaderContainer />
-        <h1>Show</h1>
         {this.renderContact()}
         {this.Modal()}
       </div>

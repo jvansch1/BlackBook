@@ -23,7 +23,6 @@ export default class SignUp extends React.Component {
   createUser(e) {
     e.preventDefault()
     this.props.createUser(this.state).then((user, err) => {
-      // debugger
       if (user.type === "RECEIVE_ERRORS") {
         this.setState({username: '', password: ''})
       } else {
