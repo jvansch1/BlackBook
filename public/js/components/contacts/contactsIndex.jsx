@@ -5,6 +5,7 @@ import ContactsIndexItem from './contactsIndexItem.jsx'
 import { Link } from 'react-router'
 import aws from 'aws-sdk'
 import config from '../../../../AwsConfig.js'
+import setState from 'react-state-promise'
 aws.config.region = config.region
 aws.config.accessKeyId = config.accessKeyId
 aws.config.secretAccessKey = config.secretAccessKey
@@ -62,12 +63,13 @@ export default class contactsIndex extends React.Component {
         }
         else {
           console.log(response)
+          bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
+            setState(this, { imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` }).then(() => {
+              this.props.createContact({name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username })
+              .then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
+            })
+          })
         }
-      })
-      bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
-        this.setState({ imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` }, () => {
-          this.props.createContact({name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
-        })
       })
     }
   }

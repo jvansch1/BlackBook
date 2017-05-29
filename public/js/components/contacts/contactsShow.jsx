@@ -4,6 +4,7 @@ import Modal from 'react-modal'
 import { hashHistory } from 'react-router';
 import aws from 'aws-sdk'
 import config from '../../../../AwsConfig.js'
+import setState from 'react-state-promise'
 aws.config.region = config.region
 aws.config.accessKeyId = config.accessKeyId
 aws.config.secretAccessKey = config.secretAccessKey
@@ -76,12 +77,16 @@ export default class contactsShow extends React.Component {
     this.props.deleteContact(this.props.id).then(() => hashHistory.push('/contacts'))
   }
 
+  handleError() {
+    this.setState({imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`})
+  }
+
   renderContact() {
     if (!this.props.contact) return null;
     return (
       <div id='contact-list'>
         <div className='contact'>
-          <img id='contact-show-image' src={this.props.contact.imageUrl} />
+          <img id='contact-show-image' src={this.props.contact.imageUrl} onError={this.handleError.bind(this)}/>
           <div id='show-content'>
             <p><u>Name:</u> <b>{this.props.contact.name}</b></p>
             <p><u>Address:</u> <b>{this.props.contact.address}</b></p>
@@ -119,14 +124,16 @@ export default class contactsShow extends React.Component {
         }
         else {
           console.log(response)
+          bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
+            setState(this, { imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` }).then(() => {
+              this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username })
+              .then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
+            })
+          })
         }
       })
-      bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
-        this.setState({ imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` })
-        this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username }).then(() => this.setState({ modalIsOpen: false })).then(() => this.props.fetchContacts(this.props.username))
-      })
+      }
     }
-  }
 
   addFile(e) {
     const file = e.currentTarget.files[0]

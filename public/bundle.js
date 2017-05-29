@@ -37233,6 +37233,10 @@ var _AwsConfig = __webpack_require__(147);
 
 var _AwsConfig2 = _interopRequireDefault(_AwsConfig);
 
+var _reactStatePromise = __webpack_require__(833);
+
+var _reactStatePromise2 = _interopRequireDefault(_reactStatePromise);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37321,16 +37325,16 @@ var contactsIndex = function (_React$Component) {
             console.log(err);
           } else {
             console.log(response);
-          }
-        });
-        bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
-          _this3.setState({ imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name }, function () {
-            _this3.props.createContact({ name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
-              return _this3.setState({ modalIsOpen: false });
-            }).then(function () {
-              return _this3.props.fetchContacts(_this3.props.username);
+            bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: _this3.state.imageFile.name }, function (err, url) {
+              (0, _reactStatePromise2.default)(_this3, { imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name }).then(function () {
+                _this3.props.createContact({ name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
+                  return _this3.setState({ modalIsOpen: false });
+                }).then(function () {
+                  return _this3.props.fetchContacts(_this3.props.username);
+                });
+              });
             });
-          });
+          }
         });
       }
     }
@@ -37709,6 +37713,10 @@ var _AwsConfig = __webpack_require__(147);
 
 var _AwsConfig2 = _interopRequireDefault(_AwsConfig);
 
+var _reactStatePromise = __webpack_require__(833);
+
+var _reactStatePromise2 = _interopRequireDefault(_reactStatePromise);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37808,6 +37816,11 @@ var contactsShow = function (_React$Component) {
       });
     }
   }, {
+    key: 'handleError',
+    value: function handleError() {
+      this.setState({ imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + this.state.imageFile.name });
+    }
+  }, {
     key: 'renderContact',
     value: function renderContact() {
       if (!this.props.contact) return null;
@@ -37817,7 +37830,7 @@ var contactsShow = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'contact' },
-          _react2.default.createElement('img', { id: 'contact-show-image', src: this.props.contact.imageUrl }),
+          _react2.default.createElement('img', { id: 'contact-show-image', src: this.props.contact.imageUrl, onError: this.handleError.bind(this) }),
           _react2.default.createElement(
             'div',
             { id: 'show-content' },
@@ -37958,15 +37971,16 @@ var contactsShow = function (_React$Component) {
             console.log(err);
           } else {
             console.log(response);
+            bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: _this3.state.imageFile.name }, function (err, url) {
+              (0, _reactStatePromise2.default)(_this3, { imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name }).then(function () {
+                _this3.props.updateContact({ id: _this3.props.id, name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
+                  return _this3.setState({ modalIsOpen: false });
+                }).then(function () {
+                  return _this3.props.fetchContacts(_this3.props.username);
+                });
+              });
+            });
           }
-        });
-        bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: this.state.imageFile.name }, function (err, url) {
-          _this3.setState({ imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name });
-          _this3.props.updateContact({ id: _this3.props.id, name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
-            return _this3.setState({ modalIsOpen: false });
-          }).then(function () {
-            return _this3.props.fetchContacts(_this3.props.username);
-          });
         });
       }
     }
@@ -164214,6 +164228,125 @@ module.exports = warning;
 
 }).call(this);
 
+
+/***/ }),
+/* 833 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.willChange = exports.getNextState = undefined;
+
+var _objectAssign = __webpack_require__(9);
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+var _shallowCompare = __webpack_require__(834);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var instanceMap = {};
+
+var setState = function setState(instance, nextState) {
+  if (instanceMap[instance]) {
+    instanceMap[instance].nextState = (0, _objectAssign2.default)({}, instanceMap[instance].nextState, nextState);
+    instance.setState(nextState, instanceMap[instance].resolver);
+    return instanceMap[instance].promise;
+  }
+
+  var lastState = instance.state;
+  var promiseResolver = void 0;
+  var promise = new Promise(function (resolve) {
+    promiseResolver = resolve;
+  }).then(function (state) {
+    delete instanceMap[instance];
+    return { state: state, lastState: lastState };
+  });
+
+  var resolver = function resolver() {
+    promiseResolver(instance.state);
+  };
+
+  instanceMap[instance] = {
+    nextState: nextState,
+    promise: promise,
+    resolver: resolver
+  };
+
+  instance.setState(nextState, instanceMap[instance].resolver);
+  return instanceMap[instance].promise;
+};
+
+var getNextState = exports.getNextState = function getNextState(instance) {
+  if (instanceMap[instance]) {
+    return instanceMap[instance].nextState;
+  }
+  return instance.state;
+};
+
+var willChange = exports.willChange = function willChange(instance, state) {
+  if (instanceMap[instance]) {
+    return (0, _shallowCompare.shallowEqual)(instanceMap[instance].nextState, state);
+  }
+  return !(0, _shallowCompare.shallowEqual)(instance.state, state);
+};
+
+exports.default = setState;
+
+/***/ }),
+/* 834 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+var hasOwn = Object.prototype.hasOwnProperty;
+
+var shallowEqual = exports.shallowEqual = function shallowEqual(objA, objB) {
+  if (objA === objB) {
+    return true;
+  }
+
+  if (!objA && !!objB || !!objA && !objB) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (var i = 0, l = keysA.length; i < l; i++) {
+    if (!hasOwn.call(objB, keysA[i])) {
+      return false;
+    } else if (!(typeof objA[keysA[i]] === 'function' && typeof objB[keysA[i]] === 'function')) {
+      if (objA[keysA[i]] !== objB[keysA[i]]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+};
+
+var shallowCompareProps = exports.shallowCompareProps = function shallowCompareProps(instance, nextProps) {
+  return !shallowEqual(instance.props, nextProps);
+};
+
+var shallowCompareState = exports.shallowCompareState = function shallowCompareState(instance, nextState) {
+  return !shallowEqual(instance.state, nextState);
+};
+
+var shallowCompare = exports.shallowCompare = function shallowCompare(instance, nextProps, nextState) {
+  return !shallowEqual(instance.props, nextProps) || !shallowEqual(instance.state, nextState);
+};
+
+exports.default = shallowCompare;
 
 /***/ })
 /******/ ]);
