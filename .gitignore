@@ -1,4 +1,4 @@
 node_modules/
 AwsConfig.js
 .DS_Store
-js/.DS_Store
+public/.DS_Store
