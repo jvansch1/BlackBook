@@ -18,7 +18,6 @@ const SessionReducer = (state = {}, action) => {
       return newState
     case CLEAR_ERRORS:
       let updatedState = merge({}, state)
-      debugger
       updatedState.errors = [];
       return updatedState
     default:

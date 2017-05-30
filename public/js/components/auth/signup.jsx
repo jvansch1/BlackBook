@@ -10,6 +10,10 @@ export default class SignUp extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.clearErrors()
+  }
+
   renderErrors() {
     if (this.props.currentUser.errors) {
       return (
