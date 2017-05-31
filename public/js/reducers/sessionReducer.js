@@ -9,10 +9,13 @@ const SessionReducer = (state = {}, action) => {
     case LOGOUT:
       return {}
     case 'persist/REHYDRATE':
-      debugger
-      let persisted = action.payload.session
-      persisted.errors = [];
-      return persisted
+      if (action.payload.session) {
+        console.log(action.payload.session)
+        let persisted = action.payload.session
+        return persisted
+      }
+      return {}
+      // persisted.errors = [];
     case RECEIVE_ERRORS:
       let newState = merge({}, state)
       newState.errors = ["Invalid username or password"]

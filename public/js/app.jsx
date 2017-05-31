@@ -18,7 +18,7 @@ else {
   store = configureStore();
 }
 
-persistStore(store).purge()
+persistStore(store)
 
 window.store = store
 

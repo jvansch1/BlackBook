@@ -26407,7 +26407,7 @@ if (window.currentUser) {
   store = (0, _store2.default)();
 }
 
-(0, _reduxPersist.persistStore)(store).purge();
+(0, _reduxPersist.persistStore)(store);
 
 window.store = store;
 
@@ -38591,10 +38591,13 @@ var SessionReducer = function SessionReducer() {
     case _sessionActions.LOGOUT:
       return {};
     case 'persist/REHYDRATE':
-      debugger;
-      var persisted = action.payload.session;
-      persisted.errors = [];
-      return persisted;
+      if (action.payload.session) {
+        console.log(action.payload.session);
+        var persisted = action.payload.session;
+        return persisted;
+      }
+      return {};
+    // persisted.errors = [];
     case _sessionActions.RECEIVE_ERRORS:
       var newState = (0, _merge2.default)({}, state);
       newState.errors = ["Invalid username or password"];
