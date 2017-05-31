@@ -9,6 +9,7 @@ const SessionReducer = (state = {}, action) => {
     case LOGOUT:
       return {}
     case 'persist/REHYDRATE':
+      debugger
       let persisted = action.payload.session
       persisted.errors = [];
       return persisted

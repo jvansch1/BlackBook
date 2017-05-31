@@ -38591,6 +38591,7 @@ var SessionReducer = function SessionReducer() {
     case _sessionActions.LOGOUT:
       return {};
     case 'persist/REHYDRATE':
+      debugger;
       var persisted = action.payload.session;
       persisted.errors = [];
       return persisted;
