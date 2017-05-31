@@ -26407,7 +26407,7 @@ if (window.currentUser) {
   store = (0, _store2.default)();
 }
 
-(0, _reduxPersist.persistStore)(store);
+(0, _reduxPersist.persistStore)(store).purge();
 
 window.store = store;
 
@@ -37525,7 +37525,6 @@ var contactsIndex = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(_headerContainer2.default, null),
-        this.renderSpinner(),
         _react2.default.createElement(
           'div',
           null,
