@@ -156,7 +156,6 @@ export default class contactsIndex extends React.Component {
     return (
       <div>
         <HeaderContainer />
-          {this.renderSpinner()}
         <div>
           <span id='filter-container'>
             <textarea id='filter' onChange={this.updateSearch.bind(this)} placeholder='Filter by Name'></textarea>
