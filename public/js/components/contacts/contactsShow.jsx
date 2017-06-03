@@ -86,20 +86,20 @@ export default class contactsShow extends React.Component {
     if (!this.props.contact) return null;
     return (
       <div id='contact-list'>
-        <div className='contact'>
-          <img id='contact-show-image' src={this.props.contact.imageUrl} onError={this.handleError.bind(this)}/>
-          <div id='show-content'>
-            <p><u>Name:</u> <b>{this.props.contact.name}</b></p>
-            <p><u>Address:</u> <b>{this.props.contact.address}</b></p>
-            <p><u>Email:</u> <b>{this.props.contact.email}</b></p>
-            <p><u>Phone:</u> <b>{this.props.contact.phone}</b></p>
-            <p id='notes-container'><u>Notes:</u>&nbsp;<div id='show-notes'><b>{this.props.contact.notes}</b></div></p>
+          <div className='contact'>
+            <img id='contact-show-image' src={this.props.contact.imageUrl} onError={this.handleError.bind(this)}/>
+            <div id='show-content'>
+              <p><u>Name:</u> <b>{this.props.contact.name}</b></p>
+              <p><u>Address:</u> <b>{this.props.contact.address}</b></p>
+              <p><u>Email:</u> <b>{this.props.contact.email}</b></p>
+              <p><u>Phone:</u> <b>{this.props.contact.phone}</b></p>
+              <p id='notes-container'><u>Notes:</u>&nbsp;<div id='show-notes'><b>{this.props.contact.notes}</b></div></p>
+            </div>
+            <div id='edit-button-wrapper'>
+              <span><i onClick={this.openModal.bind(this)} className="fa fa-pencil-square" aria-hidden="true"></i><p>Edit</p></span>
+              <span><i onClick={this.deleteContact.bind(this)} className="fa fa-trash" aria-hidden="true"></i><p>Delete</p></span>
+            </div>
           </div>
-          <div id='edit-button-wrapper'>
-            <span><i onClick={this.openModal.bind(this)} className="fa fa-pencil-square" aria-hidden="true"></i><p>Edit</p></span>
-          <span><i onClick={this.deleteContact.bind(this)} className="fa fa-trash" aria-hidden="true"></i><p>Delete</p></span>
-          </div>
-        </div>
       </div>
     )
   }

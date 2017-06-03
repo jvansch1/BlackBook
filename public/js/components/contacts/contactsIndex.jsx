@@ -156,7 +156,7 @@ export default class contactsIndex extends React.Component {
     return (
       <div>
         <HeaderContainer />
-        <div>
+        <div id='index-container'>
           <span id='filter-container'>
             <textarea id='filter' onChange={this.updateSearch.bind(this)} placeholder='Filter by Name'></textarea>
             <button id='open-button' onClick={this.openModal}>Open Modal</button>

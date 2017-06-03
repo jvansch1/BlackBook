@@ -36964,7 +36964,11 @@ var Login = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { id: 'login-form-wrapper' },
-          _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' }),
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/' },
+            _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' })
+          ),
           _react2.default.createElement(
             'h1',
             { className: 'auth-title' },
@@ -37178,7 +37182,11 @@ var SignUp = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { id: 'login-form-wrapper' },
-          _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' }),
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/' },
+            _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' })
+          ),
           _react2.default.createElement(
             'h1',
             { className: 'auth-title' },
@@ -37529,7 +37537,7 @@ var contactsIndex = function (_React$Component) {
         _react2.default.createElement(_headerContainer2.default, null),
         _react2.default.createElement(
           'div',
-          null,
+          { id: 'index-container' },
           _react2.default.createElement(
             'span',
             { id: 'filter-container' },
