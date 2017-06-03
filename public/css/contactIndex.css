@@ -129,7 +129,7 @@ form textarea {
   width: 300px;
 }
 
-form input[type='text']:hover, form textarea:hover {
+form input[type='text']:hover, form textarea:hover, form input[type='password']:hover {
   box-shadow: none;
   border: 1px solid black;
 }

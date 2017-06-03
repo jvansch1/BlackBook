@@ -52,6 +52,7 @@ export default class SignUp extends React.Component {
           </video>
         </div>
         <div id='login-form-wrapper'>
+          <img className='auth-img' src='/static/img/LogoMakr-layerExport.png' />
           <h1 className='auth-title'>Signup</h1>
           {this.renderErrors()}
           <form onSubmit={this.createUser.bind(this)}>

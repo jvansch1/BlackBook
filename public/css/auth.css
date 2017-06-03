@@ -1,5 +1,5 @@
 #login-form-wrapper {
-  background: white;
+  background: #FFF5EE;
   position: absolute;
   left: 0;
   right: 0;
@@ -15,11 +15,13 @@
   background: black;
   font-weight: bold;
   color: white;
-  width: 150px;
+  width: 200px;
   margin: 0 auto;
+  font-size: 24px;
   text-align: center;
   border-radius: 4px;
   margin-top : 15px;
+  margin-bottom: 15px;
 }
 
 .auth-button:hover {
@@ -33,6 +35,7 @@
 
 input[type='text'], input[type='password'] {
   width: 300px;
+  height: 30px;
 }
 
 .input-container {
@@ -48,27 +51,13 @@ input[type='text'], input[type='password'] {
   text-align: center;
   font-weight: bold;
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 30px;
 }
 
-/*#video-container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  padding:0;
-  margin:0;
-  left: 0px;
-  top: 0px;
-  z-index: -1000;
-  overflow:hidden;
-}
 
-video {
-  min-width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}*/
+#login-image {
+  color: black;
+}
 
 #auth-wrapper, #landing {
   background: black;
@@ -98,4 +87,10 @@ video {
   font-size: 18px;
   text-align: center;
   margin-top: 10px;
+}
+
+.auth-img {
+  display: block;
+  margin: 0 auto;
+  padding-left: 85px;
 }

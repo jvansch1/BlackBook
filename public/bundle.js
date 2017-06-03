@@ -36964,6 +36964,7 @@ var Login = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { id: 'login-form-wrapper' },
+          _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' }),
           _react2.default.createElement(
             'h1',
             { className: 'auth-title' },
@@ -37177,6 +37178,7 @@ var SignUp = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { id: 'login-form-wrapper' },
+          _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' }),
           _react2.default.createElement(
             'h1',
             { className: 'auth-title' },
