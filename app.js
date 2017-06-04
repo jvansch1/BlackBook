@@ -16,7 +16,7 @@ const aws = require('aws-sdk')
 app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: 'jvs',
     name: 'user',
     proxy: true,
     resave: true,

@@ -7,7 +7,7 @@ export default class Landing extends React.Component {
   }
 
   componentDidMount() {
-    this.props.clearErrors();
+    this.props.logout().then(() => this.props.clearErrors());
   }
 
   loginGuest(e) {

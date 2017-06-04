@@ -28,6 +28,7 @@ export default class App extends React.Component {
   }
 
   _redirectIfLoggedIn(nextState, replace) {
+    debugger
     if (store.getState().session.username) {
       replace('/contacts')
     }

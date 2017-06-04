@@ -1,6 +1,8 @@
 .contact {
+  /*z-index: 100000;*/
+  position: relative;
   border: 1px solid grey;
-  box-shadow: 2px 2px 5px #888888;
+  box-shadow: 2px 2px 5px black;
   border-radius: 2px;
   margin-top: 10px;
   display: flex;
@@ -15,6 +17,8 @@
 }
 
 #contact-list {
+  position: relative;
+  z-index: 10000000;
   width: 700px;
   margin: 0 auto;
   margin-bottom: 20px;
@@ -36,6 +40,8 @@
 }
 
 #filter-container {
+  position: relative;
+  z-index: 1000;
   width: 700px;
   display: flex;
   justify-content: space-between;
@@ -187,6 +193,8 @@ input[type='file']:hover {
 }
 
 #index-container {
+  z-index: 1;
+  position: relative;
   width: 1000px;
   margin: 0 auto;
   margin-top: 20px;
@@ -196,6 +204,16 @@ input[type='file']:hover {
   background-repeat: repeat-y;
   border-radius: 4px;
   box-shadow: 2px 2px 10px #888888;
+  margin-bottom: 20px;
+}
+
+#transparent {
+  z-index: 2;
+  width: 1000px;
+  background: black;
+  position: absolute;
+  height: 100%;
+  opacity: 0.4;
 }
 
 @media screen and (max-width: 900px) {

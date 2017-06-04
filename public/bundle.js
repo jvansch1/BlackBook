@@ -26423,6 +26423,7 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: '_redirectIfLoggedIn',
     value: function _redirectIfLoggedIn(nextState, replace) {
+      debugger;
       if (store.getState().session.username) {
         replace('/contacts');
       }
@@ -37538,6 +37539,7 @@ var contactsIndex = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { id: 'index-container' },
+          _react2.default.createElement('div', { id: 'transparent' }),
           _react2.default.createElement(
             'span',
             { id: 'filter-container' },
@@ -38356,7 +38358,11 @@ var Landing = function (_React$Component) {
   _createClass(Landing, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.clearErrors();
+      var _this2 = this;
+
+      this.props.logout().then(function () {
+        return _this2.props.clearErrors();
+      });
     }
   }, {
     key: 'loginGuest',
@@ -38453,6 +38459,12 @@ var _landing2 = _interopRequireDefault(_landing);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.session
+  };
+};
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     login: function login(user) {
@@ -38460,6 +38472,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     clearErrors: function clearErrors() {
       return dispatch((0, _sessionActions.clearErrors)());
+    },
+    logout: function logout() {
+      return dispatch((0, _sessionActions.logout)());
     }
   };
 };
