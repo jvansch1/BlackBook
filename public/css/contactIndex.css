@@ -226,10 +226,18 @@ input[type='file']:hover {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-device-width: 600px) {
   .contact {
     width: 100%;
     font-size: 12px;
+  }
+
+  #index-container {
+    height: 100vh;
+  }
+
+  #transparent {
+    height: 100vh;
   }
 
   #index-notes {
