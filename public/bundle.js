@@ -37782,7 +37782,7 @@ var ContactsIndexItem = function (_React$Component) {
             ),
             '\xA0',
             _react2.default.createElement(
-              'div',
+              'span',
               { id: 'index-notes' },
               _react2.default.createElement(
                 'b',
@@ -38028,7 +38028,7 @@ var contactsShow = function (_React$Component) {
               ),
               '\xA0',
               _react2.default.createElement(
-                'div',
+                'span',
                 { id: 'show-notes' },
                 _react2.default.createElement(
                   'b',
