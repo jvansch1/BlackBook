@@ -234,11 +234,11 @@ input[type='file']:hover {
   }
 
   #index-container {
-    height: 100vh;
+    height: 100%;
   }
 
   #transparent {
-    height: 100vh;
+    height: 100%;
   }
 
   #index-notes {
