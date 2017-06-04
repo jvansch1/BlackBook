@@ -94,6 +94,7 @@ form span {
 }
 
 .ReactModal__Content, .ReactModal__Content--after-open {
+  z-index: 1000000000000;
   width: 400px;
   height: 350px;
   margin: 0 auto;

@@ -153,8 +153,9 @@ export default class contactsShow extends React.Component {
   }
 
   Modal() {
+    let modalStyles = {overlay: {zIndex: 1000000000}};
     return (
-      <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
+      <Modal isOpen={this.state.modalIsOpen} contentLabel='Example' style={modalStyles}>
         <i className="fa fa-times-circle" aria-hidden="true" onClick={this.closeModal.bind(this)}></i>
         <h1 className='form-header'>Edit Contact</h1>
         <form id='contacts-form' onSubmit={this.submitContact.bind(this)}>

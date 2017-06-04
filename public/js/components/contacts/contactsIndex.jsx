@@ -152,7 +152,7 @@ export default class contactsIndex extends React.Component {
   render() {
     if (!this.props.username) return null;
     if (!this.state.mounted) return null;
-    console.log(this.state.loading)
+    let modalStyles = {overlay: {zIndex: 1000000000}};
     return (
       <div>
         <HeaderContainer />
@@ -169,7 +169,7 @@ export default class contactsIndex extends React.Component {
             }
           </ul>
         </div>
-        <Modal isOpen={this.state.modalIsOpen} contentLabel='Example'>
+        <Modal isOpen={this.state.modalIsOpen} contentLabel='Example' style={modalStyles}>
           <i className="fa fa-times-circle" aria-hidden="true" onClick={this.closeModal}></i>
           <h1 className='form-header'>Add Contact</h1>
           <form id='contacts-form' onSubmit={this.submitContact}>

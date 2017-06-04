@@ -37531,7 +37531,7 @@ var contactsIndex = function (_React$Component) {
     value: function render() {
       if (!this.props.username) return null;
       if (!this.state.mounted) return null;
-      console.log(this.state.loading);
+      var modalStyles = { overlay: { zIndex: 1000000000 } };
       return _react2.default.createElement(
         'div',
         null,
@@ -37558,7 +37558,7 @@ var contactsIndex = function (_React$Component) {
         ),
         _react2.default.createElement(
           _reactModal2.default,
-          { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
+          { isOpen: this.state.modalIsOpen, contentLabel: 'Example', style: modalStyles },
           _react2.default.createElement('i', { className: 'fa fa-times-circle', 'aria-hidden': 'true', onClick: this.closeModal }),
           _react2.default.createElement(
             'h1',
@@ -38130,9 +38130,10 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'Modal',
     value: function Modal() {
+      var modalStyles = { overlay: { zIndex: 1000000000 } };
       return _react2.default.createElement(
         _reactModal2.default,
-        { isOpen: this.state.modalIsOpen, contentLabel: 'Example' },
+        { isOpen: this.state.modalIsOpen, contentLabel: 'Example', style: modalStyles },
         _react2.default.createElement('i', { className: 'fa fa-times-circle', 'aria-hidden': 'true', onClick: this.closeModal.bind(this) }),
         _react2.default.createElement(
           'h1',
