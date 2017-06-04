@@ -7,7 +7,8 @@ export default class Landing extends React.Component {
   }
 
   componentDidMount() {
-    this.props.logout().then(() => this.props.clearErrors());
+    this.props.logout({username: 'guest', password: 'password'}).then(() => this.props.clearErrors())
+      .then(() => this.props.logout({username: 'guest', password: 'password'}));
   }
 
   loginGuest(e) {
@@ -16,7 +17,7 @@ export default class Landing extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    if (this.props.username) return null;
     return (
       <div id='landing'>
         <div id='video-wrapper'>

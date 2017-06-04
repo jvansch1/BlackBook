@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { login, clearErrors, logout } from '../../actions/sessionActions.js';
+import { login, clearErrors, logoutUser } from '../../actions/sessionActions.js';
 import Landing from './landing.jsx'
 
 const mapStateToProps = (state) => {
@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (user) => dispatch(login(user)),
     clearErrors: () => dispatch(clearErrors()),
-    logout: () => dispatch(logout())
+    logout: (user) => dispatch(logoutUser(user))
   }
 }
 

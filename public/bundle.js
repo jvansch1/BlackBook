@@ -26423,7 +26423,6 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: '_redirectIfLoggedIn',
     value: function _redirectIfLoggedIn(nextState, replace) {
-      debugger;
       if (store.getState().session.username) {
         replace('/contacts');
       }
@@ -38361,8 +38360,10 @@ var Landing = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.props.logout().then(function () {
+      this.props.logout({ username: 'guest', password: 'password' }).then(function () {
         return _this2.props.clearErrors();
+      }).then(function () {
+        return _this2.props.logout({ username: 'guest', password: 'password' });
       });
     }
   }, {
@@ -38376,7 +38377,7 @@ var Landing = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props);
+      if (this.props.username) return null;
       return _react2.default.createElement(
         'div',
         { id: 'landing' },
@@ -38474,8 +38475,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     clearErrors: function clearErrors() {
       return dispatch((0, _sessionActions.clearErrors)());
     },
-    logout: function logout() {
-      return dispatch((0, _sessionActions.logout)());
+    logout: function logout(user) {
+      return dispatch((0, _sessionActions.logoutUser)(user));
     }
   };
 };
