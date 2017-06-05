@@ -45,9 +45,9 @@ export default class App extends React.Component {
       <Provider store={store}>
         <BrowserRouter>
           <div>
-            <Route path='/' component={LandingContainer} onEnter={this._redirectIfLoggedIn}/>
-            <Route path='/login' component={LoginContainer} onEnter={this._redirectIfLoggedIn}/>
-            <Route path='/signup' component={SignUpContainer} onEnter={this._redirectIfLoggedIn}/>
+            <Route path='/' component={LandingContainer}/>
+            <Route path='/login' component={LoginContainer}/>
+            <Route path='/signup' component={SignUpContainer}/>
             <Route path='/contacts' component={contactsIndexContainer} />
             <Route path='/contacts/:id' component={contactsShowContainer} />
           </div>

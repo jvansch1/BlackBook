@@ -24225,9 +24225,9 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             'div',
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _landingContainer2.default, onEnter: this._redirectIfLoggedIn }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _loginContainer2.default, onEnter: this._redirectIfLoggedIn }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _signupContainer2.default, onEnter: this._redirectIfLoggedIn }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _landingContainer2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _loginContainer2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _signupContainer2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
           )
