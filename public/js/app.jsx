@@ -1,5 +1,6 @@
 import React from 'react'
-import { Router, Route, hashHistory } from 'react-router'
+import { BrowserRouter, Route } from 'react-router-dom'
+// import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import contactsIndexContainer from './components/contacts/contactsIndexContainer.jsx'
 import contactsShowContainer from './components/contacts/contactsShowContainer.jsx'
@@ -39,18 +40,18 @@ export default class App extends React.Component {
     }
   }
 
-
-
   render() {
     return(
       <Provider store={store}>
-        <Router history={hashHistory}>
-          <Route path='/' component={LandingContainer} onEnter={this._redirectIfLoggedIn}/>
-          <Route path='/login' component={LoginContainer} onEnter={this._redirectIfLoggedIn}/>
-          <Route path='/signup' component={SignUpContainer} onEnter={this._redirectIfLoggedIn}/>
-          <Route path='/contacts' component={contactsIndexContainer} />
-          <Route path='/contacts/:id' component={contactsShowContainer} />
-        </Router>
+        <BrowserRouter>
+          <div>
+            <Route path='/' component={LandingContainer} onEnter={this._redirectIfLoggedIn}/>
+            <Route path='/login' component={LoginContainer} onEnter={this._redirectIfLoggedIn}/>
+            <Route path='/signup' component={SignUpContainer} onEnter={this._redirectIfLoggedIn}/>
+            <Route path='/contacts' component={contactsIndexContainer} />
+            <Route path='/contacts/:id' component={contactsShowContainer} />
+          </div>
+        </BrowserRouter>
       </Provider>
     )
   }

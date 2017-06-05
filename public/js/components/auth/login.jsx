@@ -1,5 +1,5 @@
 import React from 'react'
-import { hashHistory, Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class Login extends React.Component {
       if (session.type === "RECEIVE_ERRORS") {
         this.setState({username: '', password: ''});
       } else {
-        hashHistory.push('/contacts')
+        // hashHistory.push('/contacts')
       }
     })
   }
@@ -36,11 +36,11 @@ export default class Login extends React.Component {
   }
 
   updateUsername(e) {
-    this.setState({ username: e.currentTarget.value }, () => console.log(this.state))
+    this.setState({ username: e.currentTarget.value })
   }
 
   updatePassword(e) {
-    this.setState({ password: e.currentTarget.value }, () => console.log(this.state))
+    this.setState({ password: e.currentTarget.value })
   }
 
   render() {

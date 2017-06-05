@@ -2,10 +2,11 @@ import React from 'react'
 import HeaderContainer from '../header/headerContainer.jsx'
 import Modal from 'react-modal'
 import ContactsIndexItem from './contactsIndexItem.jsx'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import aws from 'aws-sdk'
 import config from '../../../../AwsConfig.js'
 import setState from 'react-state-promise'
+import PropTypes from 'prop-types'
 aws.config.region = config.region
 aws.config.accessKeyId = config.accessKeyId
 aws.config.secretAccessKey = config.secretAccessKey

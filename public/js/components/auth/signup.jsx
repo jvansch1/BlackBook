@@ -1,5 +1,5 @@
 import React from 'react'
-import { hashHistory, Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -30,17 +30,17 @@ export default class SignUp extends React.Component {
       if (user.type === "RECEIVE_ERRORS") {
         this.setState({username: '', password: ''})
       } else {
-        this.props.login(user.user).then(() => hashHistory.push('/contacts'))
+        this.props.login(user.user).then()//() => hashHistory.push('/contacts'))
       }
     })
   }
 
   updateUsername(e) {
-    this.setState({ username: e.currentTarget.value }, () => console.log(this.state))
+    this.setState({ username: e.currentTarget.value })
   }
 
   updatePassword(e) {
-    this.setState({ password: e.currentTarget.value }, () => console.log(this.state))
+    this.setState({ password: e.currentTarget.value })
   }
 
   render() {

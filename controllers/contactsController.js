@@ -3,7 +3,6 @@ const Contacts = require('../models/contactsModel.js')
 module.exports = (app) => {
 
   app.get('/api/contacts', (req, res) => {
-    console.log(req._parsedOriginalUrl.query)
     let username = req._parsedOriginalUrl.query
     Contacts.find({username: username}, (err, contacts) => {
       if (err) {
@@ -47,7 +46,6 @@ module.exports = (app) => {
   })
 
   app.put('/api/contacts/:id', (req, res) => {
-    console.log(req.params.id)
     Contacts.findById(req.params.id, (err, contact) => {
       contact.name = req.body.name
       contact.address = req.body.address
@@ -70,8 +68,6 @@ module.exports = (app) => {
   })
 
   app.delete('/api/contacts/:id', (req,res) => {
-    console.log(req.params)
-    console.log(req.body)
     Contacts.findByIdAndRemove(req.params.id, (err, contact) => {
       let response = {
         message: 'Successfully deleted',

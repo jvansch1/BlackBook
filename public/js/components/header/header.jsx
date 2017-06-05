@@ -1,5 +1,5 @@
 import React from 'react'
-import { hashHistory, Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ export default class Header extends React.Component {
 
   logoutUser(e) {
     e.preventDefault()
-    this.props.logout({username: 'guest', password: 'password'}).then(() => hashHistory.push('/'))
+    this.props.logout({username: 'guest', password: 'password'}).then(() => this.props.history.push('/'))
   }
 
   render() {
