@@ -30,7 +30,7 @@ export default class SignUp extends React.Component {
       if (user.type === "RECEIVE_ERRORS") {
         this.setState({username: '', password: ''})
       } else {
-        this.props.login(user.user).then()//() => hashHistory.push('/contacts'))
+        this.props.login(user.user).then(() => this.props.history.replace('/contacts'))//() => hashHistory.push('/contacts'))
       }
     })
   }
@@ -52,7 +52,7 @@ export default class SignUp extends React.Component {
           </video>
         </div>
         <div id='login-form-wrapper'>
-          <Link to='/'>
+          <Link to='/' replace>
             <img className='auth-img' src='/static/img/LogoMakr-layerExport.png' />
           </Link>
           <h1 className='auth-title'>Signup</h1>

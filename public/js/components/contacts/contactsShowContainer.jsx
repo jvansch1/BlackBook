@@ -1,11 +1,13 @@
 import { connect } from 'react-redux'
 import contactsShow from './contactsShow.jsx'
+import { withRouter } from 'react-router-dom'
 import { fetchOneContact, updateContact, deleteContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state, ownProps) => {
+  debugger
   return {
     contact: state.contacts,
-    id: ownProps.routeParams.id
+    id: ownProps.match.params.id
   }
 }
 
@@ -17,4 +19,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(contactsShow)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(contactsShow))

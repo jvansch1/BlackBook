@@ -119,7 +119,7 @@ export default class contactsIndex extends React.Component {
       return this.props.contacts.map((contact, idx) => {
         if ((contact.name.toLowerCase()).includes(this.state.search.toLowerCase())) {
           return (
-            <Link to={`/contacts/${contact._id}`} key={idx}>
+            <Link to={`contacts/${contact._id}`} key={idx} replace>
               <ContactsIndexItem contact={contact}/>
             </Link>
           )

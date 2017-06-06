@@ -16914,6 +16914,8 @@ var _header = __webpack_require__(340);
 
 var _header2 = _interopRequireDefault(_header);
 
+var _reactRouterDom = __webpack_require__(39);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -16924,7 +16926,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(_header2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(null, mapDispatchToProps)(_header2.default));
 
 /***/ }),
 /* 141 */
@@ -24220,16 +24222,16 @@ var App = function (_React$Component) {
         _reactRedux.Provider,
         { store: store },
         _react2.default.createElement(
-          _reactRouterDom.BrowserRouter,
+          _reactRouterDom.HashRouter,
           null,
           _react2.default.createElement(
             'div',
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _landingContainer2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _loginContainer2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _signupContainer2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts', component: _contactsIndexContainer2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts/:id', component: _contactsShowContainer2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _landingContainer2.default, exact: true, onEnter: this._redirectIfLoggedIn }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _loginContainer2.default, exact: true, onEnter: this._redirectIfLoggedIn }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _signupContainer2.default, exact: true, onEnter: this._redirectIfLoggedIn }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts', exact: true, component: _contactsIndexContainer2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts/:id', exact: true, component: _contactsShowContainer2.default })
           )
         )
       );
@@ -34162,6 +34164,8 @@ var _app = __webpack_require__(225);
 
 var _app2 = _interopRequireDefault(_app);
 
+var _reactRouterDom = __webpack_require__(39);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('root'));
@@ -34223,7 +34227,7 @@ var Login = function (_React$Component) {
         if (session.type === "RECEIVE_ERRORS") {
           _this2.setState({ username: '', password: '' });
         } else {
-          // hashHistory.push('/contacts')
+          _this2.props.history.replace('/contacts');
         }
       });
     }
@@ -34272,7 +34276,7 @@ var Login = function (_React$Component) {
           { id: 'login-form-wrapper' },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/' },
+            { to: '/', replace: true },
             _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' })
           ),
           _react2.default.createElement(
@@ -34347,6 +34351,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactRedux = __webpack_require__(31);
 
+var _reactRouterDom = __webpack_require__(39);
+
 var _sessionActions = __webpack_require__(45);
 
 var _login2 = __webpack_require__(331);
@@ -34372,7 +34378,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_login3.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_login3.default));
 
 /***/ }),
 /* 333 */
@@ -34446,8 +34452,10 @@ var SignUp = function (_React$Component) {
         if (user.type === "RECEIVE_ERRORS") {
           _this2.setState({ username: '', password: '' });
         } else {
-          _this2.props.login(user.user).then //() => hashHistory.push('/contacts'))
-          ();
+          _this2.props.login(user.user).then(function () {
+            return _this2.props.history.replace('/contacts');
+          } //() => hashHistory.push('/contacts'))
+          );
         }
       });
     }
@@ -34481,7 +34489,7 @@ var SignUp = function (_React$Component) {
           { id: 'login-form-wrapper' },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/' },
+            { to: '/', replace: true },
             _react2.default.createElement('img', { className: 'auth-img', src: '/static/img/LogoMakr-layerExport.png' })
           ),
           _react2.default.createElement(
@@ -34796,7 +34804,7 @@ var contactsIndex = function (_React$Component) {
           if (contact.name.toLowerCase().includes(_this4.state.search.toLowerCase())) {
             return _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/contacts/' + contact._id, key: idx },
+              { to: 'contacts/' + contact._id, key: idx, replace: true },
               _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
             );
           }
@@ -34939,6 +34947,8 @@ var _contactsIndex = __webpack_require__(335);
 
 var _contactsIndex2 = _interopRequireDefault(_contactsIndex);
 
+var _reactRouterDom = __webpack_require__(39);
+
 var _contactActions = __webpack_require__(79);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34967,7 +34977,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_contactsIndex2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_contactsIndex2.default));
 
 /***/ }),
 /* 337 */
@@ -35199,7 +35209,6 @@ var contactsShow = function (_React$Component) {
           imageFile: null,
           mounted: false
         });
-        console.log(_this2.state);
         return null;
       });
     }
@@ -35236,8 +35245,10 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'deleteContact',
     value: function deleteContact() {
+      var _this3 = this;
+
       this.props.deleteContact(this.props.id).then(function () {
-        return _reactRouter.hashHistory.push('/contacts');
+        return _this3.props.history.replace('/contacts');
       });
     }
   }, {
@@ -35369,19 +35380,19 @@ var contactsShow = function (_React$Component) {
   }, {
     key: 'submitContact',
     value: function submitContact(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.state.imageUrl.length > 0 && this.state.imageFile === null) {
         this.props.updateContact({ id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: this.state.imageUrl, username: this.state.username }).then(function () {
-          return _this3.setState({ modalIsOpen: false });
+          return _this4.setState({ modalIsOpen: false });
         }).then(function () {
-          return _this3.props.fetchContacts(_this3.props.username);
+          return _this4.props.fetchContacts(_this4.props.username);
         });
       } else if (this.state.imageFile === null) {
         this.props.updateContact({ id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/default_user.png', username: this.state.username }).then(function () {
-          return _this3.setState({ modalIsOpen: false });
+          return _this4.setState({ modalIsOpen: false });
         }).then(function () {
-          return _this3.props.fetchContacts(_this3.props.username);
+          return _this4.props.fetchContacts(_this4.props.username);
         });
       } else {
         var params = { Key: 'ImageName', Body: this.state.imageFile, ACL: 'public-read-write', Bucket: _AwsConfig2.default.awsbucket };
@@ -35396,12 +35407,12 @@ var contactsShow = function (_React$Component) {
             console.log(err);
           } else {
             console.log(response);
-            bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: _this3.state.imageFile.name }, function (err, url) {
-              (0, _reactStatePromise2.default)(_this3, { imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name }).then(function () {
-                _this3.props.updateContact({ id: _this3.props.id, name: _this3.state.name, notes: _this3.state.notes, phone: _this3.state.phone, email: _this3.state.email, address: _this3.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this3.state.imageFile.name, username: _this3.props.username }).then(function () {
-                  return _this3.setState({ modalIsOpen: false });
+            bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: _this4.state.imageFile.name }, function (err, url) {
+              (0, _reactStatePromise2.default)(_this4, { imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this4.state.imageFile.name }).then(function () {
+                _this4.props.updateContact({ id: _this4.props.id, name: _this4.state.name, notes: _this4.state.notes, phone: _this4.state.phone, email: _this4.state.email, address: _this4.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this4.state.imageFile.name, username: _this4.props.username }).then(function () {
+                  return _this4.setState({ modalIsOpen: false });
                 }).then(function () {
-                  return _this3.props.fetchContacts(_this3.props.username);
+                  return _this4.props.fetchContacts(_this4.props.username);
                 });
               });
             });
@@ -35524,14 +35535,17 @@ var _contactsShow = __webpack_require__(338);
 
 var _contactsShow2 = _interopRequireDefault(_contactsShow);
 
+var _reactRouterDom = __webpack_require__(39);
+
 var _contactActions = __webpack_require__(79);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
+  debugger;
   return {
     contact: state.contacts,
-    id: ownProps.routeParams.id
+    id: ownProps.match.params.id
   };
 };
 
@@ -35549,7 +35563,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_contactsShow2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_contactsShow2.default));
 
 /***/ }),
 /* 340 */
@@ -35594,7 +35608,7 @@ var Header = function (_React$Component) {
 
       e.preventDefault();
       this.props.logout({ username: 'guest', password: 'password' }).then(function () {
-        return _this2.props.history.push('/');
+        return _this2.props.history.replace('/');
       });
     }
   }, {
@@ -35605,7 +35619,7 @@ var Header = function (_React$Component) {
         { id: 'header' },
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: 'contacts' },
+          { to: '/contacts', replace: true },
           _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
         ),
         _react2.default.createElement(
@@ -35643,6 +35657,10 @@ var _reactRouter = __webpack_require__(14);
 
 var _reactRouterDom = __webpack_require__(39);
 
+var _loginContainer = __webpack_require__(332);
+
+var _loginContainer2 = _interopRequireDefault(_loginContainer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35678,13 +35696,12 @@ var Landing = function (_React$Component) {
 
       e.preventDefault();
       this.props.login({ username: 'guest', password: 'password' }).then(function () {
-        return _this3.props.history.push('/contacts');
+        return _this3.props.history.replace('/contacts');
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props);
       if (this.props.username) return null;
       return _react2.default.createElement(
         'div',
@@ -35767,6 +35784,8 @@ var _landing = __webpack_require__(341);
 
 var _landing2 = _interopRequireDefault(_landing);
 
+var _reactRouterDom = __webpack_require__(39);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -35789,7 +35808,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(_landing2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(null, mapDispatchToProps)(_landing2.default));
 
 /***/ }),
 /* 343 */

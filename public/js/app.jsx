@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 // import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import contactsIndexContainer from './components/contacts/contactsIndexContainer.jsx'
@@ -43,15 +43,15 @@ export default class App extends React.Component {
   render() {
     return(
       <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter>
           <div>
-            <Route path='/' component={LandingContainer}/>
-            <Route path='/login' component={LoginContainer}/>
-            <Route path='/signup' component={SignUpContainer}/>
-            <Route path='/contacts' component={contactsIndexContainer} />
-            <Route path='/contacts/:id' component={contactsShowContainer} />
+            <Route path='/' component={LandingContainer} exact onEnter={this._redirectIfLoggedIn} />
+            <Route path='/login' component={LoginContainer} exact onEnter={this._redirectIfLoggedIn}/>
+            <Route path='/signup' component={SignUpContainer} exact onEnter={this._redirectIfLoggedIn}/>
+            <Route path='/contacts' exact component={contactsIndexContainer} />
+            <Route path='/contacts/:id' exact component={contactsShowContainer} />
           </div>
-        </BrowserRouter>
+        </HashRouter>
       </Provider>
     )
   }

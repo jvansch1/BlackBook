@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import contactsIndex from './contactsIndex.jsx'
+import { withRouter } from 'react-router-dom'
 import { fetchContacts, createContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state) => {
@@ -20,4 +21,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(contactsIndex)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(contactsIndex))

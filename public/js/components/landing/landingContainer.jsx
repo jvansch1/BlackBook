@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { login, clearErrors, logoutUser } from '../../actions/sessionActions.js';
 import Landing from './landing.jsx'
+import { withRouter } from 'react-router-dom'
 
 const mapStateToProps = (state) => {
   return {
@@ -16,4 +17,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Landing)
+export default withRouter(connect(null, mapDispatchToProps)(Landing))

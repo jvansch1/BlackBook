@@ -45,7 +45,6 @@ export default class contactsShow extends React.Component {
         imageFile: null,
         mounted: false
       })
-      console.log(this.state)
       return null;
     })
   }
@@ -75,7 +74,7 @@ export default class contactsShow extends React.Component {
   }
 
   deleteContact() {
-    this.props.deleteContact(this.props.id).then(() => hashHistory.push('/contacts'))
+    this.props.deleteContact(this.props.id).then(() => this.props.history.replace('/contacts'))
   }
 
   handleError() {

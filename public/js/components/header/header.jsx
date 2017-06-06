@@ -8,13 +8,13 @@ export default class Header extends React.Component {
 
   logoutUser(e) {
     e.preventDefault()
-    this.props.logout({username: 'guest', password: 'password'}).then(() => this.props.history.push('/'))
+    this.props.logout({username: 'guest', password: 'password'}).then(() => this.props.history.replace('/'))
   }
 
   render() {
     return (
       <div id='header'>
-        <Link to='contacts'>
+        <Link to='/contacts' replace>
           <img src='/static/img/PetitFormalLogo.png' />
         </Link>
         <button onClick={this.logoutUser.bind(this)}>Logout</button>

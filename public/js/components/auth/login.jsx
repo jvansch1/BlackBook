@@ -20,7 +20,7 @@ export default class Login extends React.Component {
       if (session.type === "RECEIVE_ERRORS") {
         this.setState({username: '', password: ''});
       } else {
-        // hashHistory.push('/contacts')
+        this.props.history.replace('/contacts')
       }
     })
   }
@@ -52,7 +52,7 @@ export default class Login extends React.Component {
           </video>
         </div>
         <div id='login-form-wrapper'>
-          <Link to='/'>
+          <Link to='/' replace>
             <img className='auth-img' src='/static/img/LogoMakr-layerExport.png' />
           </Link>
           <h1 className='auth-title'>Login</h1>

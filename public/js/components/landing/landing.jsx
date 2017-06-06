@@ -1,6 +1,8 @@
 import React from 'react'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import LoginContainer from '../auth/loginContainer.jsx'
 
 export default class Landing extends React.Component {
   constructor(props) {
@@ -14,11 +16,10 @@ export default class Landing extends React.Component {
 
   loginGuest(e) {
     e.preventDefault()
-    this.props.login({username: 'guest', password: 'password'}).then(() => this.props.history.push('/contacts'));
+    this.props.login({username: 'guest', password: 'password'}).then(() => this.props.history.replace('/contacts'));
   }
 
   render() {
-    console.log(this.props)
     if (this.props.username) return null;
     return (
       <div id='landing'>
