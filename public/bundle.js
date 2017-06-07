@@ -34896,7 +34896,7 @@ var contactsIndex = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { id: 'open-button', onClick: this.openModal },
-              'Open Modal'
+              'Add Contact'
             )
           ),
           _react2.default.createElement(

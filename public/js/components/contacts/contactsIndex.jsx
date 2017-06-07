@@ -207,7 +207,7 @@ export default class contactsIndex extends React.Component {
           </div>
           <span id='filter-container'>
             <textarea id='filter' onChange={this.updateSearch.bind(this)} placeholder='Filter by Name'></textarea>
-            <button id='open-button' onClick={this.openModal}>Open Modal</button>
+            <button id='open-button' onClick={this.openModal}>Add Contact</button>
           </span>
           <ul id='contact-list'>
             {
