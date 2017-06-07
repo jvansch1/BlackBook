@@ -256,16 +256,4 @@ input[type='file']:hover {
     width: 100%;
     font-size: 12px;
   }
-
-  #index-container {
-    height: 100%;
-  }
-
-  #transparent {
-    height: 100%;
-  }
-
-  #index-notes {
-    width: 60%;
-  }
 }
