@@ -151,8 +151,12 @@ export default class contactsShow extends React.Component {
     this.setState({modalIsOpen: false})
   }
 
+  clickFile() {
+    document.getElementById('file-select').click();
+  }
+
   Modal() {
-    let modalStyles = {overlay: {zIndex: 1000000000}};
+    let modalStyles = {overlay: {zIndex: 1000000000}, content: { height: 450}};
     return (
       <Modal isOpen={this.state.modalIsOpen} contentLabel='Example' style={modalStyles}>
         <i className="fa fa-times-circle" aria-hidden="true" onClick={this.closeModal.bind(this)}></i>
@@ -176,7 +180,8 @@ export default class contactsShow extends React.Component {
           </span>
           <span>
             Picture
-            <input type='file' onChange={this.addFile.bind(this)}/>
+            <i className="fa fa-camera" aria-hidden="true" onClick={this.clickFile.bind(this)}></i>
+            <input id='file-select' type='file' onChange={this.addFile.bind(this)}/>
           </span>
           <span>
             Notes

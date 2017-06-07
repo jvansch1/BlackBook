@@ -143,7 +143,7 @@ form input[type='text']:hover, form textarea:hover, form input[type='password']:
 }
 
 form input[type='submit'] {
-  width: 150px;
+  width: 140px;
   margin: 0 auto;
   color: white;
   background: black;
@@ -215,6 +215,26 @@ input[type='file']:hover {
   position: absolute;
   height: 100%;
   opacity: 0.1;
+}
+
+.input-check-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.fa-check-circle-o {
+  color: green;
+  margin-top: 24px;
+  margin-left: 5px;
+}
+
+#photo-check {
+  font-size: 30px;
+  margin-left: 20px;
+}
+
+#index-camera {
+  margin-top: 15px;
 }
 
 @media screen and (max-width: 900px) {

@@ -128,6 +128,47 @@ export default class contactsIndex extends React.Component {
     }
   }
 
+  renderNameCheck() {
+    if (this.state.name.length > 0) {
+      return (
+        <i className="fa fa-check-circle-o" aria-hidden="true"></i>
+      )
+    }
+  }
+
+  renderAddressCheck() {
+    if (this.state.address.length > 0) {
+      return (
+        <i className="fa fa-check-circle-o" aria-hidden="true"></i>
+      )
+    }
+  }
+
+  renderEmailCheck() {
+    let matcher = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+    if (this.state.email.match(matcher)) {
+      return (
+        <i className="fa fa-check-circle-o" aria-hidden="true"></i>
+      )
+    }
+  }
+
+  renderPhoneCheck() {
+    if (this.state.phone.length === 7 || this.state.phone.length === 10) {
+      return (
+        <i className="fa fa-check-circle-o" aria-hidden="true"></i>
+      )
+    }
+  }
+
+  renderPhotoCheck() {
+    if (this.state.imageUrl) {
+      return (
+        <i className="fa fa-check-circle-o" aria-hidden="true" id='photo-check'></i>
+      )
+    }
+  }
+
   renderSpinner() {
     if (this.state.loading) {
       return (
@@ -150,10 +191,14 @@ export default class contactsIndex extends React.Component {
     return null;
   }
 
+  clickFile() {
+    document.getElementById('file-select').click();
+  }
+
   render() {
     if (!this.props.username) return null;
     if (!this.state.mounted) return null;
-    let modalStyles = {overlay: {zIndex: 1000000000}};
+    let modalStyles = {overlay: {zIndex: 1000000000}, content: { height: 450}};
     return (
       <div>
         <HeaderContainer />
@@ -174,25 +219,41 @@ export default class contactsIndex extends React.Component {
           <i className="fa fa-times-circle" aria-hidden="true" onClick={this.closeModal}></i>
           <h1 className='form-header'>Add Contact</h1>
           <form id='contacts-form' onSubmit={this.submitContact}>
-            <span>
-              Name
-              <input type='text' onChange={this.updateName.bind(this)}/>
+            <span className='input-check-container'>
+              <div>
+                <p>Name</p>
+                <input type='text' onChange={this.updateName.bind(this)} placeholder='Name'/>
+              </div>
+              {this.renderNameCheck()}
             </span>
-            <span>
-              Address
-              <input type='text' onChange={this.updateAddress.bind(this)}/>
+            <span className='input-check-container'>
+              <div>
+                <p>Address</p>
+                <input type='text' onChange={this.updateAddress.bind(this)} placeholder='Address'/>
+              </div>
+              {this.renderAddressCheck()}
             </span>
-            <span>
-              Email
-              <input type='text' onChange={this.updateEmail.bind(this)}/>
+            <span className='input-check-container'>
+              <div>
+                <p>Email</p>
+                <input type='text' onChange={this.updateEmail.bind(this)} placeholder='Email'/>
+              </div>
+              {this.renderEmailCheck()}
             </span>
-            <span>
-              Phone
-              <input type='text' onChange={this.updatePhone.bind(this)}/>
+            <span className='input-check-container'>
+              <div>
+                <p>Phone</p>
+                <input type='text' onChange={this.updatePhone.bind(this)} placeholder='Phone (area code optional)'/>
+              </div>
+              {this.renderPhoneCheck()}
             </span>
-            <span>
-              Picture
-              <input type='file' onChange={this.addFile.bind(this)}/>
+            <span className='input-check-container'>
+              <div>
+                <p>Picture</p>
+                <i className="fa fa-camera" aria-hidden="true" onClick={this.clickFile.bind(this)} id='index-camera'></i>
+              </div>
+              {this.renderPhotoCheck()}
+              <input type='file' onChange={this.addFile.bind(this)} id='file-select'/>
             </span>
             <span>
               Notes

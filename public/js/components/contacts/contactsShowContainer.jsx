@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import { fetchOneContact, updateContact, deleteContact } from '../../actions/contactActions.js'
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
   return {
     contact: state.contacts,
     id: ownProps.match.params.id
