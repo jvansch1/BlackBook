@@ -33,7 +33,11 @@ video {
 }
 
 #guest-button {
-  text-decoration: underline;
+
+}
+
+#signup-button {
+  text-decoration: none;
 }
 
 #landing-div span {

@@ -35819,12 +35819,8 @@ var Landing = function (_React$Component) {
               { to: '/signup' },
               _react2.default.createElement(
                 'div',
-                null,
-                _react2.default.createElement(
-                  'u',
-                  null,
-                  'SIGNUP'
-                )
+                { id: 'singup-button' },
+                'SIGNUP'
               )
             ),
             _react2.default.createElement(

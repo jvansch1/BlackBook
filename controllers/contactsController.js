@@ -15,8 +15,6 @@ module.exports = (app) => {
   })
 
   app.get('/api/contacts/:id', (req, res) => {
-    console.log(req.params)
-    console.log("Hello")
     Contacts.findById(req.params.id, (err, contact) => {
       if (err) {
         res.status(500).send(err)
