@@ -10,7 +10,6 @@ const SessionReducer = (state = {}, action) => {
       return {}
     case 'persist/REHYDRATE':
       if (action.payload.session) {
-        console.log(action.payload.session)
         let persisted = action.payload.session
         return persisted
       }

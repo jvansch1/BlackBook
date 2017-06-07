@@ -36038,7 +36038,6 @@ var SessionReducer = function SessionReducer() {
       return {};
     case 'persist/REHYDRATE':
       if (action.payload.session) {
-        console.log(action.payload.session);
         var persisted = action.payload.session;
         return persisted;
       }
