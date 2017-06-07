@@ -84,8 +84,8 @@ export default class contactsShow extends React.Component {
   renderContact() {
     if (!this.props.contact) return null;
     return (
-      <div id='contact-list'>
-          <div className='contact'>
+      <div id='show-contact-list'>
+          <div className='contact' id='contact-show'>
             <img id='contact-show-image' src={this.props.contact.imageUrl} onError={this.handleError.bind(this)}/>
             <div id='show-content'>
               <p><u>Name:</u> <b>{this.props.contact.name}</b></p>

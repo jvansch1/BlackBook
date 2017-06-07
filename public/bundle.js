@@ -35349,10 +35349,10 @@ var contactsShow = function (_React$Component) {
       if (!this.props.contact) return null;
       return _react2.default.createElement(
         'div',
-        { id: 'contact-list' },
+        { id: 'show-contact-list' },
         _react2.default.createElement(
           'div',
-          { className: 'contact' },
+          { className: 'contact', id: 'contact-show' },
           _react2.default.createElement('img', { id: 'contact-show-image', src: this.props.contact.imageUrl, onError: this.handleError.bind(this) }),
           _react2.default.createElement(
             'div',
