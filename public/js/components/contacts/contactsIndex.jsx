@@ -255,7 +255,7 @@ export default class contactsIndex extends React.Component {
               {this.renderPhotoCheck()}
               <input type='file' onChange={this.addFile.bind(this)} id='file-select'/>
             </span>
-            <span>
+            <span id='notes-new-container'>
               Notes
               <textarea onChange={this.updateNotes.bind(this)} maxLength="140"></textarea>
             </span>

@@ -237,6 +237,10 @@ input[type='file']:hover {
   margin-top: 15px;
 }
 
+#notes-new-container {
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 900px) {
   #index-container {
     width: 100%;

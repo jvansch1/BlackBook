@@ -34995,7 +34995,7 @@ var contactsIndex = function (_React$Component) {
             ),
             _react2.default.createElement(
               'span',
-              null,
+              { id: 'notes-new-container' },
               'Notes',
               _react2.default.createElement('textarea', { onChange: this.updateNotes.bind(this), maxLength: '140' })
             ),
