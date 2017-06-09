@@ -35712,7 +35712,11 @@ var Header = function (_React$Component) {
           _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
         );
       } else {
-        return _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' });
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
+        );
       }
     }
   }, {

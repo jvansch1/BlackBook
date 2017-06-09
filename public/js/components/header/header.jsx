@@ -20,7 +20,9 @@ export default class Header extends React.Component {
       )
     } else {
       return (
-        <img src='/static/img/PetitFormalLogo.png' />
+        <div>
+          <img src='/static/img/PetitFormalLogo.png' />
+        </div>
       )
     }
 
