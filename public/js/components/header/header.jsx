@@ -14,7 +14,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div id='header'>
-        <Link to='/contacts' replace>
+        <Link to='/contacts'>
           <img src='/static/img/PetitFormalLogo.png' />
         </Link>
         <button onClick={this.logoutUser.bind(this)}>Logout</button>

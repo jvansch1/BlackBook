@@ -34804,7 +34804,7 @@ var contactsIndex = function (_React$Component) {
           if (contact.name.toLowerCase().includes(_this4.state.search.toLowerCase())) {
             return _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: 'contacts/' + contact._id, key: idx, replace: true },
+              { to: 'contacts/' + contact._id, key: idx },
               _react2.default.createElement(_contactsIndexItem2.default, { contact: contact })
             );
           }
