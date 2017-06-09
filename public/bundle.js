@@ -36169,7 +36169,6 @@ var createContact = exports.createContact = function createContact(contact) {
 };
 
 var updateContact = exports.updateContact = function updateContact(contact) {
-  console.log(contact);
   return $.ajax({
     method: 'PUT',
     url: 'api/contacts/' + contact.id,
@@ -36195,7 +36194,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var login = exports.login = function login(user) {
-  console.log(user);
   return $.ajax({
     method: 'POST',
     url: 'login',
