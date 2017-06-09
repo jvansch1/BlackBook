@@ -25,7 +25,6 @@ export const removeErrors = (errors) => ({
 })
 
 export const login = (user) => {
-  console.log(user)
   return dispatch => {
     return sessionApiUtil.login(user)
       .then(user => dispatch(receiveUser(user)), err => dispatch(receiveErrors(err)))

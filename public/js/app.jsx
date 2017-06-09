@@ -29,6 +29,7 @@ export default class App extends React.Component {
   }
 
   _redirectIfLoggedIn(nextState, replace) {
+    debugger
     if (store.getState().session.username) {
       replace('/contacts')
     }
@@ -45,7 +46,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <HashRouter>
           <div>
-            <Route path='/' component={LandingContainer} exact onEnter={this._redirectIfLoggedIn} />
+            <Route path='/' component={LandingContainer} exact />
             <Route path='/login' component={LoginContainer} exact onEnter={this._redirectIfLoggedIn}/>
             <Route path='/signup' component={SignUpContainer} exact onEnter={this._redirectIfLoggedIn}/>
             <Route path='/contacts' exact component={contactsIndexContainer} />

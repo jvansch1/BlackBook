@@ -6033,7 +6033,6 @@ var removeErrors = exports.removeErrors = function removeErrors(errors) {
 };
 
 var login = exports.login = function login(user) {
-  console.log(user);
   return function (dispatch) {
     return sessionApiUtil.login(user).then(function (user) {
       return dispatch(receiveUser(user));
@@ -24246,6 +24245,7 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: '_redirectIfLoggedIn',
     value: function _redirectIfLoggedIn(nextState, replace) {
+      debugger;
       if (store.getState().session.username) {
         replace('/contacts');
       }
@@ -24269,7 +24269,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             'div',
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _landingContainer2.default, exact: true, onEnter: this._redirectIfLoggedIn }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _landingContainer2.default, exact: true }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _loginContainer2.default, exact: true, onEnter: this._redirectIfLoggedIn }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _signupContainer2.default, exact: true, onEnter: this._redirectIfLoggedIn }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts', exact: true, component: _contactsIndexContainer2.default }),
@@ -35282,7 +35282,6 @@ var contactsShow = function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchOneContact(this.props.id).then(function (contact) {
-        console.log(contact);
         _this2.setState({
           modalIsOpen: false,
           name: contact.contact.name,
@@ -35745,8 +35744,6 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(14);
-
 var _reactRouterDom = __webpack_require__(18);
 
 var _loginContainer = __webpack_require__(140);
@@ -35790,6 +35787,13 @@ var Landing = function (_React$Component) {
       this.props.login({ username: 'guest', password: 'password' }).then(function () {
         return _this3.props.history.replace('/contacts');
       });
+    }
+  }, {
+    key: 'CheckIfLoggedIn',
+    value: function CheckIfLoggedIn() {
+      if (this.props.currentUser.username) {
+        this.props.history.replace('/contacts');
+      }
     }
   }, {
     key: 'render',
@@ -35896,7 +35900,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(null, mapDispatchToProps)(_landing2.default));
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_landing2.default));
 
 /***/ }),
 /* 343 */
