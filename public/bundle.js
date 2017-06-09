@@ -35491,9 +35491,9 @@ var contactsShow = function (_React$Component) {
           Body: this.state.imageFile
         }, function (err, response) {
           if (err) {
-            // console.log(err)
+            console.log(err);
           } else {
-            // console.log(response)
+            console.log(response);
             bucket.getSignedUrl('getObject', { Bucket: _AwsConfig2.default.awsbucket, Key: _this4.state.imageFile.name }, function (err, url) {
               (0, _reactStatePromise2.default)(_this4, { imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this4.state.imageFile.name }).then(function () {
                 _this4.props.updateContact({ id: _this4.props.id, name: _this4.state.name, notes: _this4.state.notes, phone: _this4.state.phone, email: _this4.state.email, address: _this4.state.address, imageUrl: 'http://s3.' + _awsSdk2.default.config.region + '.amazonaws.com/' + _AwsConfig2.default.awsbucket + '/' + _this4.state.imageFile.name, username: _this4.props.username }).then(function () {
@@ -35711,7 +35711,7 @@ var Header = function (_React$Component) {
         { id: 'header' },
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: '/contacts', replace: true },
+          { to: '/contacts' },
           _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
         ),
         _react2.default.createElement(
