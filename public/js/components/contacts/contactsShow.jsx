@@ -120,10 +120,10 @@ export default class contactsShow extends React.Component {
         Body: this.state.imageFile
       }, (err, response) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         }
         else {
-          console.log(response)
+          // console.log(response)
           bucket.getSignedUrl('getObject', { Bucket: config.awsbucket, Key: this.state.imageFile.name }, (err, url) => {
             setState(this, { imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}` }).then(() => {
               this.props.updateContact({id: this.props.id, name: this.state.name, notes: this.state.notes, phone: this.state.phone, email: this.state.email, address: this.state.address, imageUrl: `http://s3.${aws.config.region}.amazonaws.com/${config.awsbucket}/${this.state.imageFile.name}`, username: this.props.username })

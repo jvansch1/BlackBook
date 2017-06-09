@@ -23,7 +23,6 @@ export const createContact = (contact) => {
 }
 
 export const updateContact = (contact) => {
-  console.log(contact)
   return $.ajax({
     method: 'PUT',
     url: `api/contacts/${contact.id}`,
