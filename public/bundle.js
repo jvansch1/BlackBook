@@ -35703,16 +35703,25 @@ var Header = function (_React$Component) {
       });
     }
   }, {
+    key: 'renderLink',
+    value: function renderLink() {
+      if (this.props.history.location.pathname !== "/contacts") {
+        return _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/contacts' },
+          _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
+        );
+      } else {
+        return _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         { id: 'header' },
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/contacts' },
-          _react2.default.createElement('img', { src: '/static/img/PetitFormalLogo.png' })
-        ),
+        this.renderLink(),
         _react2.default.createElement(
           'button',
           { onClick: this.logoutUser.bind(this) },
@@ -35749,6 +35758,10 @@ var _reactRouterDom = __webpack_require__(18);
 var _loginContainer = __webpack_require__(140);
 
 var _loginContainer2 = _interopRequireDefault(_loginContainer);
+
+var _contactsIndexContainer = __webpack_require__(336);
+
+var _contactsIndexContainer2 = _interopRequireDefault(_contactsIndexContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35792,63 +35805,71 @@ var Landing = function (_React$Component) {
     key: 'CheckIfLoggedIn',
     value: function CheckIfLoggedIn() {
       if (this.props.currentUser.username) {
-        this.props.history.replace('/contacts');
+        return true;
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      if (this.props.username) return null;
-      return _react2.default.createElement(
-        'div',
-        { id: 'landing' },
-        _react2.default.createElement(
+      if (this.CheckIfLoggedIn()) {
+        return _react2.default.createElement(
           'div',
-          { id: 'video-wrapper' },
-          _react2.default.createElement(
-            'video',
-            { autoPlay: 'true', height: '100%', loop: true },
-            _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
-          )
-        ),
-        _react2.default.createElement(
+          null,
+          _react2.default.createElement(_reactRouterDom.Redirect, { to: '/contacts' }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/contacts', component: _contactsIndexContainer2.default })
+        );
+      } else {
+        return _react2.default.createElement(
           'div',
-          { id: 'landing-div' },
-          _react2.default.createElement('img', { id: 'landing-img', src: '/static/img/PetitFormalLogo.png' }),
+          { id: 'landing' },
           _react2.default.createElement(
-            'span',
-            null,
+            'div',
+            { id: 'video-wrapper' },
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/signup' },
-              _react2.default.createElement(
-                'div',
-                { id: 'singup-button' },
-                'SIGNUP'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { id: 'guest-button', onClick: this.loginGuest.bind(this) },
-              'GUEST'
+              'video',
+              { autoPlay: 'true', height: '100%', loop: true },
+              _react2.default.createElement('source', { src: 'https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4', type: 'video/mp4' })
             )
           ),
           _react2.default.createElement(
-            'p',
-            { id: 'link-to-login' },
-            'Already a User? ',
+            'div',
+            { id: 'landing-div' },
+            _react2.default.createElement('img', { id: 'landing-img', src: '/static/img/PetitFormalLogo.png' }),
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/login' },
+              'span',
+              null,
               _react2.default.createElement(
-                'u',
-                null,
-                'Log In!'
+                _reactRouterDom.Link,
+                { to: '/signup' },
+                _react2.default.createElement(
+                  'div',
+                  { id: 'singup-button' },
+                  'SIGNUP'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { id: 'guest-button', onClick: this.loginGuest.bind(this) },
+                'GUEST'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              { id: 'link-to-login' },
+              'Already a User? ',
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/login' },
+                _react2.default.createElement(
+                  'u',
+                  null,
+                  'Log In!'
+                )
               )
             )
           )
-        )
-      );
+        );
+      }
     }
   }]);
 

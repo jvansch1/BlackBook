@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Route, Redirect } from 'react-router-dom'
 import LoginContainer from '../auth/loginContainer.jsx'
+import contactsIndexContainer from '../contacts/contactsIndexContainer.jsx'
 
 export default class Landing extends React.Component {
   constructor(props) {
@@ -20,28 +21,36 @@ export default class Landing extends React.Component {
 
   CheckIfLoggedIn() {
     if (this.props.currentUser.username) {
-      this.props.history.replace('/contacts')
+      return true
     }
   }
 
   render() {
-    if (this.props.username) return null;
-    return (
-      <div id='landing'>
-        <div id='video-wrapper'>
-          <video autoPlay='true' height='100%' loop>
-            <source src="https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4" type="video/mp4"/>
-          </video>
+    if (this.CheckIfLoggedIn()) {
+      return (
+        <div>
+          <Redirect to='/contacts' />
+          <Route path='/contacts' component={contactsIndexContainer} />
         </div>
-        <div id='landing-div'>
-          <img id='landing-img' src='/static/img/PetitFormalLogo.png' />
-          <span>
-            <Link to='/signup'><div id='singup-button'>SIGNUP</div></Link>
-            <div id='guest-button' onClick={this.loginGuest.bind(this)}>GUEST</div>
-          </span>
-          <p id='link-to-login'>Already a User? <Link to='/login'><u>Log In!</u></Link></p>
+      )
+    } else {
+      return (
+        <div id='landing'>
+          <div id='video-wrapper'>
+            <video autoPlay='true' height='100%' loop>
+              <source src="https://s3.us-east-2.amazonaws.com/blackbook-dev/699571461.mp4" type="video/mp4"/>
+            </video>
+          </div>
+          <div id='landing-div'>
+            <img id='landing-img' src='/static/img/PetitFormalLogo.png' />
+            <span>
+              <Link to='/signup'><div id='singup-button'>SIGNUP</div></Link>
+              <div id='guest-button' onClick={this.loginGuest.bind(this)}>GUEST</div>
+            </span>
+            <p id='link-to-login'>Already a User? <Link to='/login'><u>Log In!</u></Link></p>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
